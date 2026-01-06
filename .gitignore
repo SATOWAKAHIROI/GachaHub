@@ -1,0 +1,22 @@
+# 環境変数
+.env
+.env.local
+.env.*.local
+
+# IDEの設定
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ログファイル
+*.log
+
+# 一時ファイル
+tmp/
+temp/

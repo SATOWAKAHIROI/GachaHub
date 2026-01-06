@@ -1,0 +1,68 @@
+version: "3.9"
+services:
+  # データベース（PostgreSQL）
+  db:
+    image: postgres:16-alpine
+    container_name: gachahub-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=gachahub
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - capsuletoy-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # バックエンド（Spring Boot）
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - DATABASE_URL=jdbc:postgresql://db:5432/gachahub
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgres
+      - JWT_SECRET=your-secret-key-change-this-in-production
+    networks:
+      - capsuletoy-network
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # フロントエンド（React）
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - capsuletoy-network
+    restart: unless-stopped
+
+networks:
+  capsuletoy-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+    driver: local
