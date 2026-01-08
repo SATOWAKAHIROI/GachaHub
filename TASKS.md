@@ -22,10 +22,10 @@
 - [x] Repositoryインターフェースの作成
 
 ### React基本構成
-- [ ] プロジェクト構造の整理
-- [ ] ルーティング設定（React Router等）
-- [ ] API通信設定（axios等のHTTPクライアント）
-- [ ] 環境変数設定（.env）
+- [x] プロジェクト構造の整理
+- [x] ルーティング設定（React Router等）
+- [x] API通信設定（axios等のHTTPクライアント）
+- [x] 環境変数設定（.env）
 
 ### 認証機能
 - [ ] Spring Securityの設定
