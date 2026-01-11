@@ -48,10 +48,10 @@
 ## Phase 2: コア機能実装
 
 ### スクレイピング環境構築
-- [ ] Selenium/Playwrightの選定
-- [ ] 選定したツールの依存関係追加（pom.xml）
-- [ ] WebDriverの設定
-- [ ] ヘッドレスモード設定
+- [x] Selenium/Playwrightの選定（Selenium採用）
+- [x] 選定したツールの依存関係追加（pom.xml）
+- [x] WebDriverの設定
+- [x] ヘッドレスモード設定
 
 ### バンダイサイトスクレイピング
 - [ ] バンダイガシャポンサイトの構造調査
@@ -68,12 +68,12 @@
 - [ ] 単体テスト作成（モック使用）
 
 ### データ保存機能
-- [ ] ProductRepositoryの実装
-- [ ] ScrapeLogRepositoryの実装
-- [ ] ProductServiceの実装（CRUD操作）
-- [ ] ScrapeServiceの実装（スクレイピング統合処理）
-- [ ] 新着判定ロジック（is_newフラグ管理）
-- [ ] 重複チェック機能
+- [x] ProductRepositoryの実装
+- [x] ScrapeLogRepositoryの実装
+- [x] ProductServiceの実装（CRUD操作）
+- [x] ScrapeServiceの実装（スクレイピング統合処理）
+- [x] 新着判定ロジック（is_newフラグ管理）
+- [x] 重複チェック機能
 
 ### REST API実装
 - [ ] 商品一覧取得エンドポイント（GET /api/products）
@@ -228,20 +228,30 @@
 
 ## 進捗メモ
 
-現在のフェーズ: **Phase 1 (ほぼ完了)** → **Phase 2へ移行準備中**
+現在のフェーズ: **Phase 2 開始** 🚀
 
-### 完了済み
+### Phase 1完了 ✅
 - Docker Compose基本設定
 - Spring Boot基本プロジェクト作成
 - React基本プロジェクト作成
 - PostgreSQLデータベース設定
 - エンティティ・リポジトリ層実装（Product, User, ScrapeLog, ScrapeConfig）
+- データベースインデックス追加（idx_manufacturer, idx_release_date, idx_is_new）
 - JWT認証機能の完全実装（バックエンド＋フロントエンド）
 - Tailwind CSS導入とUI実装（ログイン・登録・ホーム・Aboutページ）
 - 認証コンテキストとナビゲーション実装
 
-### 次のステップ
-- データベースインデックスの追加（manufacturer, release_date, is_new）
-- Phase 2: スクレイピング機能の実装開始
-  - Selenium/Playwrightの選定
-  - バンダイサイトのスクレイピングロジック実装
+### Phase 2進行中 🔄
+**完了:**
+- Selenium WebDriver 4.27.0導入
+- WebDriverManager 5.9.2導入（自動ドライバー管理）
+- ScraperConfig実装（Chrome WebDriver設定）
+- BaseScraper実装（スクレイピング基底クラス）
+- ProductService実装（CRUD操作、重複チェック、新着判定）
+- ScrapeService実装（スクレイピング統合処理）
+
+**次のステップ:**
+- バンダイサイトのスクレイピング実装
+- タカラトミーサイトのスクレイピング実装
+- REST API実装（商品一覧、詳細取得）
+- フロントエンド商品一覧画面
