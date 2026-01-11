@@ -5,7 +5,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "products")
+@Table(name = "products", indexes = {
+    @Index(name = "idx_manufacturer", columnList = "manufacturer"),
+    @Index(name = "idx_release_date", columnList = "release_date"),
+    @Index(name = "idx_is_new", columnList = "is_new")
+})
 public class Product {
 
     @Id
