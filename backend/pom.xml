@@ -71,7 +71,7 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
-		 <dependency>
+		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
 			<version>0.12.3</version>
@@ -89,6 +89,20 @@
 			<artifactId>jjwt-jackson</artifactId>
 			<version>0.12.3</version>
 			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Selenium WebDriver for web scraping -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>4.27.0</version>
+		</dependency>
+
+		<!-- WebDriverManager for automatic driver management -->
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version>5.9.2</version>
 		</dependency>
 
 	</dependencies>
