@@ -12,7 +12,7 @@
 - [x] ScrapeLogテーブル作成
 - [x] Userテーブル作成
 - [x] ScrapeConfigテーブル作成
-- [ ] 必要なインデックスの追加（manufacturer, release_date, is_new）
+- [x] 必要なインデックスの追加（manufacturer, release_date, is_new）
 
 ### Spring Boot設定
 - [x] application.propertiesの基本設定
@@ -228,20 +228,24 @@
 
 ## 進捗メモ
 
-現在のフェーズ: **Phase 1 (ほぼ完了)** → **Phase 2へ移行準備中**
+現在のフェーズ: **Phase 1 完了！** ✅ → **Phase 2へ移行**
 
-### 完了済み
-- Docker Compose基本設定
-- Spring Boot基本プロジェクト作成
-- React基本プロジェクト作成
-- PostgreSQLデータベース設定
+### Phase 1完了内容
+- Docker Compose環境構築（PostgreSQL、バックエンド、フロントエンド）
+- Spring Boot基本プロジェクト構築
+- React + Vite + TypeScript環境構築
+- PostgreSQLデータベース設定とスキーマ作成
 - エンティティ・リポジトリ層実装（Product, User, ScrapeLog, ScrapeConfig）
+- データベースインデックス追加（idx_manufacturer, idx_release_date, idx_is_new）
 - JWT認証機能の完全実装（バックエンド＋フロントエンド）
-- Tailwind CSS導入とUI実装（ログイン・登録・ホーム・Aboutページ）
+- Tailwind CSS v4導入
+- ログイン・ユーザー登録画面実装
 - 認証コンテキストとナビゲーション実装
+- ホーム・Aboutページのスタイリング
 
-### 次のステップ
-- データベースインデックスの追加（manufacturer, release_date, is_new）
-- Phase 2: スクレイピング機能の実装開始
-  - Selenium/Playwrightの選定
+### 次のステップ（Phase 2）
+- スクレイピング機能の実装開始
+  - Selenium/Playwrightの選定と環境構築
   - バンダイサイトのスクレイピングロジック実装
+  - タカラトミーサイトのスクレイピングロジック実装
+  - データ保存機能とREST API実装
