@@ -1,30 +1,90 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom'
+import { AuthProvider, useAuth } from './context/AuthContext'
 import Home from './pages/Home'
 import About from './pages/About'
-import './App.css'
+import Login from './pages/Login'
+import Register from './pages/Register'
+
+function Navigation() {
+  const { user, isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+  return (
+    <nav className="bg-white shadow-lg">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center h-16">
+          <div className="flex space-x-8">
+            <Link to="/" className="text-gray-700 hover:text-indigo-600 font-medium transition">
+              ホーム
+            </Link>
+            <Link to="/about" className="text-gray-700 hover:text-indigo-600 font-medium transition">
+              このサイトについて
+            </Link>
+          </div>
+
+          <div className="flex items-center space-x-4">
+            {isAuthenticated && user ? (
+              <>
+                <span className="text-gray-700">
+                  {user.username}
+                </span>
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+                >
+                  ログアウト
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="text-gray-700 hover:text-indigo-600 font-medium transition"
+                >
+                  ログイン
+                </Link>
+                <Link
+                  to="/register"
+                  className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
+                >
+                  新規登録
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+function AppContent() {
+  return (
+    <div className="app">
+      <Navigation />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </main>
+    </div>
+  );
+}
 
 function App() {
   return (
     <Router>
-      <div className="app">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">ホーム</Link>
-            </li>
-            <li>
-              <Link to="/about">このサイトについて</Link>
-            </li>
-          </ul>
-        </nav>
-
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-          </Routes>
-        </main>
-      </div>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </Router>
   )
 }
