@@ -2,6 +2,7 @@ package com.example.capsuletoy.controller;
 
 import com.example.capsuletoy.model.ScrapeLog;
 import com.example.capsuletoy.scraper.BandaiScraper;
+import com.example.capsuletoy.scraper.TakaraTomyScraper;
 import com.example.capsuletoy.service.ScrapeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,9 @@ public class ScrapeController {
     @Autowired
     private BandaiScraper bandaiScraper;
 
+    @Autowired
+    private TakaraTomyScraper takaraTomyScraper;
+
     /**
      * バンダイサイトのスクレイピングを手動実行
      * POST /api/scrape/bandai
@@ -56,6 +60,37 @@ public class ScrapeController {
             Map<String, Object> errorResponse = new HashMap<>();
             errorResponse.put("status", "error");
             errorResponse.put("site", "BANDAI_GASHAPON");
+            errorResponse.put("message", "スクレイピングに失敗しました: " + e.getMessage());
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
+    }
+
+    /**
+     * タカラトミーアーツサイトのスクレイピングを手動実行
+     * POST /api/scrape/takaratomy
+     */
+    @PostMapping("/takaratomy")
+    public ResponseEntity<?> scrapeTakaraTomy() {
+        logger.info("Manual scraping requested for Takara Tomy Arts");
+
+        try {
+            int savedCount = scrapeService.executeScraping(takaraTomyScraper, "TAKARA_TOMY_ARTS");
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "success");
+            response.put("site", "TAKARA_TOMY_ARTS");
+            response.put("productsScraped", savedCount);
+            response.put("message", savedCount + "件の商品を保存しました");
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            logger.error("Scraping failed for Takara Tomy Arts: {}", e.getMessage(), e);
+
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("status", "error");
+            errorResponse.put("site", "TAKARA_TOMY_ARTS");
             errorResponse.put("message", "スクレイピングに失敗しました: " + e.getMessage());
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
@@ -106,7 +141,7 @@ public class ScrapeController {
     public ResponseEntity<?> getScrapeStatus() {
         Map<String, Object> status = new HashMap<>();
         status.put("available", true);
-        status.put("supportedSites", List.of("BANDAI_GASHAPON"));
+        status.put("supportedSites", List.of("BANDAI_GASHAPON", "TAKARA_TOMY_ARTS"));
 
         // 最新のログを取得
         List<ScrapeLog> recentLogs = scrapeService.getRecentScrapeLogs(1);
