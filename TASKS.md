@@ -76,11 +76,11 @@
 - [x] 重複チェック機能
 
 ### REST API実装
-- [ ] 商品一覧取得エンドポイント（GET /api/products）
-- [ ] 商品詳細取得エンドポイント（GET /api/products/{id}）
-- [ ] 商品検索・フィルタリングエンドポイント
-- [ ] ページネーション実装
-- [ ] CORS設定
+- [x] 商品一覧取得エンドポイント（GET /api/products）
+- [x] 商品詳細取得エンドポイント（GET /api/products/{id}）
+- [x] 商品検索・フィルタリングエンドポイント
+- [x] ページネーション実装
+- [x] CORS設定
 - [ ] エンドポイントテスト
 
 ### フロントエンド商品一覧画面
@@ -254,5 +254,9 @@
 - ScrapeController実装（手動スクレイピング実行エンドポイント）
 
 **次のステップ:**
-- REST API実装（商品一覧、詳細取得）
 - フロントエンド商品一覧画面
+
+**REST API（完了）:**
+- ProductController実装（GET /api/products, /api/products/{id}, /api/products/new）
+- ページネーション・ソート・フィルタリング対応
+- メーカー別フィルタ、キーワード検索対応
