@@ -38,14 +38,34 @@ public class ProductService {
         return productRepository.findByManufacturer(manufacturer);
     }
 
+    // メーカー別商品取得（ページネーション対応）
+    public Page<Product> getProductsByManufacturer(String manufacturer, Pageable pageable) {
+        return productRepository.findByManufacturer(manufacturer, pageable);
+    }
+
     // 新着商品取得
     public List<Product> getNewProducts() {
         return productRepository.findByIsNewTrue();
     }
 
+    // 新着商品取得（ページネーション対応）
+    public Page<Product> getNewProducts(Pageable pageable) {
+        return productRepository.findByIsNewTrue(pageable);
+    }
+
     // 商品名検索
     public List<Product> searchProductsByName(String productName) {
         return productRepository.findByProductNameContaining(productName);
+    }
+
+    // 商品名検索（ページネーション対応）
+    public Page<Product> searchProductsByName(String productName, Pageable pageable) {
+        return productRepository.findByProductNameContaining(productName, pageable);
+    }
+
+    // メーカー別 + キーワード検索（ページネーション対応）
+    public Page<Product> searchByManufacturerAndKeyword(String manufacturer, String keyword, Pageable pageable) {
+        return productRepository.findByManufacturerAndKeyword(manufacturer, keyword, pageable);
     }
 
     // 商品保存（新規作成または更新）
