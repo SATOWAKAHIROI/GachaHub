@@ -1,5 +1,5 @@
 import api from './api';
-import { Product, PageResponse } from '../types';
+import type { Product, PageResponse } from '../types';
 
 export interface ProductSearchParams {
   page?: number;

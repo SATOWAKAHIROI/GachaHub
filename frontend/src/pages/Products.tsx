@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Product, PageResponse } from '../types';
+import type { Product, PageResponse } from '../types';
 import { getProducts } from '../services/productApi';
 import ProductCard from '../components/ProductCard';
 
