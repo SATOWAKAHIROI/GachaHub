@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Products from './pages/Products'
 
 function Navigation() {
   const { user, isAuthenticated, logout } = useAuth();
@@ -21,6 +22,9 @@ function Navigation() {
           <div className="flex space-x-8">
             <Link to="/" className="text-gray-700 hover:text-indigo-600 font-medium transition">
               ホーム
+            </Link>
+            <Link to="/products" className="text-gray-700 hover:text-indigo-600 font-medium transition">
+              商品一覧
             </Link>
             <Link to="/about" className="text-gray-700 hover:text-indigo-600 font-medium transition">
               このサイトについて
@@ -70,6 +74,7 @@ function AppContent() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
