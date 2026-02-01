@@ -116,10 +116,10 @@
 - [x] テストメール送信機能
 
 ### 新着判定ロジック
-- [ ] 新規商品検出アルゴリズム
-- [ ] is_newフラグの自動更新
-- [ ] 通知トリガー実装
-- [ ] 通知送信後のフラグリセット
+- [x] 新規商品検出アルゴリズム
+- [x] is_newフラグの自動更新
+- [x] 通知トリガー実装
+- [x] 通知送信後のフラグリセット
 
 ---
 
@@ -228,7 +228,7 @@
 
 ## 進捗メモ
 
-現在のフェーズ: **Phase 2 完了 → Phase 3 へ** 🚀
+現在のフェーズ: **Phase 3 完了 → Phase 4 へ** 🚀
 
 ### Phase 1完了 ✅
 - Docker Compose基本設定
@@ -277,3 +277,9 @@ Phase 2のコア機能実装がすべて完了。次はPhase 3（自動化・通
 - NotificationService実装（メール送信、新着商品通知、テストメール、通知ON/OFF）
 - NotificationController実装（POST /api/notifications/test, PATCH /api/notifications/users/{id}/toggle）
 - spring-boot-starter-mail追加、Gmail SMTP設定
+- ScrapeService改修: 新着商品リストを返すexecuteScrapingWithNewProductsメソッド追加
+- ScheduledScrapeService改修: スクレイピング後に新着商品の通知メール自動送信
+- 古い新着フラグの定期リセット（30日経過で毎日0時にリセット）
+
+### Phase 3完了 ✅
+Phase 3の自動化・通知機能がすべて完了。次はPhase 4（管理機能・UI改善）へ。

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,17 +29,31 @@ public class ScrapeService {
      * スクレイピングを実行してデータベースに保存
      *
      * @param scraper スクレイパーインスタンス
+     * @param targetSite 対象サイト名
      * @return 保存された商品数
      */
     @Transactional
     public int executeScraping(BaseScraper scraper, String targetSite) {
+        List<Product> newProducts = executeScrapingWithNewProducts(scraper, targetSite);
+        return newProducts.size();
+    }
+
+    /**
+     * スクレイピングを実行して新着商品リストを返す
+     *
+     * @param scraper スクレイパーインスタンス
+     * @param targetSite 対象サイト名
+     * @return 新規保存された商品リスト
+     */
+    @Transactional
+    public List<Product> executeScrapingWithNewProducts(BaseScraper scraper, String targetSite) {
         logger.info("Starting scraping for: {}", targetSite);
 
         ScrapeLog scrapeLog = new ScrapeLog();
         scrapeLog.setTargetSite(targetSite);
         scrapeLog.setExecutedAt(LocalDateTime.now());
 
-        int savedCount = 0;
+        List<Product> newProducts = new ArrayList<>();
 
         try {
             // スクレイピング実行
@@ -47,8 +62,10 @@ public class ScrapeService {
             // 商品をデータベースに保存
             for (Product product : scrapedProducts) {
                 try {
-                    productService.saveScrapedProduct(product);
-                    savedCount++;
+                    Product saved = productService.saveScrapedProduct(product);
+                    if (saved.getIsNew() != null && saved.getIsNew()) {
+                        newProducts.add(saved);
+                    }
                 } catch (Exception e) {
                     logger.error("Error saving product: {}", product.getProductName(), e);
                 }
@@ -59,8 +76,8 @@ public class ScrapeService {
             scrapeLog.setProductsFound(scrapedProducts.size());
             scrapeLog.setErrorMessage(null);
 
-            logger.info("Scraping completed for {}: {} products found, {} saved",
-                    targetSite, scrapedProducts.size(), savedCount);
+            logger.info("Scraping completed for {}: {} products found, {} new",
+                    targetSite, scrapedProducts.size(), newProducts.size());
 
         } catch (Exception e) {
             // スクレイピング失敗ログ
@@ -74,7 +91,7 @@ public class ScrapeService {
             scrapeLogRepository.save(scrapeLog);
         }
 
-        return savedCount;
+        return newProducts;
     }
 
     /**
