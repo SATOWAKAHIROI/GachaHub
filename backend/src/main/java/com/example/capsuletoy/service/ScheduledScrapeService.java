@@ -1,5 +1,6 @@
 package com.example.capsuletoy.service;
 
+import com.example.capsuletoy.model.Product;
 import com.example.capsuletoy.model.ScrapeConfig;
 import com.example.capsuletoy.repository.ScrapeConfigRepository;
 import com.example.capsuletoy.scraper.BandaiScraper;
@@ -12,6 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +32,12 @@ public class ScheduledScrapeService {
     private ScrapeService scrapeService;
 
     @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
     private BandaiScraper bandaiScraper;
 
     @Autowired
@@ -37,6 +45,7 @@ public class ScheduledScrapeService {
 
     /**
      * 定期スクレイピング実行（デフォルト: 毎日午前6時に実行）
+     * スクレイピング後、新着商品があれば通知メールを送信する
      * cron式: 秒 分 時 日 月 曜日
      */
     @Scheduled(cron = "${scraping.schedule.cron:0 0 6 * * *}")
@@ -50,6 +59,8 @@ public class ScheduledScrapeService {
             return;
         }
 
+        List<Product> allNewProducts = new ArrayList<>();
+
         for (ScrapeConfig config : enabledConfigs) {
             try {
                 logger.info("スクレイピング実行: {} ({})", config.getSiteName(), config.getSiteUrl());
@@ -60,20 +71,46 @@ public class ScheduledScrapeService {
                     continue;
                 }
 
-                int savedCount = scrapeService.executeScraping(scraper, config.getSiteName());
+                List<Product> newProducts = scrapeService.executeScrapingWithNewProducts(scraper, config.getSiteName());
+                allNewProducts.addAll(newProducts);
 
                 // 最終実行日時を更新
                 config.setLastScrapedAt(LocalDateTime.now());
                 scrapeConfigRepository.save(config);
 
-                logger.info("スクレイピング完了: {} - {}件保存", config.getSiteName(), savedCount);
+                logger.info("スクレイピング完了: {} - {}件の新着商品", config.getSiteName(), newProducts.size());
 
             } catch (Exception e) {
                 logger.error("スクレイピング失敗: {} - {}", config.getSiteName(), e.getMessage(), e);
             }
         }
 
+        // 新着商品があれば通知メールを送信
+        if (!allNewProducts.isEmpty()) {
+            logger.info("新着商品{}件を通知します", allNewProducts.size());
+            try {
+                notificationService.notifyNewProducts(allNewProducts);
+            } catch (Exception e) {
+                logger.error("通知メール送信中にエラー: {}", e.getMessage(), e);
+            }
+        }
+
         logger.info("=== 定期スクレイピング終了 ===");
+    }
+
+    /**
+     * 古い新着フラグをリセット（デフォルト: 毎日午前0時に実行）
+     * 30日以上経過した商品のis_newフラグをfalseにする
+     */
+    @Scheduled(cron = "${scraping.reset-new-flag.cron:0 0 0 * * *}")
+    public void resetOldNewFlags() {
+        logger.info("=== 新着フラグリセット開始 ===");
+        try {
+            productService.resetOldNewFlags(30);
+            logger.info("新着フラグリセット完了");
+        } catch (Exception e) {
+            logger.error("新着フラグリセット失敗: {}", e.getMessage(), e);
+        }
     }
 
     /**
