@@ -102,10 +102,10 @@
 - [x] スケジュール実行ログの記録
 
 ### スクレイピング設定機能
-- [ ] ScrapeConfigの管理機能実装
-- [ ] cron設定のバリデーション
-- [ ] サイトごとの有効/無効切り替え
-- [ ] 最終実行日時の記録
+- [x] ScrapeConfigの管理機能実装
+- [x] cron設定のバリデーション
+- [x] サイトごとの有効/無効切り替え
+- [x] 最終実行日時の記録
 
 ### メール通知機能
 - [ ] Spring Mail依存関係追加
@@ -272,3 +272,5 @@ Phase 2のコア機能実装がすべて完了。次はPhase 3（自動化・通
 - ScheduledScrapeService実装（定期スクレイピング実行、デフォルト毎日6時）
 - ScrapeConfigテーブルの有効設定に基づく自動スクレイピング
 - lastScrapedAtの自動更新
+- ScrapeConfigService実装（CRUD操作、cronバリデーション、有効/無効切り替え）
+- ScrapeConfigController実装（REST API: GET/POST/PUT/DELETE/PATCH）
