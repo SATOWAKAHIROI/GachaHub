@@ -108,12 +108,12 @@
 - [x] 最終実行日時の記録
 
 ### メール通知機能
-- [ ] Spring Mail依存関係追加
-- [ ] Gmail SMTP設定（application.properties）
-- [ ] メール送信サービスの実装
-- [ ] メールテンプレート作成（HTML形式）
-- [ ] 通知設定管理（ユーザーごとのON/OFF）
-- [ ] テストメール送信機能
+- [x] Spring Mail依存関係追加
+- [x] Gmail SMTP設定（application.properties）
+- [x] メール送信サービスの実装
+- [x] メールテンプレート作成（HTML形式）
+- [x] 通知設定管理（ユーザーごとのON/OFF）
+- [x] テストメール送信機能
 
 ### 新着判定ロジック
 - [ ] 新規商品検出アルゴリズム
@@ -274,3 +274,6 @@ Phase 2のコア機能実装がすべて完了。次はPhase 3（自動化・通
 - lastScrapedAtの自動更新
 - ScrapeConfigService実装（CRUD操作、cronバリデーション、有効/無効切り替え）
 - ScrapeConfigController実装（REST API: GET/POST/PUT/DELETE/PATCH）
+- NotificationService実装（メール送信、新着商品通知、テストメール、通知ON/OFF）
+- NotificationController実装（POST /api/notifications/test, PATCH /api/notifications/users/{id}/toggle）
+- spring-boot-starter-mail追加、Gmail SMTP設定

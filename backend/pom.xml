@@ -91,6 +91,12 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- Spring Mail for email notifications -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
 		<!-- Selenium WebDriver for web scraping -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
