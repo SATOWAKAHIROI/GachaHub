@@ -96,10 +96,10 @@
 ## Phase 3: 自動化・通知機能
 
 ### Spring Scheduler設定
-- [ ] Schedulerの有効化（@EnableScheduling）
-- [ ] スケジュール実行タスクの作成
-- [ ] cron式による定期実行設定
-- [ ] スケジュール実行ログの記録
+- [x] Schedulerの有効化（@EnableScheduling）
+- [x] スケジュール実行タスクの作成
+- [x] cron式による定期実行設定
+- [x] スケジュール実行ログの記録
 
 ### スクレイピング設定機能
 - [ ] ScrapeConfigの管理機能実装
@@ -265,3 +265,10 @@
 
 ### Phase 2完了 ✅
 Phase 2のコア機能実装がすべて完了。次はPhase 3（自動化・通知機能）へ。
+
+### Phase 3進行中 🔄
+**完了:**
+- SchedulerConfig実装（@EnableScheduling有効化）
+- ScheduledScrapeService実装（定期スクレイピング実行、デフォルト毎日6時）
+- ScrapeConfigテーブルの有効設定に基づく自動スクレイピング
+- lastScrapedAtの自動更新
