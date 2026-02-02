@@ -8,6 +8,7 @@ import Products from './pages/Products'
 import AdminDashboard from './pages/AdminDashboard'
 import AdminScrape from './pages/AdminScrape'
 import AdminLogs from './pages/AdminLogs'
+import AdminSites from './pages/AdminSites'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function Navigation() {
@@ -90,6 +91,7 @@ function AppContent() {
           <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
           <Route path="/admin/scrape" element={<ProtectedRoute><AdminScrape /></ProtectedRoute>} />
           <Route path="/admin/logs" element={<ProtectedRoute><AdminLogs /></ProtectedRoute>} />
+          <Route path="/admin/sites" element={<ProtectedRoute><AdminSites /></ProtectedRoute>} />
         </Routes>
       </main>
     </div>
