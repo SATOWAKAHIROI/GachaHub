@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Products from './pages/Products'
 import AdminDashboard from './pages/AdminDashboard'
+import AdminScrape from './pages/AdminScrape'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function Navigation() {
@@ -86,6 +87,7 @@ function AppContent() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+          <Route path="/admin/scrape" element={<ProtectedRoute><AdminScrape /></ProtectedRoute>} />
         </Routes>
       </main>
     </div>
