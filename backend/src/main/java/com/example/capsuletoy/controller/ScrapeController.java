@@ -44,13 +44,14 @@ public class ScrapeController {
         logger.info("Manual scraping requested for Bandai");
 
         try {
-            int savedCount = scrapeService.executeScraping(bandaiScraper, "BANDAI_GASHAPON");
+            ScrapeService.ScrapeResult result = scrapeService.executeScraping(bandaiScraper, "BANDAI_GASHAPON");
 
             Map<String, Object> response = new HashMap<>();
             response.put("status", "success");
             response.put("site", "BANDAI_GASHAPON");
-            response.put("productsScraped", savedCount);
-            response.put("message", savedCount + "件の商品を保存しました");
+            response.put("totalProducts", result.totalProducts());
+            response.put("newProducts", result.newProducts());
+            response.put("message", "全取得: " + result.totalProducts() + "件、うち新着: " + result.newProducts() + "件");
 
             return ResponseEntity.ok(response);
 
@@ -75,13 +76,14 @@ public class ScrapeController {
         logger.info("Manual scraping requested for Takara Tomy Arts");
 
         try {
-            int savedCount = scrapeService.executeScraping(takaraTomyScraper, "TAKARA_TOMY_ARTS");
+            ScrapeService.ScrapeResult result = scrapeService.executeScraping(takaraTomyScraper, "TAKARA_TOMY_ARTS");
 
             Map<String, Object> response = new HashMap<>();
             response.put("status", "success");
             response.put("site", "TAKARA_TOMY_ARTS");
-            response.put("productsScraped", savedCount);
-            response.put("message", savedCount + "件の商品を保存しました");
+            response.put("totalProducts", result.totalProducts());
+            response.put("newProducts", result.newProducts());
+            response.put("message", "全取得: " + result.totalProducts() + "件、うち新着: " + result.newProducts() + "件");
 
             return ResponseEntity.ok(response);
 

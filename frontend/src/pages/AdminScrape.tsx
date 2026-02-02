@@ -5,7 +5,8 @@ import { scrapeBandai, scrapeTakaraTomy } from '../services/adminApi';
 interface ScrapeResult {
   status: string;
   site: string;
-  productsScraped?: number;
+  totalProducts?: number;
+  newProducts?: number;
   message: string;
 }
 
@@ -133,10 +134,22 @@ function AdminScrape() {
           }`}>
             {result.message}
           </p>
-          {result.productsScraped !== undefined && (
-            <div className="mt-3 flex items-center gap-2">
-              <span className="text-2xl font-bold text-green-700">{result.productsScraped}</span>
-              <span className="text-green-600">件の商品を取得しました</span>
+          {result.totalProducts !== undefined && (
+            <div className="mt-3 flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl font-bold text-green-700">{result.totalProducts}</span>
+                <span className="text-green-600">件取得</span>
+              </div>
+              {result.newProducts !== undefined && result.newProducts > 0 && (
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-gray-400">うち新着</span>
+                  <span className="text-xl font-bold text-orange-600">{result.newProducts}</span>
+                  <span className="text-orange-500">件</span>
+                </div>
+              )}
+              {result.newProducts !== undefined && result.newProducts === 0 && (
+                <span className="text-sm text-gray-500">（新着なし）</span>
+              )}
             </div>
           )}
         </div>
