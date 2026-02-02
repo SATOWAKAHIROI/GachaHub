@@ -13,8 +13,21 @@ function Products() {
   const [manufacturer, setManufacturer] = useState<string>('');
   const [keyword, setKeyword] = useState<string>('');
   const [searchInput, setSearchInput] = useState<string>('');
+  const [sortField, setSortField] = useState<string>('createdAt');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
 
   const PAGE_SIZE = 12;
+
+  const sortOptions = [
+    { label: '新着順', field: 'createdAt', direction: 'desc' as const },
+    { label: '古い順', field: 'createdAt', direction: 'asc' as const },
+    { label: '発売日（新しい順）', field: 'releaseDate', direction: 'desc' as const },
+    { label: '発売日（古い順）', field: 'releaseDate', direction: 'asc' as const },
+    { label: '価格（安い順）', field: 'price', direction: 'asc' as const },
+    { label: '価格（高い順）', field: 'price', direction: 'desc' as const },
+    { label: '商品名（A→Z）', field: 'productName', direction: 'asc' as const },
+    { label: '商品名（Z→A）', field: 'productName', direction: 'desc' as const },
+  ];
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -23,8 +36,8 @@ function Products() {
       const params: Record<string, string | number> = {
         page: currentPage,
         size: PAGE_SIZE,
-        sort: 'createdAt',
-        direction: 'desc',
+        sort: sortField,
+        direction: sortDirection,
       };
       if (manufacturer) params.manufacturer = manufacturer;
       if (keyword) params.keyword = keyword;
@@ -42,7 +55,7 @@ function Products() {
 
   useEffect(() => {
     fetchProducts();
-  }, [currentPage, manufacturer, keyword]);
+  }, [currentPage, manufacturer, keyword, sortField, sortDirection]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,11 +68,26 @@ function Products() {
     setManufacturer(value);
   };
 
+  const handleSortChange = (value: string) => {
+    const option = sortOptions[Number(value)];
+    if (option) {
+      setCurrentPage(0);
+      setSortField(option.field);
+      setSortDirection(option.direction);
+    }
+  };
+
+  const currentSortIndex = sortOptions.findIndex(
+    (o) => o.field === sortField && o.direction === sortDirection
+  );
+
   const handleClearFilters = () => {
     setCurrentPage(0);
     setManufacturer('');
     setKeyword('');
     setSearchInput('');
+    setSortField('createdAt');
+    setSortDirection('desc');
   };
 
   return (
@@ -114,8 +142,24 @@ function Products() {
             </button>
           </form>
 
+          {/* ソート */}
+          <div className="flex items-center gap-2">
+            <label className="text-sm text-gray-500 whitespace-nowrap">並び替え:</label>
+            <select
+              value={currentSortIndex}
+              onChange={(e) => handleSortChange(e.target.value)}
+              className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              {sortOptions.map((option, index) => (
+                <option key={index} value={index}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
           {/* フィルタクリア */}
-          {(manufacturer || keyword) && (
+          {(manufacturer || keyword || sortField !== 'createdAt' || sortDirection !== 'desc') && (
             <button
               onClick={handleClearFilters}
               className="text-sm text-gray-500 hover:text-gray-700 underline"
