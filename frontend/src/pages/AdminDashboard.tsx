@@ -70,8 +70,8 @@ function AdminDashboard() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">管理ダッシュボード</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">管理ダッシュボード</h1>
         <span className="text-sm text-gray-500">ログイン中: {user?.username}</span>
       </div>
 
@@ -212,18 +212,18 @@ function AdminDashboard() {
         ) : (
           <div className="space-y-3">
             {configs.map((config) => (
-              <div key={config.id} className="flex justify-between items-center border border-gray-100 rounded-lg p-3">
-                <div>
+              <div key={config.id} className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border border-gray-100 rounded-lg p-3">
+                <div className="min-w-0">
                   <span className="font-medium text-gray-800">{config.siteName}</span>
-                  <p className="text-xs text-gray-400">{config.siteUrl}</p>
+                  <p className="text-xs text-gray-400 truncate">{config.siteUrl}</p>
                   {config.lastScrapedAt && (
                     <p className="text-xs text-gray-400">
                       最終実行: {new Date(config.lastScrapedAt).toLocaleString('ja-JP')}
                     </p>
                   )}
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-gray-500">{config.cronExpression}</span>
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <span className="text-xs text-gray-500 hidden sm:inline">{config.cronExpression}</span>
                   <span className={`px-2 py-0.5 rounded text-xs font-medium ${
                     config.isEnabled ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'
                   }`}>
