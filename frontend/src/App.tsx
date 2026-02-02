@@ -5,6 +5,9 @@ import About from './pages/About'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Products from './pages/Products'
+import AdminDashboard from './pages/AdminDashboard'
+import AdminScrape from './pages/AdminScrape'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function Navigation() {
   const { user, isAuthenticated, logout } = useAuth();
@@ -29,6 +32,11 @@ function Navigation() {
             <Link to="/about" className="text-gray-700 hover:text-indigo-600 font-medium transition">
               このサイトについて
             </Link>
+            {isAuthenticated && (
+              <Link to="/admin" className="text-gray-700 hover:text-indigo-600 font-medium transition">
+                管理画面
+              </Link>
+            )}
           </div>
 
           <div className="flex items-center space-x-4">
@@ -78,6 +86,8 @@ function AppContent() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+          <Route path="/admin/scrape" element={<ProtectedRoute><AdminScrape /></ProtectedRoute>} />
         </Routes>
       </main>
     </div>
