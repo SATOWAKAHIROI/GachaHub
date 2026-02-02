@@ -145,12 +145,12 @@
 - [x] 日時フィルタリング
 
 ### サイト追加/編集機能
-- [ ] サイト一覧取得エンドポイント（GET /api/scrape/configs）
-- [ ] サイト追加エンドポイント（POST /api/scrape/configs）
-- [ ] サイト編集エンドポイント（PUT /api/scrape/configs/{id}）
-- [ ] サイト削除エンドポイント（DELETE /api/scrape/configs/{id}）
-- [ ] サイト管理画面UI
-- [ ] cron設定用UI（入力フォーム）
+- [x] サイト一覧取得エンドポイント（GET /api/scrape/configs）
+- [x] サイト追加エンドポイント（POST /api/scrape/configs）
+- [x] サイト編集エンドポイント（PUT /api/scrape/configs/{id}）
+- [x] サイト削除エンドポイント（DELETE /api/scrape/configs/{id}）
+- [x] サイト管理画面UI
+- [x] cron設定用UI（入力フォーム）
 
 ### フィルタリング・検索機能
 - [ ] メーカー別フィルタリング

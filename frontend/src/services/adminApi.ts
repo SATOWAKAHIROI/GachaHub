@@ -36,6 +36,34 @@ export const toggleScrapeConfig = async (id: number) => {
   return response.data;
 };
 
+// スクレイピング設定を新規作成
+export const createScrapeConfig = async (config: {
+  siteName: string;
+  siteUrl: string;
+  cronExpression: string;
+  isEnabled: boolean;
+}) => {
+  const response = await api.post('/scrape/configs', config);
+  return response.data;
+};
+
+// スクレイピング設定を更新
+export const updateScrapeConfig = async (id: number, config: {
+  siteName: string;
+  siteUrl: string;
+  cronExpression: string;
+  isEnabled: boolean;
+}) => {
+  const response = await api.put(`/scrape/configs/${id}`, config);
+  return response.data;
+};
+
+// スクレイピング設定を削除
+export const deleteScrapeConfig = async (id: number) => {
+  const response = await api.delete(`/scrape/configs/${id}`);
+  return response.data;
+};
+
 // テストメール送信
 export const sendTestMail = async (email: string) => {
   const response = await api.post('/notifications/test', { email });
