@@ -16,10 +16,22 @@ public class ScraperConfig {
      * ヘッドレスモードで実行（UIなし）
      */
     public WebDriver createChromeDriver() {
-        // WebDriverManagerで自動的にChromeDriverをセットアップ
-        WebDriverManager.chromedriver().setup();
+        // 環境変数でChromeDriverパスが指定されていればそれを使用（Docker環境）
+        String chromeDriverBin = System.getenv("CHROMEDRIVER_BIN");
+        if (chromeDriverBin != null && !chromeDriverBin.isEmpty()) {
+            System.setProperty("webdriver.chrome.driver", chromeDriverBin);
+        } else {
+            // ローカル開発環境ではWebDriverManagerで自動セットアップ
+            WebDriverManager.chromedriver().setup();
+        }
 
         ChromeOptions options = new ChromeOptions();
+
+        // 環境変数でChromeバイナリパスが指定されていればそれを使用（Docker環境）
+        String chromeBin = System.getenv("CHROME_BIN");
+        if (chromeBin != null && !chromeBin.isEmpty()) {
+            options.setBinary(chromeBin);
+        }
 
         // ヘッドレスモード有効化（サーバー環境用）
         options.addArguments("--headless=new");
