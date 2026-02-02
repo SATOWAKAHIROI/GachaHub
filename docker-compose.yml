@@ -21,6 +21,17 @@ services:
       timeout: 5s
       retries: 5
 
+  # Selenium（ブラウザ自動操作用）
+  selenium:
+    image: selenium/standalone-chromium:latest
+    container_name: gachahub-selenium
+    ports:
+      - "4444:4444"
+    shm_size: '2gb'
+    networks:
+      - capsuletoy-network
+    restart: unless-stopped
+
   # バックエンド（Spring Boot）
   backend:
     build:
@@ -34,11 +45,14 @@ services:
       - DATABASE_USERNAME=postgres
       - DATABASE_PASSWORD=postgres
       - JWT_SECRET=your-secret-key-change-this-in-production
+      - SELENIUM_REMOTE_URL=http://selenium:4444/wd/hub
     networks:
       - capsuletoy-network
     depends_on:
       db:
         condition: service_healthy
+      selenium:
+        condition: service_started
     restart: unless-stopped
 
   # フロントエンド（React）
