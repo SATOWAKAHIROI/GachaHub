@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>GachaHub 単体テストレポート</title>
+<style>
+  body { font-family: 'Segoe UI', 'Meiryo', sans-serif; margin: 40px; color: #333; line-height: 1.6; }
+  h1 { color: #4338ca; border-bottom: 3px solid #4338ca; padding-bottom: 10px; }
+  h2 { color: #1e1b4b; margin-top: 30px; border-left: 4px solid #4338ca; padding-left: 12px; }
+  h3 { color: #374151; margin-top: 20px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0 20px 0; }
+  th, td { border: 1px solid #d1d5db; padding: 8px 12px; text-align: left; font-size: 14px; }
+  th { background-color: #4338ca; color: white; font-weight: 600; }
+  tr:nth-child(even) { background-color: #f3f4f6; }
+  .success { color: #059669; font-weight: bold; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 13px; font-weight: 600; }
+  .badge-success { background: #d1fae5; color: #065f46; }
+  .badge-total { background: #e0e7ff; color: #3730a3; }
+  .summary-box { background: #f0fdf4; border: 2px solid #86efac; border-radius: 8px; padding: 20px; margin: 20px 0; }
+  .summary-box h3 { margin-top: 0; color: #065f46; }
+  .meta { color: #6b7280; font-size: 14px; margin-bottom: 4px; }
+  .detail-list { margin: 0; padding-left: 20px; font-size: 13px; color: #4b5563; }
+  .detail-list li { margin-bottom: 4px; }
+  .section-label { font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #e5e7eb; color: #9ca3af; font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+
+<h1>GachaHub 単体テストレポート</h1>
+
+<p class="meta"><strong>プロジェクト:</strong> CapsuleToyHub Backend (com.example:capsuletoy-backend:0.0.1-SNAPSHOT)</p>
+<p class="meta"><strong>実行日時:</strong> 2026年2月2日 19:53 JST</p>
+<p class="meta"><strong>ブランチ:</strong> feature/unit-tests</p>
+<p class="meta"><strong>Java:</strong> JDK 22 (ターゲット: 17) &nbsp;|&nbsp; <strong>Spring Boot:</strong> 3.4.12 &nbsp;|&nbsp; <strong>テストDB:</strong> H2 (in-memory)</p>
+<p class="meta"><strong>テストフレームワーク:</strong> JUnit 5 + Mockito + Spring MockMvc</p>
+
+<div class="summary-box">
+  <h3>ビルド結果: BUILD SUCCESS</h3>
+  <table>
+    <tr>
+      <th>総テスト数</th><th>成功</th><th>失敗</th><th>エラー</th><th>スキップ</th><th>合計実行時間</th>
+    </tr>
+    <tr>
+      <td><span class="badge badge-total">76</span></td>
+      <td><span class="badge badge-success">76</span></td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>約 63.5 秒</td>
+    </tr>
+  </table>
+</div>
+
+<h2>1. スクレイパーテスト</h2>
+<p class="section-label">Seleniumモック使用 / WebDriver・WebElementをMockitoでモック化</p>
+
+<table>
+  <tr><th>テストクラス</th><th>テスト数</th><th>失敗</th><th>エラー</th><th>スキップ</th><th>実行時間</th><th>結果</th></tr>
+  <tr><td>BandaiScraperTest</td><td>10</td><td>0</td><td>0</td><td>0</td><td>21.37s</td><td class="success">PASS</td></tr>
+  <tr><td>TakaraToMyScraperTest</td><td>8</td><td>0</td><td>0</td><td>0</td><td>32.02s</td><td class="success">PASS</td></tr>
+</table>
+
+<h3>BandaiScraperTest（10件）</h3>
+<ul class="detail-list">
+  <li>getTargetUrl_バンダイURLを返す</li>
+  <li>getManufacturerName_BANDAIを返す</li>
+  <li>scrape_商品リンクから正常にパース</li>
+  <li>scrape_画像なしリンクはスキップ</li>
+  <li>scrape_テキストなしリンクはスキップ</li>
+  <li>scrape_リンクが空の場合は空リストを返す</li>
+  <li>scrape_価格が含まれない場合はnull</li>
+  <li>scrape_相対URLが完全URLに変換される</li>
+  <li>scrape_WebDriver例外時は空リストを返しドライバーは終了される</li>
+  <li>scrape_複数商品を正常にパース</li>
+</ul>
+
+<h3>TakaraToMyScraperTest（8件）</h3>
+<ul class="detail-list">
+  <li>getTargetUrl_タカラトミーURLを返す</li>
+  <li>getManufacturerName_TAKARA_TOMYを返す</li>
+  <li>scrape_詳細ページから商品情報を正常にパース</li>
+  <li>scrape_リンクが空の場合は空リストを返す</li>
+  <li>scrape_重複URLはスキップされる</li>
+  <li>scrape_商品名がない場合はスキップ</li>
+  <li>scrape_WebDriver例外時は空リストを返しドライバーは終了される</li>
+  <li>scrape_価格なし発売日なしでも商品は作成される</li>
+</ul>
+
+<h2>2. サービス層テスト</h2>
+<p class="section-label">Repository層をMockitoでモック化 / ビジネスロジックのみ検証</p>
+
+<table>
+  <tr><th>テストクラス</th><th>テスト数</th><th>失敗</th><th>エラー</th><th>スキップ</th><th>実行時間</th><th>結果</th></tr>
+  <tr><td>ProductServiceTest</td><td>15</td><td>0</td><td>0</td><td>0</td><td>0.109s</td><td class="success">PASS</td></tr>
+  <tr><td>ScrapeConfigServiceTest</td><td>14</td><td>0</td><td>0</td><td>0</td><td>0.086s</td><td class="success">PASS</td></tr>
+</table>
+
+<h3>ProductServiceTest（15件）</h3>
+<ul class="detail-list">
+  <li>getAllProducts_ページネーション対応</li>
+  <li>getProductById_存在する場合</li>
+  <li>getProductById_存在しない場合</li>
+  <li>isDuplicate_重複あり</li>
+  <li>isDuplicate_同名だがメーカー違い</li>
+  <li>isDuplicate_重複なし</li>
+  <li>saveScrapedProduct_新規商品の場合</li>
+  <li>saveScrapedProduct_既存商品の場合は更新してisNewをfalseにする</li>
+  <li>findExistingProduct_完全一致で見つかる</li>
+  <li>findExistingProduct_sourceUrlがnullの場合はメーカーのみで判定</li>
+  <li>updateIsNewFlag_正常に更新</li>
+  <li>updateIsNewFlag_存在しないIDでは何もしない</li>
+  <li>resetOldNewFlags_閾値を超えた商品のフラグをリセット</li>
+  <li>getProductsByManufacturer_ページネーション対応</li>
+  <li>searchProductsByName_ページネーション対応</li>
+</ul>
+
+<h3>ScrapeConfigServiceTest（14件）</h3>
+<ul class="detail-list">
+  <li>getAllConfigs_全設定を返す</li>
+  <li>getEnabledConfigs_有効な設定のみ返す</li>
+  <li>getConfigById_存在する場合</li>
+  <li>getConfigById_存在しない場合は例外</li>
+  <li>createConfig_正常に作成</li>
+  <li>createConfig_同名サイト存在時は例外</li>
+  <li>createConfig_無効なcron式で例外</li>
+  <li>createConfig_cron式が空の場合はバリデーションスキップ</li>
+  <li>updateConfig_正常に更新</li>
+  <li>updateConfig_無効なcron式で例外</li>
+  <li>deleteConfig_正常に削除</li>
+  <li>deleteConfig_存在しないIDで例外</li>
+  <li>toggleEnabled_有効から無効に切り替え</li>
+  <li>toggleEnabled_無効から有効に切り替え</li>
+</ul>
+
+<h2>3. コントローラー層テスト（REST API）</h2>
+<p class="section-label">Spring MockMvc + H2インメモリDB / HTTPリクエスト・レスポンス検証</p>
+
+<table>
+  <tr><th>テストクラス</th><th>テスト数</th><th>失敗</th><th>エラー</th><th>スキップ</th><th>実行時間</th><th>結果</th></tr>
+  <tr><td>ProductControllerTest</td><td>8</td><td>0</td><td>0</td><td>0</td><td>8.195s</td><td class="success">PASS</td></tr>
+  <tr><td>ScrapeControllerTest</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0.769s</td><td class="success">PASS</td></tr>
+  <tr><td>ScrapeConfigControllerTest</td><td>12</td><td>0</td><td>0</td><td>0</td><td>1.001s</td><td class="success">PASS</td></tr>
+</table>
+
+<h3>ProductControllerTest（8件）</h3>
+<ul class="detail-list">
+  <li>getProducts_全商品取得 — GET /api/products → 200</li>
+  <li>getProducts_メーカーフィルタ — GET /api/products?manufacturer=BANDAI → 200</li>
+  <li>getProducts_キーワード検索 — GET /api/products?keyword=ガチャ → 200</li>
+  <li>getProducts_メーカーとキーワード組み合わせ → 200</li>
+  <li>getProducts_ページネーションパラメータ → 200</li>
+  <li>getProduct_存在する商品 — GET /api/products/1 → 200</li>
+  <li>getProduct_存在しない商品は404 — GET /api/products/999 → 404</li>
+  <li>getNewProducts_新着商品取得 — GET /api/products/new → 200</li>
+</ul>
+
+<h3>ScrapeControllerTest（9件）</h3>
+<ul class="detail-list">
+  <li>scrapeBandai_正常実行 — POST /api/scrape/bandai → 200</li>
+  <li>scrapeBandai_例外発生時は500エラー → 500</li>
+  <li>scrapeTakaraTomy_正常実行 — POST /api/scrape/takaratomy → 200</li>
+  <li>scrapeTakaraTomy_例外発生時は500エラー → 500</li>
+  <li>getScrapeLogs_ログ取得 — GET /api/scrape/logs → 200</li>
+  <li>getScrapeLogs_limit指定 — GET /api/scrape/logs?limit=5 → 200</li>
+  <li>getScrapeLogsBySite_サイト別ログ取得 — GET /api/scrape/logs/BANDAI_GASHAPON → 200</li>
+  <li>getScrapeStatus_ステータス取得 — GET /api/scrape/status → 200</li>
+  <li>getScrapeStatus_ログなしの場合 → 200</li>
+</ul>
+
+<h3>ScrapeConfigControllerTest（12件）</h3>
+<ul class="detail-list">
+  <li>getAllConfigs_全設定取得 — GET /api/scrape/configs → 200</li>
+  <li>getConfigById_存在する場合 — GET /api/scrape/configs/1 → 200</li>
+  <li>getConfigById_存在しない場合は404 → 404</li>
+  <li>createConfig_正常作成 — POST /api/scrape/configs → 201</li>
+  <li>createConfig_無効なcron式で400 → 400</li>
+  <li>createConfig_重複サイト名で409 → 409</li>
+  <li>updateConfig_正常更新 — PUT /api/scrape/configs/1 → 200</li>
+  <li>updateConfig_存在しないIDで404 → 404</li>
+  <li>deleteConfig_正常削除 — DELETE /api/scrape/configs/1 → 200</li>
+  <li>deleteConfig_存在しないIDで404 → 404</li>
+  <li>toggleEnabled_正常切り替え — PATCH /api/scrape/configs/1/toggle → 200</li>
+  <li>toggleEnabled_存在しないIDで404 → 404</li>
+</ul>
+
+<footer>
+  GachaHub Unit Test Report — Generated on 2026-02-02 by Maven Surefire 3.5.4
+</footer>
+
+</body>
+</html>
