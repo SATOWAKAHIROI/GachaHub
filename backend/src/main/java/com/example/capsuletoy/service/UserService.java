@@ -1,15 +1,18 @@
 package com.example.capsuletoy.service;
 
 import com.example.capsuletoy.model.User;
+import com.example.capsuletoy.model.UserRole;
 import com.example.capsuletoy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -28,13 +31,12 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPasswordHash(),
-                new ArrayList<>()
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
         );
     }
 
-    // ユーザー登録
-    public User registerUser(String username, String email, String password) {
-        // 既存ユーザーのチェック
+    // ユーザー作成（管理者用）
+    public User createUser(String username, String email, String password, UserRole role) {
         if (userRepository.existsByUsername(username)) {
             throw new RuntimeException("Username already exists");
         }
@@ -42,11 +44,11 @@ public class UserService implements UserDetailsService {
             throw new RuntimeException("Email already exists");
         }
 
-        // 新規ユーザー作成
         User user = new User();
         user.setUsername(username);
         user.setEmail(email);
         user.setPasswordHash(passwordEncoder.encode(password));
+        user.setRole(role);
         user.setNotificationEnabled(false);
 
         return userRepository.save(user);
@@ -61,5 +63,18 @@ public class UserService implements UserDetailsService {
     // パスワード検証
     public boolean checkPassword(User user, String rawPassword) {
         return passwordEncoder.matches(rawPassword, user.getPasswordHash());
+    }
+
+    // 全ユーザー取得
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    // ユーザー削除
+    public void deleteUser(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new RuntimeException("User not found");
+        }
+        userRepository.deleteById(id);
     }
 }

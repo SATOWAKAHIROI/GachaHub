@@ -64,6 +64,29 @@ export const deleteScrapeConfig = async (id: number) => {
   return response.data;
 };
 
+// ユーザー一覧取得
+export const getUsers = async () => {
+  const response = await api.get('/admin/users');
+  return response.data;
+};
+
+// ユーザー作成
+export const createUser = async (data: {
+  username: string;
+  email: string;
+  password: string;
+  role: string;
+}) => {
+  const response = await api.post('/admin/users', data);
+  return response.data;
+};
+
+// ユーザー削除
+export const deleteUser = async (id: number) => {
+  const response = await api.delete(`/admin/users/${id}`);
+  return response.data;
+};
+
 // テストメール送信
 export const sendTestMail = async (email: string) => {
   const response = await api.post('/notifications/test', { email });

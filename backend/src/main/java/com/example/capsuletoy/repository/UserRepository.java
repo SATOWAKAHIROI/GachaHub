@@ -1,6 +1,7 @@
 package com.example.capsuletoy.repository;
 
 import com.example.capsuletoy.model.User;
+import com.example.capsuletoy.model.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -24,4 +25,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // 通知が有効なユーザーを取得
     List<User> findByNotificationEnabledTrue();
+
+    // ロールでユーザーを取得
+    List<User> findAllByRole(UserRole role);
 }
