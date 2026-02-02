@@ -4,7 +4,7 @@ import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import type { LoginRequest, LoginResponse } from '../types';
 
-function Login() {
+function AdminLogin() {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [formData, setFormData] = useState<LoginRequest>({
@@ -28,13 +28,15 @@ function Login() {
     setError('');
 
     try {
-      const response = await api.post<LoginResponse>('/auth/login', formData);
+      const response = await api.post<LoginResponse>('/auth/admin/login', formData);
       const { token, user } = response.data;
 
       login(token, user);
-      navigate('/');
+      navigate('/admin');
     } catch (err: any) {
-      if (err.response?.data?.error) {
+      if (err.response?.status === 403) {
+        setError('管理者権限がありません。');
+      } else if (err.response?.data?.error) {
         setError(err.response.data.error);
       } else {
         setError('ログインに失敗しました。もう一度お試しください。');
@@ -45,11 +47,16 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center px-4">
       <div className="max-w-md w-full bg-white rounded-lg shadow-xl p-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">ログイン</h1>
-          <p className="text-gray-600">GachaHubへようこそ</p>
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-100 rounded-full mb-4">
+            <svg className="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">管理者ログイン</h1>
+          <p className="text-gray-600">GachaHub 管理パネル</p>
         </div>
 
         {error && (
@@ -61,7 +68,7 @@ function Login() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
-              ユーザー名
+              管理者ユーザー名
             </label>
             <input
               type="text"
@@ -71,7 +78,7 @@ function Login() {
               onChange={handleChange}
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
-              placeholder="ユーザー名を入力"
+              placeholder="管理者ユーザー名を入力"
             />
           </div>
 
@@ -96,7 +103,7 @@ function Login() {
             disabled={loading}
             className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition"
           >
-            {loading ? 'ログイン中...' : 'ログイン'}
+            {loading ? 'ログイン中...' : '管理者ログイン'}
           </button>
         </form>
       </div>
@@ -104,4 +111,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default AdminLogin;

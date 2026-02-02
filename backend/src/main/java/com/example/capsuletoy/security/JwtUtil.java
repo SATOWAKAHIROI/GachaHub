@@ -32,6 +32,11 @@ public class JwtUtil {
         return extractClaim(token, Claims::getSubject);
     }
 
+    // トークンからロールを抽出
+    public String extractRole(String token) {
+        return extractClaim(token, claims -> claims.get("role", String.class));
+    }
+
     // トークンから特定のClaimを抽出
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
@@ -57,9 +62,10 @@ public class JwtUtil {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    // トークンを生成
-    public String generateToken(String username) {
+    // トークンを生成（ロール付き）
+    public String generateToken(String username, String role) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("role", role);
         return createToken(claims, username);
     }
 

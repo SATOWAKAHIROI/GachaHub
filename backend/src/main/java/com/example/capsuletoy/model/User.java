@@ -20,6 +20,10 @@ public class User {
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private UserRole role = UserRole.USER;
+
     @Column(name = "notification_enabled", nullable = false)
     private Boolean notificationEnabled = false;
 
@@ -74,6 +78,14 @@ public class User {
 
     public void setNotificationEnabled(Boolean notificationEnabled) {
         this.notificationEnabled = notificationEnabled;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     public LocalDateTime getCreatedAt() {

@@ -147,6 +147,11 @@ function AdminDashboard() {
           <h3 className="text-lg font-semibold text-gray-800 mb-2">サイト管理</h3>
           <p className="text-sm text-gray-500">スクレイピング対象サイトの追加・編集・削除を行います。</p>
         </Link>
+
+        <Link to="/admin/users" className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow">
+          <h3 className="text-lg font-semibold text-gray-800 mb-2">ユーザー管理</h3>
+          <p className="text-sm text-gray-500">ユーザーの作成・削除を行います。</p>
+        </Link>
       </div>
 
       {/* 最近のスクレイピングログ */}

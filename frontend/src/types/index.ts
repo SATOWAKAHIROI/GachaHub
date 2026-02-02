@@ -19,6 +19,7 @@ export interface User {
   id: number;
   username: string;
   email: string;
+  role: 'ADMIN' | 'USER';
   notificationEnabled: boolean;
   createdAt: string;
 }
@@ -33,13 +34,6 @@ export interface LoginRequest {
 export interface LoginResponse {
   token: string;
   user: User;
-}
-
-// ユーザー登録リクエストの型定義
-export interface RegisterRequest {
-  username: string;
-  email: string;
-  password: string;
 }
 
 // ページネーションレスポンスの型定義

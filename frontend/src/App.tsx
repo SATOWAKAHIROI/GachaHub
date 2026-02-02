@@ -4,23 +4,26 @@ import { AuthProvider, useAuth } from './context/AuthContext'
 import Home from './pages/Home'
 import About from './pages/About'
 import Login from './pages/Login'
-import Register from './pages/Register'
+import AdminLogin from './pages/AdminLogin'
 import Products from './pages/Products'
 import AdminDashboard from './pages/AdminDashboard'
 import AdminScrape from './pages/AdminScrape'
 import AdminLogs from './pages/AdminLogs'
 import AdminSites from './pages/AdminSites'
-import ProtectedRoute from './components/ProtectedRoute'
+import AdminUsers from './pages/AdminUsers'
+import AdminProtectedRoute from './components/AdminProtectedRoute'
 
 function Navigation() {
   const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const isAdmin = isAuthenticated && user?.role === 'ADMIN';
+
   const handleLogout = () => {
     logout();
     setMenuOpen(false);
-    navigate('/login');
+    navigate('/');
   };
 
   const closeMenu = () => setMenuOpen(false);
@@ -45,7 +48,7 @@ function Navigation() {
             <Link to="/about" className="text-gray-700 hover:text-indigo-600 font-medium transition">
               このサイトについて
             </Link>
-            {isAuthenticated && (
+            {isAdmin && (
               <Link to="/admin" className="text-gray-700 hover:text-indigo-600 font-medium transition">
                 管理画面
               </Link>
@@ -58,6 +61,11 @@ function Navigation() {
               <>
                 <span className="text-gray-700 text-sm">
                   {user.username}
+                  {isAdmin && (
+                    <span className="ml-1 text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full">
+                      管理者
+                    </span>
+                  )}
                 </span>
                 <button
                   onClick={handleLogout}
@@ -67,20 +75,12 @@ function Navigation() {
                 </button>
               </>
             ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="text-gray-700 hover:text-indigo-600 font-medium transition"
-                >
-                  ログイン
-                </Link>
-                <Link
-                  to="/register"
-                  className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition text-sm"
-                >
-                  新規登録
-                </Link>
-              </>
+              <Link
+                to="/login"
+                className="text-gray-700 hover:text-indigo-600 font-medium transition"
+              >
+                ログイン
+              </Link>
             )}
           </div>
 
@@ -113,7 +113,7 @@ function Navigation() {
               <Link to="/about" onClick={closeMenu} className="text-gray-700 hover:text-indigo-600 font-medium py-2 transition">
                 このサイトについて
               </Link>
-              {isAuthenticated && (
+              {isAdmin && (
                 <Link to="/admin" onClick={closeMenu} className="text-gray-700 hover:text-indigo-600 font-medium py-2 transition">
                   管理画面
                 </Link>
@@ -122,7 +122,10 @@ function Navigation() {
               <div className="border-t border-gray-200 pt-2 mt-2">
                 {isAuthenticated && user ? (
                   <div className="flex flex-col space-y-2">
-                    <span className="text-gray-500 text-sm">{user.username}</span>
+                    <span className="text-gray-500 text-sm">
+                      {user.username}
+                      {isAdmin && ' (管理者)'}
+                    </span>
                     <button
                       onClick={handleLogout}
                       className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition text-sm text-center"
@@ -131,14 +134,9 @@ function Navigation() {
                     </button>
                   </div>
                 ) : (
-                  <div className="flex flex-col space-y-2">
-                    <Link to="/login" onClick={closeMenu} className="text-gray-700 hover:text-indigo-600 font-medium py-2 transition">
-                      ログイン
-                    </Link>
-                    <Link to="/register" onClick={closeMenu} className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition text-sm text-center">
-                      新規登録
-                    </Link>
-                  </div>
+                  <Link to="/login" onClick={closeMenu} className="text-gray-700 hover:text-indigo-600 font-medium py-2 transition">
+                    ログイン
+                  </Link>
                 )}
               </div>
             </div>
@@ -159,11 +157,12 @@ function AppContent() {
           <Route path="/products" element={<Products />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
-          <Route path="/admin/scrape" element={<ProtectedRoute><AdminScrape /></ProtectedRoute>} />
-          <Route path="/admin/logs" element={<ProtectedRoute><AdminLogs /></ProtectedRoute>} />
-          <Route path="/admin/sites" element={<ProtectedRoute><AdminSites /></ProtectedRoute>} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
+          <Route path="/admin/scrape" element={<AdminProtectedRoute><AdminScrape /></AdminProtectedRoute>} />
+          <Route path="/admin/logs" element={<AdminProtectedRoute><AdminLogs /></AdminProtectedRoute>} />
+          <Route path="/admin/sites" element={<AdminProtectedRoute><AdminSites /></AdminProtectedRoute>} />
+          <Route path="/admin/users" element={<AdminProtectedRoute><AdminUsers /></AdminProtectedRoute>} />
         </Routes>
       </main>
     </div>
