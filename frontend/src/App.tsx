@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react
 import { AuthProvider, useAuth } from './context/AuthContext'
 import Home from './pages/Home'
 import About from './pages/About'
-import Login from './pages/Login'
 import AdminLogin from './pages/AdminLogin'
 import Products from './pages/Products'
 import AdminDashboard from './pages/AdminDashboard'
@@ -57,15 +56,13 @@ function Navigation() {
 
           {/* デスクトップ認証ボタン */}
           <div className="hidden md:flex items-center space-x-4">
-            {isAuthenticated && user ? (
+            {isAdmin && user && (
               <>
                 <span className="text-gray-700 text-sm">
                   {user.username}
-                  {isAdmin && (
-                    <span className="ml-1 text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full">
-                      管理者
-                    </span>
-                  )}
+                  <span className="ml-1 text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full">
+                    管理者
+                  </span>
                 </span>
                 <button
                   onClick={handleLogout}
@@ -74,13 +71,6 @@ function Navigation() {
                   ログアウト
                 </button>
               </>
-            ) : (
-              <Link
-                to="/login"
-                className="text-gray-700 hover:text-indigo-600 font-medium transition"
-              >
-                ログイン
-              </Link>
             )}
           </div>
 
@@ -119,12 +109,11 @@ function Navigation() {
                 </Link>
               )}
 
-              <div className="border-t border-gray-200 pt-2 mt-2">
-                {isAuthenticated && user ? (
+              {isAdmin && user && (
+                <div className="border-t border-gray-200 pt-2 mt-2">
                   <div className="flex flex-col space-y-2">
                     <span className="text-gray-500 text-sm">
-                      {user.username}
-                      {isAdmin && ' (管理者)'}
+                      {user.username} (管理者)
                     </span>
                     <button
                       onClick={handleLogout}
@@ -133,12 +122,8 @@ function Navigation() {
                       ログアウト
                     </button>
                   </div>
-                ) : (
-                  <Link to="/login" onClick={closeMenu} className="text-gray-700 hover:text-indigo-600 font-medium py-2 transition">
-                    ログイン
-                  </Link>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -156,7 +141,6 @@ function AppContent() {
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
           <Route path="/admin/scrape" element={<AdminProtectedRoute><AdminScrape /></AdminProtectedRoute>} />
