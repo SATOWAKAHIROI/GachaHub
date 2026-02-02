@@ -96,9 +96,9 @@ function Products() {
 
       {/* フィルタ・検索バー */}
       <div className="bg-white rounded-lg shadow p-4 mb-6">
-        <div className="flex flex-col md:flex-row gap-4 items-center">
+        <div className="flex flex-col gap-4">
           {/* メーカーフィルタ */}
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <button
               onClick={() => handleManufacturerChange('')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
@@ -126,29 +126,31 @@ function Products() {
           </div>
 
           {/* キーワード検索 */}
-          <form onSubmit={handleSearch} className="flex gap-2 flex-1">
+          <form onSubmit={handleSearch} className="flex gap-2">
             <input
               type="text"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="商品名で検索..."
-              className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="flex-1 min-w-0 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             <button
               type="submit"
-              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
+              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition whitespace-nowrap"
             >
               検索
             </button>
           </form>
 
+          {/* ソート・クリア */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           {/* ソート */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-1">
             <label className="text-sm text-gray-500 whitespace-nowrap">並び替え:</label>
             <select
               value={currentSortIndex}
               onChange={(e) => handleSortChange(e.target.value)}
-              className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="flex-1 sm:flex-none border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               {sortOptions.map((option, index) => (
                 <option key={index} value={index}>
@@ -167,6 +169,7 @@ function Products() {
               クリア
             </button>
           )}
+          </div>
         </div>
 
         {/* 検索結果件数 */}
