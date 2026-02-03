@@ -17,13 +17,17 @@ import java.util.regex.Pattern;
 
 /**
  * タカラトミーアーツ公式サイトのスクレイパー
+ * カレンダーページから発売予定商品を取得
  */
 @Component
 public class TakaraTomyScraper extends BaseScraper {
 
     private static final Logger logger = LoggerFactory.getLogger(TakaraTomyScraper.class);
     private static final String BASE_URL = "https://www.takaratomy-arts.co.jp";
-    private static final String TARGET_URL = "https://www.takaratomy-arts.co.jp/items/gacha.html";
+    private static final String TARGET_URL = "https://www.takaratomy-arts.co.jp/items/gacha/calendar/";
+
+    // 最大処理件数（詳細ページ遷移があるため制限）
+    private static final int MAX_PRODUCTS = 50;
 
     @Override
     protected String getTargetUrl() {
@@ -57,36 +61,45 @@ public class TakaraTomyScraper extends BaseScraper {
             // 全てのリンク要素を取得
             List<WebElement> linkElements = findElementsSafely(By.tagName("a"));
 
-            logger.info("Found {} link elements", linkElements.size());
+            logger.info("Found {} link elements, processing up to {} products", linkElements.size(), MAX_PRODUCTS);
 
             for (WebElement linkElement : linkElements) {
+                // 最大件数に達したら終了
+                if (products.size() >= MAX_PRODUCTS) {
+                    logger.info("Reached max product limit ({}), stopping", MAX_PRODUCTS);
+                    break;
+                }
+
                 try {
                     String href = getElementAttribute(linkElement, "href");
 
-                    // /items/item.html?n= を含むリンクのみ処理
-                    if (href != null && href.contains("/items/item.html?n=")) {
+                    // item.html?n= を含むリンクのみ処理（カレンダーページからのリンク）
+                    if (href != null && href.contains("item.html?n=")) {
+                        // 完全なURLに変換
+                        String fullUrl = normalizeUrl(href);
+
                         // 重複チェック
-                        if (processedUrls.contains(href)) {
+                        if (processedUrls.contains(fullUrl)) {
                             continue;
                         }
-                        processedUrls.add(href);
+                        processedUrls.add(fullUrl);
 
                         // 詳細ページにアクセスして商品情報を取得
-                        Product product = scrapeProductDetail(href);
+                        Product product = scrapeProductDetail(fullUrl);
                         if (product != null) {
                             products.add(product);
+
+                            // 進捗ログ（10件ごと）
+                            if (products.size() % 10 == 0) {
+                                logger.info("Progress: {} products scraped", products.size());
+                            }
                         }
 
-                        // サイトへの負荷軽減
-                        waitBetweenRequests();
+                        // サイトへの負荷軽減（短めに）
+                        Thread.sleep(500);
                     }
                 } catch (Exception e) {
                     logger.warn("Failed to parse product from link: {}", e.getMessage());
-                }
-
-                // 進捗ログ
-                if (products.size() > 0 && products.size() % 5 == 0) {
-                    logger.info("Scraped {} products so far", products.size());
                 }
             }
 
@@ -98,11 +111,31 @@ public class TakaraTomyScraper extends BaseScraper {
     }
 
     /**
+     * URLを正規化（相対パスを絶対パスに変換）
+     */
+    private String normalizeUrl(String href) {
+        if (href.startsWith("http")) {
+            return href;
+        }
+
+        // ../../item.html?n=XXX のような相対パスを処理
+        if (href.contains("../../item.html")) {
+            // カレンダーページ（/items/gacha/calendar/）からの相対パス
+            return BASE_URL + "/items/item.html" + href.substring(href.indexOf("?"));
+        }
+
+        // その他の相対パス
+        if (href.startsWith("/")) {
+            return BASE_URL + href;
+        }
+
+        return BASE_URL + "/" + href;
+    }
+
+    /**
      * 商品詳細ページから商品情報を取得
      */
-    private Product scrapeProductDetail(String relativeUrl) {
-        String fullUrl = relativeUrl.startsWith("http") ? relativeUrl : BASE_URL + relativeUrl;
-
+    private Product scrapeProductDetail(String fullUrl) {
         try {
             // 詳細ページに遷移
             driver.get(fullUrl);

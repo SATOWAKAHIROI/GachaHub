@@ -51,8 +51,8 @@ class TakaraToMyScraperTest {
     }
 
     @Test
-    void getTargetUrl_タカラトミーURLを返す() {
-        assertEquals("https://www.takaratomy-arts.co.jp/items/gacha.html", takaraTomyScraper.getTargetUrl());
+    void getTargetUrl_タカラトミーカレンダーURLを返す() {
+        assertEquals("https://www.takaratomy-arts.co.jp/items/gacha/calendar/", takaraTomyScraper.getTargetUrl());
     }
 
     @Test
@@ -68,7 +68,7 @@ class TakaraToMyScraperTest {
 
         // 非商品リンク
         WebElement otherLink = mock(WebElement.class);
-        when(otherLink.getAttribute("href")).thenReturn("/items/gacha.html");
+        when(otherLink.getAttribute("href")).thenReturn("/items/gacha/calendar/index.html");
 
         // 一覧ページのリンク一覧を返す
         when(driver.findElements(By.tagName("a")))
