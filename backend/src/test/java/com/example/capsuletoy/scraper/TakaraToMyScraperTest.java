@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -51,8 +52,12 @@ class TakaraToMyScraperTest {
     }
 
     @Test
-    void getTargetUrl_タカラトミーカレンダーURLを返す() {
-        assertEquals("https://www.takaratomy-arts.co.jp/items/gacha/calendar/", takaraTomyScraper.getTargetUrl());
+    void getTargetUrl_今月のカレンダーURLを返す() {
+        // 今月の年月を取得
+        String expectedYm = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMM"));
+        String expectedUrl = "https://www.takaratomy-arts.co.jp/items/gacha/calendar/?ym=" + expectedYm;
+
+        assertEquals(expectedUrl, takaraTomyScraper.getTargetUrl());
     }
 
     @Test
@@ -70,10 +75,11 @@ class TakaraToMyScraperTest {
         WebElement otherLink = mock(WebElement.class);
         when(otherLink.getAttribute("href")).thenReturn("/items/gacha/calendar/index.html");
 
-        // 一覧ページのリンク一覧を返す
+        // 一覧ページのリンク一覧を返す（今月と翌月の2回呼ばれる）
         when(driver.findElements(By.tagName("a")))
-                .thenReturn(Arrays.asList(otherLink, linkElement)) // 一覧ページ
-                .thenReturn(Collections.emptyList()); // 詳細ページのa要素
+                .thenReturn(Arrays.asList(otherLink, linkElement)) // 今月のカレンダーページ
+                .thenReturn(Collections.emptyList()) // 今月の詳細ページのa要素
+                .thenReturn(Collections.emptyList()); // 翌月のカレンダーページ
 
         // 詳細ページのh2要素（商品名）
         WebElement h2Element = mock(WebElement.class);
@@ -123,7 +129,10 @@ class TakaraToMyScraperTest {
         when(link1.getAttribute("href")).thenReturn("/items/item.html?n=100");
         when(link2.getAttribute("href")).thenReturn("/items/item.html?n=100"); // 同じURL
 
-        when(driver.findElements(By.tagName("a"))).thenReturn(Arrays.asList(link1, link2));
+        // 今月と翌月の両方で同じリンクが返される（重複チェックのテスト）
+        when(driver.findElements(By.tagName("a")))
+                .thenReturn(Arrays.asList(link1, link2)) // 今月
+                .thenReturn(Arrays.asList(link1)); // 翌月（同じURL）
 
         // 詳細ページモック
         WebElement h2 = mock(WebElement.class);
@@ -137,7 +146,7 @@ class TakaraToMyScraperTest {
 
         List<Product> products = takaraTomyScraper.scrape();
 
-        // 重複URLは1回だけ処理される
+        // 重複URLは1回だけ処理される（今月・翌月間でも重複チェック）
         assertEquals(1, products.size());
     }
 
@@ -146,7 +155,9 @@ class TakaraToMyScraperTest {
         WebElement linkElement = mock(WebElement.class);
         when(linkElement.getAttribute("href")).thenReturn("/items/item.html?n=999");
 
-        when(driver.findElements(By.tagName("a"))).thenReturn(List.of(linkElement));
+        when(driver.findElements(By.tagName("a")))
+                .thenReturn(List.of(linkElement)) // 今月
+                .thenReturn(Collections.emptyList()); // 翌月
 
         // h2が空
         when(driver.findElements(By.tagName("h2"))).thenReturn(Collections.emptyList());
@@ -172,7 +183,9 @@ class TakaraToMyScraperTest {
         WebElement linkElement = mock(WebElement.class);
         when(linkElement.getAttribute("href")).thenReturn("/items/item.html?n=555");
 
-        when(driver.findElements(By.tagName("a"))).thenReturn(List.of(linkElement));
+        when(driver.findElements(By.tagName("a")))
+                .thenReturn(List.of(linkElement)) // 今月
+                .thenReturn(Collections.emptyList()); // 翌月
 
         WebElement h2 = mock(WebElement.class);
         when(h2.getText()).thenReturn("価格未定商品");
