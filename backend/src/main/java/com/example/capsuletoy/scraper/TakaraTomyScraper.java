@@ -3,11 +3,14 @@ package com.example.capsuletoy.scraper;
 import com.example.capsuletoy.model.Product;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -17,22 +20,146 @@ import java.util.regex.Pattern;
 
 /**
  * タカラトミーアーツ公式サイトのスクレイパー
+ * カレンダーページから発売予定商品を取得（今月と翌月）
  */
 @Component
 public class TakaraTomyScraper extends BaseScraper {
 
     private static final Logger logger = LoggerFactory.getLogger(TakaraTomyScraper.class);
     private static final String BASE_URL = "https://www.takaratomy-arts.co.jp";
-    private static final String TARGET_URL = "https://www.takaratomy-arts.co.jp/items/gacha.html";
+    private static final String CALENDAR_BASE_URL = "https://www.takaratomy-arts.co.jp/items/gacha/calendar/";
+
+    // 最大処理件数（詳細ページ遷移があるため制限）
+    private static final int MAX_PRODUCTS = 50;
+
+    // 重複チェック用（複数ページ間で共有）
+    private Set<String> processedUrls;
 
     @Override
     protected String getTargetUrl() {
-        return TARGET_URL;
+        // 今月のカレンダーURLを返す（テスト用）
+        return buildCalendarUrl(LocalDate.now());
     }
 
     @Override
     protected String getManufacturerName() {
         return "TAKARA_TOMY";
+    }
+
+    /**
+     * スクレイピング実行（オーバーライド）
+     * 今月と翌月の2ヶ月分をスクレイピング
+     */
+    @Override
+    public List<Product> scrape() {
+        List<Product> products = new ArrayList<>();
+        processedUrls = new HashSet<>();
+
+        try {
+            // WebDriver初期化
+            driver = scraperConfig.createChromeDriver();
+            wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+            logger.info("Starting scraping for: {}", getManufacturerName());
+
+            LocalDate now = LocalDate.now();
+            LocalDate nextMonth = now.plusMonths(1);
+
+            // 今月のカレンダーをスクレイピング
+            String thisMonthUrl = buildCalendarUrl(now);
+            logger.info("Scraping this month's calendar: {}", thisMonthUrl);
+            List<Product> thisMonthProducts = scrapeCalendarPage(thisMonthUrl);
+            products.addAll(thisMonthProducts);
+            logger.info("Found {} products from this month", thisMonthProducts.size());
+
+            // 翌月のカレンダーをスクレイピング
+            String nextMonthUrl = buildCalendarUrl(nextMonth);
+            logger.info("Scraping next month's calendar: {}", nextMonthUrl);
+            List<Product> nextMonthProducts = scrapeCalendarPage(nextMonthUrl);
+            products.addAll(nextMonthProducts);
+            logger.info("Found {} products from next month", nextMonthProducts.size());
+
+            logger.info("Scraped {} products total from {}", products.size(), getManufacturerName());
+
+        } catch (Exception e) {
+            logger.error("Error during scraping for {}: {}", getManufacturerName(), e.getMessage(), e);
+        } finally {
+            // WebDriver終了
+            scraperConfig.quitDriver(driver);
+        }
+
+        return products;
+    }
+
+    /**
+     * 年月からカレンダーURLを構築
+     * 例: 2026年2月 → https://www.takaratomy-arts.co.jp/items/gacha/calendar/?ym=202602
+     */
+    private String buildCalendarUrl(LocalDate date) {
+        String ym = date.format(DateTimeFormatter.ofPattern("yyyyMM"));
+        return CALENDAR_BASE_URL + "?ym=" + ym;
+    }
+
+    /**
+     * カレンダーページをスクレイピング
+     */
+    private List<Product> scrapeCalendarPage(String calendarUrl) {
+        List<Product> products = new ArrayList<>();
+
+        try {
+            // カレンダーページにアクセス
+            driver.get(calendarUrl);
+            waitForPageLoad();
+
+            // 商品リンクを取得してスクレイピング
+            List<WebElement> linkElements = findElementsSafely(By.tagName("a"));
+            logger.info("Found {} link elements on page", linkElements.size());
+
+            for (WebElement linkElement : linkElements) {
+                // 最大件数に達したら終了
+                if (products.size() >= MAX_PRODUCTS) {
+                    logger.info("Reached max product limit ({}), stopping", MAX_PRODUCTS);
+                    break;
+                }
+
+                try {
+                    String href = getElementAttribute(linkElement, "href");
+
+                    // item.html?n= を含むリンクのみ処理
+                    if (href != null && href.contains("item.html?n=")) {
+                        // 完全なURLに変換
+                        String fullUrl = normalizeUrl(href);
+
+                        // 重複チェック（複数ページ間で共有）
+                        if (processedUrls.contains(fullUrl)) {
+                            continue;
+                        }
+                        processedUrls.add(fullUrl);
+
+                        // 詳細ページにアクセスして商品情報を取得
+                        Product product = scrapeProductDetail(fullUrl);
+                        if (product != null) {
+                            products.add(product);
+
+                            // 進捗ログ（10件ごと）
+                            if (products.size() % 10 == 0) {
+                                logger.info("Progress: {} products scraped", products.size());
+                            }
+                        }
+
+                        // サイトへの負荷軽減
+                        Thread.sleep(500);
+                    }
+                } catch (Exception e) {
+                    logger.warn("Failed to parse product from link: {}", e.getMessage());
+                }
+            }
+
+        } catch (Exception e) {
+            logger.error("Error scraping calendar page {}: {}", calendarUrl, e.getMessage(), e);
+        }
+
+        return products;
     }
 
     @Override
@@ -50,59 +177,37 @@ public class TakaraTomyScraper extends BaseScraper {
 
     @Override
     protected List<Product> scrapeProducts() {
-        List<Product> products = new ArrayList<>();
-        Set<String> processedUrls = new HashSet<>();
+        // scrape()をオーバーライドしているため、このメソッドは直接呼ばれない
+        // 互換性のため空リストを返す
+        return new ArrayList<>();
+    }
 
-        try {
-            // 全てのリンク要素を取得
-            List<WebElement> linkElements = findElementsSafely(By.tagName("a"));
-
-            logger.info("Found {} link elements", linkElements.size());
-
-            for (WebElement linkElement : linkElements) {
-                try {
-                    String href = getElementAttribute(linkElement, "href");
-
-                    // /items/item.html?n= を含むリンクのみ処理
-                    if (href != null && href.contains("/items/item.html?n=")) {
-                        // 重複チェック
-                        if (processedUrls.contains(href)) {
-                            continue;
-                        }
-                        processedUrls.add(href);
-
-                        // 詳細ページにアクセスして商品情報を取得
-                        Product product = scrapeProductDetail(href);
-                        if (product != null) {
-                            products.add(product);
-                        }
-
-                        // サイトへの負荷軽減
-                        waitBetweenRequests();
-                    }
-                } catch (Exception e) {
-                    logger.warn("Failed to parse product from link: {}", e.getMessage());
-                }
-
-                // 進捗ログ
-                if (products.size() > 0 && products.size() % 5 == 0) {
-                    logger.info("Scraped {} products so far", products.size());
-                }
-            }
-
-        } catch (Exception e) {
-            logger.error("Error scraping products: {}", e.getMessage(), e);
+    /**
+     * URLを正規化（相対パスを絶対パスに変換）
+     */
+    private String normalizeUrl(String href) {
+        if (href.startsWith("http")) {
+            return href;
         }
 
-        return products;
+        // ../../item.html?n=XXX のような相対パスを処理
+        if (href.contains("../../item.html")) {
+            // カレンダーページ（/items/gacha/calendar/）からの相対パス
+            return BASE_URL + "/items/item.html" + href.substring(href.indexOf("?"));
+        }
+
+        // その他の相対パス
+        if (href.startsWith("/")) {
+            return BASE_URL + href;
+        }
+
+        return BASE_URL + "/" + href;
     }
 
     /**
      * 商品詳細ページから商品情報を取得
      */
-    private Product scrapeProductDetail(String relativeUrl) {
-        String fullUrl = relativeUrl.startsWith("http") ? relativeUrl : BASE_URL + relativeUrl;
-
+    private Product scrapeProductDetail(String fullUrl) {
         try {
             // 詳細ページに遷移
             driver.get(fullUrl);
