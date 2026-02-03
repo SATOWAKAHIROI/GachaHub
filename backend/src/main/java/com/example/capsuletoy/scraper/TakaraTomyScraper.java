@@ -25,6 +25,9 @@ public class TakaraTomyScraper extends BaseScraper {
     private static final String BASE_URL = "https://www.takaratomy-arts.co.jp";
     private static final String TARGET_URL = "https://www.takaratomy-arts.co.jp/items/gacha.html";
 
+    // 最大処理件数（詳細ページ遷移があるため少なめに制限）
+    private static final int MAX_PRODUCTS = 30;
+
     @Override
     protected String getTargetUrl() {
         return TARGET_URL;
@@ -57,9 +60,15 @@ public class TakaraTomyScraper extends BaseScraper {
             // 全てのリンク要素を取得
             List<WebElement> linkElements = findElementsSafely(By.tagName("a"));
 
-            logger.info("Found {} link elements", linkElements.size());
+            logger.info("Found {} link elements, processing up to {} products", linkElements.size(), MAX_PRODUCTS);
 
             for (WebElement linkElement : linkElements) {
+                // 最大件数に達したら終了
+                if (products.size() >= MAX_PRODUCTS) {
+                    logger.info("Reached max product limit ({}), stopping", MAX_PRODUCTS);
+                    break;
+                }
+
                 try {
                     String href = getElementAttribute(linkElement, "href");
 
@@ -75,18 +84,18 @@ public class TakaraTomyScraper extends BaseScraper {
                         Product product = scrapeProductDetail(href);
                         if (product != null) {
                             products.add(product);
+
+                            // 進捗ログ（5件ごと）
+                            if (products.size() % 5 == 0) {
+                                logger.info("Progress: {} products scraped", products.size());
+                            }
                         }
 
-                        // サイトへの負荷軽減
-                        waitBetweenRequests();
+                        // サイトへの負荷軽減（短めに）
+                        Thread.sleep(500);
                     }
                 } catch (Exception e) {
                     logger.warn("Failed to parse product from link: {}", e.getMessage());
-                }
-
-                // 進捗ログ
-                if (products.size() > 0 && products.size() % 5 == 0) {
-                    logger.info("Scraped {} products so far", products.size());
                 }
             }
 
