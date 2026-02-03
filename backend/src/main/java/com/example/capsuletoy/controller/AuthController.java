@@ -29,28 +29,6 @@ public class AuthController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    // 一般ログイン
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
-            );
-
-            User user = userService.findByUsername(request.getUsername());
-            String token = jwtUtil.generateToken(request.getUsername(), user.getRole().name());
-
-            return ResponseEntity.ok(buildUserResponse(token, user));
-
-        } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("error", "ユーザー名またはパスワードが正しくありません"));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("error", "ログイン中にエラーが発生しました"));
-        }
-    }
-
     // 管理者専用ログイン
     @PostMapping("/admin/login")
     public ResponseEntity<?> adminLogin(@RequestBody LoginRequest request) {

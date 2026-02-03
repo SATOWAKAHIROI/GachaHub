@@ -4,21 +4,26 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 
 @Configuration
 public class ScraperConfig {
 
+    @Value("${selenium.remote-url:}")
+    private String seleniumRemoteUrl;
+
     /**
      * Chrome WebDriverを作成
-     * ヘッドレスモードで実行（UIなし）
+     * selenium.remote-urlが設定されている場合はRemoteWebDriver（Docker環境）
+     * 未設定の場合はローカルChromeDriver（開発環境）
      */
     public WebDriver createChromeDriver() {
-        // WebDriverManagerで自動的にChromeDriverをセットアップ
-        WebDriverManager.chromedriver().setup();
-
         ChromeOptions options = new ChromeOptions();
 
         // ヘッドレスモード有効化（サーバー環境用）
@@ -38,8 +43,20 @@ public class ScraperConfig {
         // 画像読み込み無効化（パフォーマンス向上）
         options.addArguments("--blink-settings=imagesEnabled=false");
 
-        // ChromeDriverインスタンス作成
-        WebDriver driver = new ChromeDriver(options);
+        WebDriver driver;
+
+        if (seleniumRemoteUrl != null && !seleniumRemoteUrl.isEmpty()) {
+            // Docker環境: Seleniumコンテナに接続
+            try {
+                driver = new RemoteWebDriver(new URL(seleniumRemoteUrl), options);
+            } catch (MalformedURLException e) {
+                throw new RuntimeException("Invalid Selenium remote URL: " + seleniumRemoteUrl, e);
+            }
+        } else {
+            // ローカル開発環境: WebDriverManagerで自動セットアップ
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver(options);
+        }
 
         // タイムアウト設定
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));

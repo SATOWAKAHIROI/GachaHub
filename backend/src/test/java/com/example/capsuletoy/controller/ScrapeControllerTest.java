@@ -58,13 +58,14 @@ class ScrapeControllerTest {
     @Test
     void scrapeBandai_正常実行() throws Exception {
         when(scrapeService.executeScraping(any(BandaiScraper.class), eq("BANDAI_GASHAPON")))
-                .thenReturn(5);
+                .thenReturn(new ScrapeService.ScrapeResult(5, 2));
 
         mockMvc.perform(post("/api/scrape/bandai"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("success"))
                 .andExpect(jsonPath("$.site").value("BANDAI_GASHAPON"))
-                .andExpect(jsonPath("$.productsScraped").value(5));
+                .andExpect(jsonPath("$.totalProducts").value(5))
+                .andExpect(jsonPath("$.newProducts").value(2));
     }
 
     @Test
@@ -81,13 +82,14 @@ class ScrapeControllerTest {
     @Test
     void scrapeTakaraTomy_正常実行() throws Exception {
         when(scrapeService.executeScraping(any(TakaraTomyScraper.class), eq("TAKARA_TOMY_ARTS")))
-                .thenReturn(3);
+                .thenReturn(new ScrapeService.ScrapeResult(3, 1));
 
         mockMvc.perform(post("/api/scrape/takaratomy"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("success"))
                 .andExpect(jsonPath("$.site").value("TAKARA_TOMY_ARTS"))
-                .andExpect(jsonPath("$.productsScraped").value(3));
+                .andExpect(jsonPath("$.totalProducts").value(3))
+                .andExpect(jsonPath("$.newProducts").value(1));
     }
 
     @Test

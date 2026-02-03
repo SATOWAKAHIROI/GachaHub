@@ -26,20 +26,65 @@ public class ScrapeService {
     private ScrapeLogRepository scrapeLogRepository;
 
     /**
+     * スクレイピング結果を格納するレコード
+     */
+    public record ScrapeResult(int totalProducts, int newProducts) {}
+
+    /**
      * スクレイピングを実行してデータベースに保存
      *
      * @param scraper スクレイパーインスタンス
      * @param targetSite 対象サイト名
-     * @return 保存された商品数
+     * @return 全取得商品数と新着商品数
      */
     @Transactional
-    public int executeScraping(BaseScraper scraper, String targetSite) {
-        List<Product> newProducts = executeScrapingWithNewProducts(scraper, targetSite);
-        return newProducts.size();
+    public ScrapeResult executeScraping(BaseScraper scraper, String targetSite) {
+        logger.info("Starting scraping for: {}", targetSite);
+
+        ScrapeLog scrapeLog = new ScrapeLog();
+        scrapeLog.setTargetSite(targetSite);
+        scrapeLog.setExecutedAt(LocalDateTime.now());
+
+        int totalCount = 0;
+        int newCount = 0;
+
+        try {
+            List<Product> scrapedProducts = scraper.scrape();
+            totalCount = scrapedProducts.size();
+
+            for (Product product : scrapedProducts) {
+                try {
+                    Product saved = productService.saveScrapedProduct(product);
+                    if (saved.getIsNew() != null && saved.getIsNew()) {
+                        newCount++;
+                    }
+                } catch (Exception e) {
+                    logger.error("Error saving product: {}", product.getProductName(), e);
+                }
+            }
+
+            scrapeLog.setStatus("SUCCESS");
+            scrapeLog.setProductsFound(totalCount);
+            scrapeLog.setErrorMessage(null);
+
+            logger.info("Scraping completed for {}: {} products found, {} new",
+                    targetSite, totalCount, newCount);
+
+        } catch (Exception e) {
+            scrapeLog.setStatus("FAILURE");
+            scrapeLog.setProductsFound(0);
+            scrapeLog.setErrorMessage(e.getMessage());
+
+            logger.error("Scraping failed for {}: {}", targetSite, e.getMessage(), e);
+        } finally {
+            scrapeLogRepository.save(scrapeLog);
+        }
+
+        return new ScrapeResult(totalCount, newCount);
     }
 
     /**
-     * スクレイピングを実行して新着商品リストを返す
+     * スクレイピングを実行して新着商品リストを返す（通知用）
      *
      * @param scraper スクレイパーインスタンス
      * @param targetSite 対象サイト名
@@ -47,7 +92,7 @@ public class ScrapeService {
      */
     @Transactional
     public List<Product> executeScrapingWithNewProducts(BaseScraper scraper, String targetSite) {
-        logger.info("Starting scraping for: {}", targetSite);
+        logger.info("Starting scraping for (with new products): {}", targetSite);
 
         ScrapeLog scrapeLog = new ScrapeLog();
         scrapeLog.setTargetSite(targetSite);
@@ -56,10 +101,8 @@ public class ScrapeService {
         List<Product> newProducts = new ArrayList<>();
 
         try {
-            // スクレイピング実行
             List<Product> scrapedProducts = scraper.scrape();
 
-            // 商品をデータベースに保存
             for (Product product : scrapedProducts) {
                 try {
                     Product saved = productService.saveScrapedProduct(product);
@@ -71,7 +114,6 @@ public class ScrapeService {
                 }
             }
 
-            // スクレイピング成功ログ
             scrapeLog.setStatus("SUCCESS");
             scrapeLog.setProductsFound(scrapedProducts.size());
             scrapeLog.setErrorMessage(null);
@@ -80,14 +122,12 @@ public class ScrapeService {
                     targetSite, scrapedProducts.size(), newProducts.size());
 
         } catch (Exception e) {
-            // スクレイピング失敗ログ
             scrapeLog.setStatus("FAILURE");
             scrapeLog.setProductsFound(0);
             scrapeLog.setErrorMessage(e.getMessage());
 
             logger.error("Scraping failed for {}: {}", targetSite, e.getMessage(), e);
         } finally {
-            // ログを保存
             scrapeLogRepository.save(scrapeLog);
         }
 
