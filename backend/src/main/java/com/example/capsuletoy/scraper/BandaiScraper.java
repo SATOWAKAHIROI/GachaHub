@@ -22,8 +22,8 @@ public class BandaiScraper extends BaseScraper {
     private static final String BASE_URL = "https://gashapon.jp";
     private static final String TARGET_URL = "https://gashapon.jp/products/";
 
-    // 最大処理件数（パフォーマンスのため制限）
-    private static final int MAX_PRODUCTS = 100;
+    // 最大処理件数（タイムアウト防止のため制限）
+    private static final int MAX_PRODUCTS = 50;
 
     @Override
     protected String getTargetUrl() {
@@ -58,7 +58,10 @@ public class BandaiScraper extends BaseScraper {
 
             logger.info("Found {} link elements, processing up to {} products", linkElements.size(), MAX_PRODUCTS);
 
+            int linkIndex = 0;
             for (WebElement linkElement : linkElements) {
+                linkIndex++;
+
                 // 最大件数に達したら終了
                 if (products.size() >= MAX_PRODUCTS) {
                     logger.info("Reached max product limit ({}), stopping", MAX_PRODUCTS);
@@ -74,14 +77,14 @@ public class BandaiScraper extends BaseScraper {
                         if (product != null) {
                             products.add(product);
 
-                            // 進捗ログ（20件ごと）
-                            if (products.size() % 20 == 0) {
-                                logger.info("Progress: {} products scraped", products.size());
+                            // 進捗ログ（10件ごと）
+                            if (products.size() % 10 == 0) {
+                                logger.info("Progress: {} products scraped (link index: {})", products.size(), linkIndex);
                             }
                         }
                     }
                 } catch (Exception e) {
-                    logger.warn("Failed to parse product from link: {}", e.getMessage());
+                    logger.warn("Failed to parse product from link (index {}): {}", linkIndex, e.getMessage());
                 }
             }
 
