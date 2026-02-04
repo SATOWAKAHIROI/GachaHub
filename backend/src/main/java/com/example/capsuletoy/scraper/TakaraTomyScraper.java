@@ -111,11 +111,31 @@ public class TakaraTomyScraper extends BaseScraper {
             driver.get(calendarUrl);
             waitForPageLoad();
 
-            // 商品リンクを取得してスクレイピング
+            // 商品リンクを取得してURLリストを作成（StaleElement対策）
             List<WebElement> linkElements = findElementsSafely(By.tagName("a"));
-            logger.info("Found {} link elements on page", linkElements.size());
+            logger.info("Found {} link elements on page: {}", linkElements.size(), calendarUrl);
 
+            // 先にすべての商品リンクURLを収集（詳細ページ遷移前に）
+            List<String> itemUrls = new ArrayList<>();
             for (WebElement linkElement : linkElements) {
+                try {
+                    String href = getElementAttribute(linkElement, "href");
+                    if (href != null && href.contains("item.html?n=")) {
+                        // 重複チェック（複数ページ間で共有）
+                        if (!processedUrls.contains(href)) {
+                            itemUrls.add(href);
+                            processedUrls.add(href);
+                        }
+                    }
+                } catch (Exception e) {
+                    // StaleElementReferenceExceptionを無視
+                    logger.debug("StaleElement while collecting URLs: {}", e.getMessage());
+                }
+            }
+            logger.info("Found {} unique item links on page", itemUrls.size());
+
+            // 収集したURLを順に処理
+            for (String itemUrl : itemUrls) {
                 // 最大件数に達したら終了
                 if (products.size() >= MAX_PRODUCTS) {
                     logger.info("Reached max product limit ({}), stopping", MAX_PRODUCTS);
@@ -123,37 +143,27 @@ public class TakaraTomyScraper extends BaseScraper {
                 }
 
                 try {
-                    String href = getElementAttribute(linkElement, "href");
+                    // 詳細ページにアクセスして商品情報を取得
+                    Product product = scrapeProductDetail(itemUrl);
+                    if (product != null) {
+                        products.add(product);
+                        logger.info("Scraped product #{}: {}", products.size(), product.getProductName());
 
-                    // item.html?n= を含むリンクのみ処理
-                    if (href != null && href.contains("item.html?n=")) {
-                        // 完全なURLに変換
-                        String fullUrl = normalizeUrl(href);
-
-                        // 重複チェック（複数ページ間で共有）
-                        if (processedUrls.contains(fullUrl)) {
-                            continue;
+                        // 進捗ログ（10件ごと）
+                        if (products.size() % 10 == 0) {
+                            logger.info("Progress: {} products scraped", products.size());
                         }
-                        processedUrls.add(fullUrl);
-
-                        // 詳細ページにアクセスして商品情報を取得
-                        Product product = scrapeProductDetail(fullUrl);
-                        if (product != null) {
-                            products.add(product);
-
-                            // 進捗ログ（10件ごと）
-                            if (products.size() % 10 == 0) {
-                                logger.info("Progress: {} products scraped", products.size());
-                            }
-                        }
-
-                        // サイトへの負荷軽減
-                        Thread.sleep(500);
+                    } else {
+                        logger.warn("Failed to scrape product from: {}", itemUrl);
                     }
+
+                    // サイトへの負荷軽減
+                    Thread.sleep(500);
                 } catch (Exception e) {
-                    logger.warn("Failed to parse product from link: {}", e.getMessage());
+                    logger.warn("Failed to parse product from link {}: {}", itemUrl, e.getMessage());
                 }
             }
+            logger.info("Scraped {} products from page", products.size());
 
         } catch (Exception e) {
             logger.error("Error scraping calendar page {}: {}", calendarUrl, e.getMessage(), e);
