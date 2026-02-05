@@ -22,6 +22,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // 新着商品のみ取得
     List<Product> findByIsNewTrue();
 
+    // メーカー別の新着商品を取得
+    List<Product> findByIsNewTrueAndManufacturer(String manufacturer);
+
     // 新着商品のみ取得（ページネーション対応）
     Page<Product> findByIsNewTrue(Pageable pageable);
 
