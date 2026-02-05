@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   getScrapeConfigs,
-  createScrapeConfig,
   updateScrapeConfig,
-  deleteScrapeConfig,
   toggleScrapeConfig,
 } from '../services/adminApi';
 
@@ -35,12 +33,10 @@ function AdminSites() {
   const [configs, setConfigs] = useState<ScrapeConfig[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [showAddForm, setShowAddForm] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [form, setForm] = useState<ConfigForm>(emptyForm);
   const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [deleteConfirmId, setDeleteConfirmId] = useState<number | null>(null);
 
   const fetchConfigs = async () => {
     setLoading(true);
@@ -58,26 +54,6 @@ function AdminSites() {
   useEffect(() => {
     fetchConfigs();
   }, []);
-
-  const handleAdd = async () => {
-    if (!form.siteName || !form.siteUrl) {
-      setFormError('サイト名とURLは必須です。');
-      return;
-    }
-    setSubmitting(true);
-    setFormError(null);
-    try {
-      await createScrapeConfig(form);
-      setShowAddForm(false);
-      setForm(emptyForm);
-      await fetchConfigs();
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : '設定の作成に失敗しました。';
-      setFormError(message);
-    } finally {
-      setSubmitting(false);
-    }
-  };
 
   const handleUpdate = async () => {
     if (editingId === null) return;
@@ -100,16 +76,6 @@ function AdminSites() {
     }
   };
 
-  const handleDelete = async (id: number) => {
-    try {
-      await deleteScrapeConfig(id);
-      setDeleteConfirmId(null);
-      await fetchConfigs();
-    } catch {
-      setError('設定の削除に失敗しました。');
-    }
-  };
-
   const handleToggle = async (id: number) => {
     try {
       await toggleScrapeConfig(id);
@@ -121,7 +87,6 @@ function AdminSites() {
 
   const startEdit = (config: ScrapeConfig) => {
     setEditingId(config.id);
-    setShowAddForm(false);
     setForm({
       siteName: config.siteName,
       siteUrl: config.siteUrl,
@@ -133,15 +98,14 @@ function AdminSites() {
 
   const cancelEdit = () => {
     setEditingId(null);
-    setShowAddForm(false);
     setForm(emptyForm);
     setFormError(null);
   };
 
-  const renderForm = (isEdit: boolean) => (
+  const renderForm = () => (
     <div className="bg-gray-50 rounded-lg p-4 mb-4 border border-gray-200">
       <h3 className="text-sm font-semibold text-gray-700 mb-3">
-        {isEdit ? 'サイト設定を編集' : '新しいサイトを追加'}
+        スケジュール設定を編集
       </h3>
       {formError && (
         <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-3 py-2 rounded mb-3">
@@ -149,26 +113,6 @@ function AdminSites() {
         </div>
       )}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <div>
-          <label className="block text-xs text-gray-500 mb-1">サイト名</label>
-          <input
-            type="text"
-            value={form.siteName}
-            onChange={(e) => setForm({ ...form, siteName: e.target.value })}
-            placeholder="例: BANDAI"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
-        </div>
-        <div>
-          <label className="block text-xs text-gray-500 mb-1">サイトURL</label>
-          <input
-            type="text"
-            value={form.siteUrl}
-            onChange={(e) => setForm({ ...form, siteUrl: e.target.value })}
-            placeholder="例: https://gashapon.jp/products/"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
-        </div>
         <div>
           <label className="block text-xs text-gray-500 mb-1">cron式</label>
           <input
@@ -194,11 +138,11 @@ function AdminSites() {
       </div>
       <div className="flex gap-2 mt-4">
         <button
-          onClick={isEdit ? handleUpdate : handleAdd}
+          onClick={handleUpdate}
           disabled={submitting}
           className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700 transition disabled:opacity-50"
         >
-          {submitting ? '保存中...' : (isEdit ? '更新' : '追加')}
+          {submitting ? '保存中...' : '更新'}
         </button>
         <button
           onClick={cancelEdit}
@@ -221,14 +165,11 @@ function AdminSites() {
 
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">サイト管理</h1>
-        {!showAddForm && editingId === null && (
-          <button
-            onClick={() => { setShowAddForm(true); setForm(emptyForm); setFormError(null); }}
-            className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700 transition"
-          >
-            + サイトを追加
-          </button>
-        )}
+      </div>
+
+      {/* お問い合わせ案内 */}
+      <div className="bg-blue-50 border border-blue-200 text-blue-700 px-4 py-3 rounded-lg mb-6">
+        新しいサイトの追加などご要望がありましたら、<a href="mailto:hitobussi@gmail.com" className="underline font-medium">hitobussi@gmail.com</a> まで連絡ください。
       </div>
 
       {error && (
@@ -237,23 +178,20 @@ function AdminSites() {
         </div>
       )}
 
-      {/* 追加フォーム */}
-      {showAddForm && renderForm(false)}
-
       {loading ? (
         <div className="flex justify-center items-center py-12">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
         </div>
       ) : configs.length === 0 ? (
         <div className="bg-white rounded-lg shadow p-6 text-center text-gray-400">
-          サイトが登録されていません。上の「+ サイトを追加」ボタンから追加してください。
+          登録されているサイトはありません。
         </div>
       ) : (
         <div className="space-y-4">
           {configs.map((config) => (
             <div key={config.id}>
               {/* 編集フォーム */}
-              {editingId === config.id && renderForm(true)}
+              {editingId === config.id && renderForm()}
 
               {/* サイトカード */}
               {editingId !== config.id && (
@@ -294,29 +232,6 @@ function AdminSites() {
                       >
                         編集
                       </button>
-                      {deleteConfirmId === config.id ? (
-                        <div className="flex items-center gap-1">
-                          <button
-                            onClick={() => handleDelete(config.id)}
-                            className="px-3 py-1.5 rounded-lg text-xs font-medium bg-red-600 text-white hover:bg-red-700 transition"
-                          >
-                            削除する
-                          </button>
-                          <button
-                            onClick={() => setDeleteConfirmId(null)}
-                            className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition"
-                          >
-                            戻る
-                          </button>
-                        </div>
-                      ) : (
-                        <button
-                          onClick={() => setDeleteConfirmId(config.id)}
-                          className="px-3 py-1.5 rounded-lg text-xs font-medium bg-red-100 text-red-700 hover:bg-red-200 transition"
-                        >
-                          削除
-                        </button>
-                      )}
                     </div>
                   </div>
                 </div>
