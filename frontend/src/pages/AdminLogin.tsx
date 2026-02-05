@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
@@ -6,7 +6,14 @@ import type { LoginRequest, LoginResponse } from '../types';
 
 function AdminLogin() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, user, isAuthenticated } = useAuth();
+
+  // ログイン済みの管理者は自動的に管理画面へリダイレクト
+  useEffect(() => {
+    if (isAuthenticated && user?.role === 'ADMIN') {
+      navigate('/admin');
+    }
+  }, [isAuthenticated, user, navigate]);
   const [formData, setFormData] = useState<LoginRequest>({
     email: '',
     password: '',
