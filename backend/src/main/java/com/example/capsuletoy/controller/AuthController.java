@@ -34,23 +34,23 @@ public class AuthController {
     public ResponseEntity<?> adminLogin(@RequestBody LoginRequest request) {
         try {
             Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
             );
 
-            User user = userService.findByUsername(request.getUsername());
+            User user = userService.findByEmail(request.getEmail());
 
             if (user.getRole() != UserRole.ADMIN) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body(Map.of("error", "管理者権限がありません"));
             }
 
-            String token = jwtUtil.generateToken(request.getUsername(), user.getRole().name());
+            String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
 
             return ResponseEntity.ok(buildUserResponse(token, user));
 
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("error", "ユーザー名またはパスワードが正しくありません"));
+                    .body(Map.of("error", "メールアドレスまたはパスワードが正しくありません"));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("error", "ログイン中にエラーが発生しました"));
@@ -77,15 +77,15 @@ public class AuthController {
 
     // リクエストDTO
     static class LoginRequest {
-        private String username;
+        private String email;
         private String password;
 
-        public String getUsername() {
-            return username;
+        public String getEmail() {
+            return email;
         }
 
-        public void setUsername(String username) {
-            this.username = username;
+        public void setEmail(String email) {
+            this.email = email;
         }
 
         public String getPassword() {

@@ -26,7 +26,7 @@ export interface User {
 
 // ログインリクエストの型定義
 export interface LoginRequest {
-  username: string;
+  email: string;
   password: string;
 }
 
