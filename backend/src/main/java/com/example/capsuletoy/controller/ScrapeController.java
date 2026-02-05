@@ -1,8 +1,11 @@
 package com.example.capsuletoy.controller;
 
+import com.example.capsuletoy.model.Product;
 import com.example.capsuletoy.model.ScrapeLog;
+import com.example.capsuletoy.repository.ProductRepository;
 import com.example.capsuletoy.scraper.BandaiScraper;
 import com.example.capsuletoy.scraper.TakaraTomyScraper;
+import com.example.capsuletoy.service.NotificationService;
 import com.example.capsuletoy.service.ScrapeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +33,12 @@ public class ScrapeController {
     private ScrapeService scrapeService;
 
     @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
     private BandaiScraper bandaiScraper;
 
     @Autowired
@@ -45,6 +54,19 @@ public class ScrapeController {
 
         try {
             ScrapeService.ScrapeResult result = scrapeService.executeScraping(bandaiScraper, "BANDAI_GASHAPON");
+
+            // 新着商品があれば通知を送信
+            if (result.newProducts() > 0) {
+                List<Product> newProducts = productRepository.findByIsNewTrueAndManufacturer("BANDAI");
+                if (!newProducts.isEmpty()) {
+                    try {
+                        notificationService.notifyNewProducts(newProducts);
+                        logger.info("新着商品{}件の通知メールを送信しました", newProducts.size());
+                    } catch (Exception e) {
+                        logger.error("通知メール送信中にエラー: {}", e.getMessage(), e);
+                    }
+                }
+            }
 
             Map<String, Object> response = new HashMap<>();
             response.put("status", "success");
@@ -77,6 +99,19 @@ public class ScrapeController {
 
         try {
             ScrapeService.ScrapeResult result = scrapeService.executeScraping(takaraTomyScraper, "TAKARA_TOMY_ARTS");
+
+            // 新着商品があれば通知を送信
+            if (result.newProducts() > 0) {
+                List<Product> newProducts = productRepository.findByIsNewTrueAndManufacturer("TAKARA_TOMY");
+                if (!newProducts.isEmpty()) {
+                    try {
+                        notificationService.notifyNewProducts(newProducts);
+                        logger.info("新着商品{}件の通知メールを送信しました", newProducts.size());
+                    } catch (Exception e) {
+                        logger.error("通知メール送信中にエラー: {}", e.getMessage(), e);
+                    }
+                }
+            }
 
             Map<String, Object> response = new HashMap<>();
             response.put("status", "success");
