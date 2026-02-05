@@ -1,7 +1,17 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 function Home() {
   const { user, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  // ログイン済みの管理者は自動的に管理画面へリダイレクト
+  useEffect(() => {
+    if (isAuthenticated && user?.role === 'ADMIN') {
+      navigate('/admin');
+    }
+  }, [isAuthenticated, user, navigate]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
