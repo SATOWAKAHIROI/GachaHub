@@ -32,6 +32,11 @@ function Home() {
             <p className="text-gray-600">バンダイ、タカラトミーなど</p>
           </div>
         </div>
+
+        {/* お問い合わせ案内 */}
+        <div className="mt-8 bg-blue-50 border border-blue-200 text-blue-700 px-6 py-4 rounded-lg text-center">
+          新しいサイトの追加などご要望がありましたら、<a href="mailto:hitobussi@gmail.com" className="underline font-medium">hitobussi@gmail.com</a> まで連絡ください。
+        </div>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ import Products from './pages/Products'
 import AdminDashboard from './pages/AdminDashboard'
 import AdminScrape from './pages/AdminScrape'
 import AdminLogs from './pages/AdminLogs'
-import AdminSites from './pages/AdminSites'
+// AdminSites removed - sites are predefined
 import AdminUsers from './pages/AdminUsers'
 import AdminProtectedRoute from './components/AdminProtectedRoute'
 
@@ -145,7 +145,6 @@ function AppContent() {
           <Route path="/admin" element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
           <Route path="/admin/scrape" element={<AdminProtectedRoute><AdminScrape /></AdminProtectedRoute>} />
           <Route path="/admin/logs" element={<AdminProtectedRoute><AdminLogs /></AdminProtectedRoute>} />
-          <Route path="/admin/sites" element={<AdminProtectedRoute><AdminSites /></AdminProtectedRoute>} />
           <Route path="/admin/users" element={<AdminProtectedRoute><AdminUsers /></AdminProtectedRoute>} />
         </Routes>
       </main>

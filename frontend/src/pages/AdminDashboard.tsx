@@ -143,11 +143,6 @@ function AdminDashboard() {
           <p className="text-sm text-gray-500">過去のスクレイピング実行履歴を確認します。</p>
         </Link>
 
-        <Link to="/admin/sites" className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow">
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">サイト管理</h3>
-          <p className="text-sm text-gray-500">スクレイピング対象サイトの追加・編集・削除を行います。</p>
-        </Link>
-
         <Link to="/admin/users" className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow">
           <h3 className="text-lg font-semibold text-gray-800 mb-2">ユーザー管理</h3>
           <p className="text-sm text-gray-500">ユーザーの作成・削除を行います。</p>
@@ -203,43 +198,6 @@ function AdminDashboard() {
         )}
       </div>
 
-      {/* サイト設定一覧 */}
-      <div className="bg-white rounded-lg shadow p-6 mt-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold text-gray-800">登録サイト一覧</h2>
-          <Link to="/admin/sites" className="text-sm text-indigo-600 hover:text-indigo-800">
-            管理する
-          </Link>
-        </div>
-
-        {configs.length === 0 ? (
-          <p className="text-gray-400 text-center py-4">サイトが登録されていません。</p>
-        ) : (
-          <div className="space-y-3">
-            {configs.map((config) => (
-              <div key={config.id} className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border border-gray-100 rounded-lg p-3">
-                <div className="min-w-0">
-                  <span className="font-medium text-gray-800">{config.siteName}</span>
-                  <p className="text-xs text-gray-400 truncate">{config.siteUrl}</p>
-                  {config.lastScrapedAt && (
-                    <p className="text-xs text-gray-400">
-                      最終実行: {new Date(config.lastScrapedAt).toLocaleString('ja-JP')}
-                    </p>
-                  )}
-                </div>
-                <div className="flex items-center gap-2 flex-shrink-0">
-                  <span className="text-xs text-gray-500 hidden sm:inline">{config.cronExpression}</span>
-                  <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                    config.isEnabled ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'
-                  }`}>
-                    {config.isEnabled ? '有効' : '無効'}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
     </div>
   );
 }
