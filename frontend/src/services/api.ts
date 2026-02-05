@@ -33,10 +33,16 @@ api.interceptors.response.use(
   },
   (error) => {
     if (error.response?.status === 401) {
-      // 認証エラー時はトークンを削除
+      // 認証エンドポイントへのリクエストはリダイレクトせずエラーを返す
+      const requestUrl = error.config?.url || '';
+      if (requestUrl.includes('/auth/')) {
+        return Promise.reject(error);
+      }
+
+      // その他の401エラーはトークンを削除してログインページへリダイレクト
       localStorage.removeItem('token');
-      // ログインページにリダイレクト（後で実装）
-      window.location.href = '/login';
+      localStorage.removeItem('user');
+      window.location.href = '/admin/login';
     }
     return Promise.reject(error);
   }
