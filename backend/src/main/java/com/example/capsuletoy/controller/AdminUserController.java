@@ -63,6 +63,36 @@ public class AdminUserController {
         }
     }
 
+    // ユーザー詳細取得
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUser(@PathVariable Long id) {
+        try {
+            User user = userService.findById(id);
+            return ResponseEntity.ok(toUserMap(user));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    // ユーザー更新
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UpdateUserRequest request) {
+        try {
+            User user = userService.updateUser(
+                    id,
+                    request.getUsername(),
+                    request.getEmail(),
+                    request.getPassword(),
+                    request.getNotificationEnabled()
+            );
+            return ResponseEntity.ok(toUserMap(user));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", e.getMessage()));
+        }
+    }
+
     private Map<String, Object> toUserMap(User user) {
         Map<String, Object> map = new HashMap<>();
         map.put("id", user.getId());
@@ -89,5 +119,21 @@ public class AdminUserController {
         public void setPassword(String password) { this.password = password; }
         public String getRole() { return role; }
         public void setRole(String role) { this.role = role; }
+    }
+
+    static class UpdateUserRequest {
+        private String username;
+        private String email;
+        private String password;
+        private Boolean notificationEnabled;
+
+        public String getUsername() { return username; }
+        public void setUsername(String username) { this.username = username; }
+        public String getEmail() { return email; }
+        public void setEmail(String email) { this.email = email; }
+        public String getPassword() { return password; }
+        public void setPassword(String password) { this.password = password; }
+        public Boolean getNotificationEnabled() { return notificationEnabled; }
+        public void setNotificationEnabled(Boolean notificationEnabled) { this.notificationEnabled = notificationEnabled; }
     }
 }

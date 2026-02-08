@@ -10,6 +10,7 @@ import AdminScrape from './pages/AdminScrape'
 import AdminLogs from './pages/AdminLogs'
 // AdminSites removed - sites are predefined
 import AdminUsers from './pages/AdminUsers'
+import AdminUserDetail from './pages/AdminUserDetail'
 import AdminProtectedRoute from './components/AdminProtectedRoute'
 
 function Navigation() {
@@ -146,6 +147,7 @@ function AppContent() {
           <Route path="/admin/scrape" element={<AdminProtectedRoute><AdminScrape /></AdminProtectedRoute>} />
           <Route path="/admin/logs" element={<AdminProtectedRoute><AdminLogs /></AdminProtectedRoute>} />
           <Route path="/admin/users" element={<AdminProtectedRoute><AdminUsers /></AdminProtectedRoute>} />
+          <Route path="/admin/users/:id" element={<AdminProtectedRoute><AdminUserDetail /></AdminProtectedRoute>} />
         </Routes>
       </main>
     </div>

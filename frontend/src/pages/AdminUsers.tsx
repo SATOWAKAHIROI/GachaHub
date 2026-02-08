@@ -187,6 +187,7 @@ function AdminUsers() {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ユーザー名</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">メール</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ロール</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">通知</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">作成日</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
                   </tr>
@@ -206,16 +207,33 @@ function AdminUsers() {
                           {user.role === 'ADMIN' ? '管理者' : '一般'}
                         </span>
                       </td>
+                      <td className="px-6 py-4">
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          user.notificationEnabled
+                            ? 'bg-blue-100 text-blue-800'
+                            : 'bg-gray-100 text-gray-500'
+                        }`}>
+                          {user.notificationEnabled ? 'ON' : 'OFF'}
+                        </span>
+                      </td>
                       <td className="px-6 py-4 text-sm text-gray-600">
                         {new Date(user.createdAt).toLocaleDateString('ja-JP')}
                       </td>
                       <td className="px-6 py-4">
-                        <button
-                          onClick={() => handleDelete(user.id, user.username)}
-                          className="text-red-600 hover:text-red-800 text-sm font-medium transition"
-                        >
-                          削除
-                        </button>
+                        <div className="flex items-center gap-3">
+                          <Link
+                            to={`/admin/users/${user.id}`}
+                            className="text-indigo-600 hover:text-indigo-800 text-sm font-medium transition"
+                          >
+                            編集
+                          </Link>
+                          <button
+                            onClick={() => handleDelete(user.id, user.username)}
+                            className="text-red-600 hover:text-red-800 text-sm font-medium transition"
+                          >
+                            削除
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
