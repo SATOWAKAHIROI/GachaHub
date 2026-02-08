@@ -41,11 +41,6 @@ public class NotificationService {
             return;
         }
 
-        if (newProducts.isEmpty()) {
-            logger.info("新着商品がないため通知をスキップします");
-            return;
-        }
-
         List<User> enabledUsers = userRepository.findByNotificationEnabledTrue();
         if (enabledUsers.isEmpty()) {
             logger.info("通知有効なユーザーがいないためスキップします");
@@ -58,7 +53,7 @@ public class NotificationService {
             try {
                 sendHtmlMail(
                         user.getEmail(),
-                        "【GachaHub】新着商品のお知らせ（" + newProducts.size() + "件）",
+                        "【GachaHub】スクレイピング完了（新着" + newProducts.size() + "件）",
                         htmlContent
                 );
                 logger.info("通知メール送信成功: {}", user.getEmail());
@@ -119,29 +114,33 @@ public class NotificationService {
                 <html>
                 <body style="font-family: sans-serif; padding: 20px; background-color: #F9FAFB;">
                     <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 8px; padding: 24px;">
-                        <h2 style="color: #4F46E5; margin-bottom: 16px;">🎪 新着ガチャ商品のお知らせ</h2>
-                        <p style="color: #374151;">新しい商品が <strong>%d件</strong> 見つかりました！</p>
+                        <h2 style="color: #4F46E5; margin-bottom: 16px;">🎪 スクレイピング完了通知</h2>
+                        <p style="color: #374151;">新着商品: <strong>%d件</strong></p>
                         <hr style="border: 1px solid #E5E7EB;">
                 """.formatted(products.size()));
 
-        for (Product product : products) {
-            sb.append("<div style=\"padding: 12px 0; border-bottom: 1px solid #F3F4F6;\">");
-            sb.append("<h3 style=\"color: #1F2937; margin: 0 0 4px 0;\">").append(escapeHtml(product.getProductName())).append("</h3>");
+        if (products.isEmpty()) {
+            sb.append("<p style=\"color: #6B7280; text-align: center; padding: 20px 0;\">新着商品はありませんでした。</p>");
+        } else {
+            for (Product product : products) {
+                sb.append("<div style=\"padding: 12px 0; border-bottom: 1px solid #F3F4F6;\">");
+                sb.append("<h3 style=\"color: #1F2937; margin: 0 0 4px 0;\">").append(escapeHtml(product.getProductName())).append("</h3>");
 
-            if (product.getManufacturer() != null) {
-                String displayName = "BANDAI".equals(product.getManufacturer()) ? "バンダイ" : "タカラトミーアーツ";
-                sb.append("<span style=\"color: #6B7280; font-size: 13px;\">メーカー: ").append(displayName).append("</span><br>");
+                if (product.getManufacturer() != null) {
+                    String displayName = "BANDAI".equals(product.getManufacturer()) ? "バンダイ" : "タカラトミーアーツ";
+                    sb.append("<span style=\"color: #6B7280; font-size: 13px;\">メーカー: ").append(displayName).append("</span><br>");
+                }
+                if (product.getPrice() != null) {
+                    sb.append("<span style=\"color: #4F46E5; font-weight: bold;\">").append(product.getPrice()).append("円</span><br>");
+                }
+                if (product.getReleaseDate() != null) {
+                    sb.append("<span style=\"color: #6B7280; font-size: 13px;\">発売日: ").append(product.getReleaseDate()).append("</span><br>");
+                }
+                if (product.getSourceUrl() != null) {
+                    sb.append("<a href=\"").append(escapeHtml(product.getSourceUrl())).append("\" style=\"color: #4F46E5; font-size: 13px;\">詳細を見る →</a>");
+                }
+                sb.append("</div>");
             }
-            if (product.getPrice() != null) {
-                sb.append("<span style=\"color: #4F46E5; font-weight: bold;\">").append(product.getPrice()).append("円</span><br>");
-            }
-            if (product.getReleaseDate() != null) {
-                sb.append("<span style=\"color: #6B7280; font-size: 13px;\">発売日: ").append(product.getReleaseDate()).append("</span><br>");
-            }
-            if (product.getSourceUrl() != null) {
-                sb.append("<a href=\"").append(escapeHtml(product.getSourceUrl())).append("\" style=\"color: #4F46E5; font-size: 13px;\">詳細を見る →</a>");
-            }
-            sb.append("</div>");
         }
 
         sb.append("""

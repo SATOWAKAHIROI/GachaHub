@@ -46,6 +46,7 @@ services:
       - DATABASE_PASSWORD=postgres
       - JWT_SECRET=your-secret-key-change-this-in-production
       - SELENIUM_REMOTE_URL=http://selenium:4444/wd/hub
+      - NOTIFICATION_ENABLED=true
     networks:
       - capsuletoy-network
     depends_on:
