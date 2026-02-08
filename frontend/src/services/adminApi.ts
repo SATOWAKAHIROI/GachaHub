@@ -70,6 +70,23 @@ export const getUsers = async () => {
   return response.data;
 };
 
+// ユーザー詳細取得
+export const getUser = async (id: number) => {
+  const response = await api.get(`/admin/users/${id}`);
+  return response.data;
+};
+
+// ユーザー更新
+export const updateUser = async (id: number, data: {
+  username?: string;
+  email?: string;
+  password?: string;
+  notificationEnabled?: boolean;
+}) => {
+  const response = await api.put(`/admin/users/${id}`, data);
+  return response.data;
+};
+
 // ユーザー作成
 export const createUser = async (data: {
   username: string;
