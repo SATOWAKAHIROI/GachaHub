@@ -18,15 +18,15 @@ export const getScrapeConfigs = async () => {
   return response.data;
 };
 
-// バンダイ手動スクレイピング実行（タイムアウト120秒）
+// バンダイ手動スクレイピング実行（タイムアウト5分）
 export const scrapeBandai = async () => {
-  const response = await api.post('/scrape/bandai', {}, { timeout: 120000 });
+  const response = await api.post('/scrape/bandai', {}, { timeout: 300000 });
   return response.data;
 };
 
-// タカラトミー手動スクレイピング実行（タイムアウト120秒）
+// タカラトミー手動スクレイピング実行（タイムアウト5分）
 export const scrapeTakaraTomy = async () => {
-  const response = await api.post('/scrape/takaratomy', {}, { timeout: 120000 });
+  const response = await api.post('/scrape/takaratomy', {}, { timeout: 300000 });
   return response.data;
 };
 
