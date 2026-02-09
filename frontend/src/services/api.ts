@@ -48,4 +48,21 @@ api.interceptors.response.use(
   }
 );
 
+// プロフィール取得
+export const getProfile = async () => {
+  const response = await api.get('/profile');
+  return response.data;
+};
+
+// プロフィール更新
+export const updateProfile = async (data: {
+  username?: string;
+  email?: string;
+  password?: string;
+  notificationEnabled?: boolean;
+}) => {
+  const response = await api.put('/profile', data);
+  return response.data;
+};
+
 export default api;
