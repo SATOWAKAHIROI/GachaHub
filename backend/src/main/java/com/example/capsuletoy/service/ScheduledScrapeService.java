@@ -85,14 +85,12 @@ public class ScheduledScrapeService {
             }
         }
 
-        // 新着商品があれば通知メールを送信
-        if (!allNewProducts.isEmpty()) {
-            logger.info("新着商品{}件を通知します", allNewProducts.size());
-            try {
-                notificationService.notifyNewProducts(allNewProducts);
-            } catch (Exception e) {
-                logger.error("通知メール送信中にエラー: {}", e.getMessage(), e);
-            }
+        // スクレイピング完了後に通知メールを送信（新着0件でも送信）
+        logger.info("通知メールを送信します（新着{}件）", allNewProducts.size());
+        try {
+            notificationService.notifyNewProducts(allNewProducts);
+        } catch (Exception e) {
+            logger.error("通知メール送信中にエラー: {}", e.getMessage(), e);
         }
 
         logger.info("=== 定期スクレイピング終了 ===");

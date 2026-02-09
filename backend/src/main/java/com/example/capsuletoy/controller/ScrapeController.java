@@ -55,17 +55,13 @@ public class ScrapeController {
         try {
             ScrapeService.ScrapeResult result = scrapeService.executeScraping(bandaiScraper, "BANDAI_GASHAPON");
 
-            // 新着商品があれば通知を送信
-            if (result.newProducts() > 0) {
-                List<Product> newProducts = productRepository.findByIsNewTrueAndManufacturer("BANDAI");
-                if (!newProducts.isEmpty()) {
-                    try {
-                        notificationService.notifyNewProducts(newProducts);
-                        logger.info("新着商品{}件の通知メールを送信しました", newProducts.size());
-                    } catch (Exception e) {
-                        logger.error("通知メール送信中にエラー: {}", e.getMessage(), e);
-                    }
-                }
+            // スクレイピング完了後に通知を送信（新着0件でも送信）
+            List<Product> newProducts = productRepository.findByIsNewTrueAndManufacturer("BANDAI");
+            try {
+                notificationService.notifyNewProducts(newProducts);
+                logger.info("通知メールを送信しました（新着{}件）", newProducts.size());
+            } catch (Exception e) {
+                logger.error("通知メール送信中にエラー: {}", e.getMessage(), e);
             }
 
             Map<String, Object> response = new HashMap<>();
@@ -100,17 +96,13 @@ public class ScrapeController {
         try {
             ScrapeService.ScrapeResult result = scrapeService.executeScraping(takaraTomyScraper, "TAKARA_TOMY_ARTS");
 
-            // 新着商品があれば通知を送信
-            if (result.newProducts() > 0) {
-                List<Product> newProducts = productRepository.findByIsNewTrueAndManufacturer("TAKARA_TOMY");
-                if (!newProducts.isEmpty()) {
-                    try {
-                        notificationService.notifyNewProducts(newProducts);
-                        logger.info("新着商品{}件の通知メールを送信しました", newProducts.size());
-                    } catch (Exception e) {
-                        logger.error("通知メール送信中にエラー: {}", e.getMessage(), e);
-                    }
-                }
+            // スクレイピング完了後に通知を送信（新着0件でも送信）
+            List<Product> newProducts = productRepository.findByIsNewTrueAndManufacturer("TAKARA_TOMY");
+            try {
+                notificationService.notifyNewProducts(newProducts);
+                logger.info("通知メールを送信しました（新着{}件）", newProducts.size());
+            } catch (Exception e) {
+                logger.error("通知メール送信中にエラー: {}", e.getMessage(), e);
             }
 
             Map<String, Object> response = new HashMap<>();
