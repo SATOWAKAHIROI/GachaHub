@@ -11,6 +11,7 @@ import AdminLogs from './pages/AdminLogs'
 // AdminSites removed - sites are predefined
 import AdminUsers from './pages/AdminUsers'
 import AdminUserDetail from './pages/AdminUserDetail'
+import Profile from './pages/Profile'
 import AdminProtectedRoute from './components/AdminProtectedRoute'
 
 function Navigation() {
@@ -59,12 +60,12 @@ function Navigation() {
           <div className="hidden md:flex items-center space-x-4">
             {isAdmin && user && (
               <>
-                <span className="text-gray-700 text-sm">
+                <Link to="/profile" className="text-gray-700 hover:text-indigo-600 text-sm transition">
                   {user.username}
                   <span className="ml-1 text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full">
                     管理者
                   </span>
-                </span>
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition text-sm"
@@ -113,9 +114,9 @@ function Navigation() {
               {isAdmin && user && (
                 <div className="border-t border-gray-200 pt-2 mt-2">
                   <div className="flex flex-col space-y-2">
-                    <span className="text-gray-500 text-sm">
+                    <Link to="/profile" onClick={closeMenu} className="text-gray-700 hover:text-indigo-600 text-sm font-medium py-2 transition">
                       {user.username} (管理者)
-                    </span>
+                    </Link>
                     <button
                       onClick={handleLogout}
                       className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition text-sm text-center"
@@ -142,6 +143,7 @@ function AppContent() {
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/about" element={<About />} />
+          <Route path="/profile" element={<AdminProtectedRoute><Profile /></AdminProtectedRoute>} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
           <Route path="/admin/scrape" element={<AdminProtectedRoute><AdminScrape /></AdminProtectedRoute>} />
