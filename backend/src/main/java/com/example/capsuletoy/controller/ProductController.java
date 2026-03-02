@@ -1,7 +1,9 @@
 package com.example.capsuletoy.controller;
 
 import com.example.capsuletoy.model.Product;
-import com.example.capsuletoy.service.ProductService;
+import com.example.capsuletoy.service.product.ProductPagenationService;
+import com.example.capsuletoy.service.product.ProductService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +25,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ProductPagenationService productPagenationService;
 
     /**
      * 商品一覧取得（ページネーション・フィルタ・ソート対応）
@@ -46,16 +51,16 @@ public class ProductController {
 
         if (manufacturer != null && keyword != null) {
             // メーカー + キーワード検索
-            productPage = productService.searchByManufacturerAndKeyword(manufacturer, keyword, pageable);
+            productPage = productPagenationService.searchByManufacturerAndKeyword(manufacturer, keyword, pageable);
         } else if (manufacturer != null) {
             // メーカー別フィルタ
-            productPage = productService.getProductsByManufacturer(manufacturer, pageable);
+            productPage = productPagenationService.getProductsByManufacturer(manufacturer, pageable);
         } else if (keyword != null) {
             // キーワード検索
-            productPage = productService.searchProductsByName(keyword, pageable);
+            productPage = productPagenationService.searchProductsByName(keyword, pageable);
         } else {
             // 全商品取得
-            productPage = productService.getAllProducts(pageable);
+            productPage = productPagenationService.getAllProducts(pageable);
         }
 
         return ResponseEntity.ok(buildPageResponse(productPage));
@@ -82,7 +87,7 @@ public class ProductController {
             @RequestParam(defaultValue = "20") int size) {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
-        Page<Product> productPage = productService.getNewProducts(pageable);
+        Page<Product> productPage = productPagenationService.getNewProducts(pageable);
 
         return ResponseEntity.ok(buildPageResponse(productPage));
     }

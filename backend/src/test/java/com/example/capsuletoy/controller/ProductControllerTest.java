@@ -1,7 +1,9 @@
 package com.example.capsuletoy.controller;
 
 import com.example.capsuletoy.model.Product;
-import com.example.capsuletoy.service.ProductService;
+import com.example.capsuletoy.service.product.ProductPagenationService;
+import com.example.capsuletoy.service.product.ProductService;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -19,7 +21,6 @@ import java.util.Optional;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -37,6 +38,9 @@ class ProductControllerTest {
 
     @MockitoBean
     private ProductService productService;
+
+    @MockitoBean
+    private ProductPagenationService productPagenationService;
 
     private Product createTestProduct(Long id, String name, String manufacturer) {
         Product product = new Product();
@@ -61,7 +65,7 @@ class ProductControllerTest {
         );
         Page<Product> page = new PageImpl<>(products);
 
-        when(productService.getAllProducts(any(Pageable.class))).thenReturn(page);
+        when(productPagenationService.getAllProducts(any(Pageable.class))).thenReturn(page);
 
         mockMvc.perform(get("/api/products"))
                 .andExpect(status().isOk())
@@ -76,7 +80,7 @@ class ProductControllerTest {
         List<Product> products = List.of(createTestProduct(1L, "バンダイ商品", "BANDAI"));
         Page<Product> page = new PageImpl<>(products);
 
-        when(productService.getProductsByManufacturer(eq("BANDAI"), any(Pageable.class))).thenReturn(page);
+        when(productPagenationService.getProductsByManufacturer(eq("BANDAI"), any(Pageable.class))).thenReturn(page);
 
         mockMvc.perform(get("/api/products").param("manufacturer", "BANDAI"))
                 .andExpect(status().isOk())
@@ -89,7 +93,7 @@ class ProductControllerTest {
         List<Product> products = List.of(createTestProduct(1L, "ガチャガチャ", "BANDAI"));
         Page<Product> page = new PageImpl<>(products);
 
-        when(productService.searchProductsByName(eq("ガチャ"), any(Pageable.class))).thenReturn(page);
+        when(productPagenationService.searchProductsByName(eq("ガチャ"), any(Pageable.class))).thenReturn(page);
 
         mockMvc.perform(get("/api/products").param("keyword", "ガチャ"))
                 .andExpect(status().isOk())
@@ -102,7 +106,7 @@ class ProductControllerTest {
         List<Product> products = List.of(createTestProduct(1L, "バンダイガチャ", "BANDAI"));
         Page<Product> page = new PageImpl<>(products);
 
-        when(productService.searchByManufacturerAndKeyword(eq("BANDAI"), eq("ガチャ"), any(Pageable.class)))
+        when(productPagenationService.searchByManufacturerAndKeyword(eq("BANDAI"), eq("ガチャ"), any(Pageable.class)))
                 .thenReturn(page);
 
         mockMvc.perform(get("/api/products")
@@ -116,7 +120,7 @@ class ProductControllerTest {
     void getProducts_ページネーションパラメータ() throws Exception {
         Page<Product> page = new PageImpl<>(List.of(), Pageable.ofSize(5), 0);
 
-        when(productService.getAllProducts(any(Pageable.class))).thenReturn(page);
+        when(productPagenationService.getAllProducts(any(Pageable.class))).thenReturn(page);
 
         mockMvc.perform(get("/api/products")
                         .param("page", "0")
@@ -153,7 +157,7 @@ class ProductControllerTest {
         );
         Page<Product> page = new PageImpl<>(products);
 
-        when(productService.getNewProducts(any(Pageable.class))).thenReturn(page);
+        when(productPagenationService.getNewProducts(any(Pageable.class))).thenReturn(page);
 
         mockMvc.perform(get("/api/products/new"))
                 .andExpect(status().isOk())

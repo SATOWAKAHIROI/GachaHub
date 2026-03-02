@@ -1,9 +1,11 @@
 package com.example.capsuletoy.controller;
 
 import com.example.capsuletoy.model.ScrapeConfig;
-import com.example.capsuletoy.service.ScrapeConfigService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.example.capsuletoy.service.scrapeConfig.ScrapeConfigCreateService;
+import com.example.capsuletoy.service.scrapeConfig.ScrapeConfigDeleteService;
+import com.example.capsuletoy.service.scrapeConfig.ScrapeConfigService;
+import com.example.capsuletoy.service.scrapeConfig.ScrapeConfigUpdateService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +22,17 @@ import java.util.Map;
 @RequestMapping("/api/scrape/configs")
 @CrossOrigin(origins = "http://localhost:3000")
 public class ScrapeConfigController {
-
-    private static final Logger logger = LoggerFactory.getLogger(ScrapeConfigController.class);
-
     @Autowired
     private ScrapeConfigService scrapeConfigService;
+
+    @Autowired
+    private ScrapeConfigCreateService scrapeConfigCreateService;
+
+    @Autowired
+    private ScrapeConfigUpdateService scrapeConfigUpdateService;
+
+    @Autowired
+    private ScrapeConfigDeleteService scrapeConfigDeleteService;
 
     /**
      * 全設定一覧を取得
@@ -57,7 +65,7 @@ public class ScrapeConfigController {
     @PostMapping
     public ResponseEntity<?> createConfig(@RequestBody ScrapeConfig config) {
         try {
-            ScrapeConfig created = scrapeConfigService.createConfig(config);
+            ScrapeConfig created = scrapeConfigCreateService.createConfig(config);
             return ResponseEntity.status(HttpStatus.CREATED).body(created);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse(e.getMessage()));
@@ -73,7 +81,7 @@ public class ScrapeConfigController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateConfig(@PathVariable Long id, @RequestBody ScrapeConfig config) {
         try {
-            ScrapeConfig updated = scrapeConfigService.updateConfig(id, config);
+            ScrapeConfig updated = scrapeConfigUpdateService.updateConfig(id, config);
             return ResponseEntity.ok(updated);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse(e.getMessage()));
@@ -89,7 +97,7 @@ public class ScrapeConfigController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteConfig(@PathVariable Long id) {
         try {
-            scrapeConfigService.deleteConfig(id);
+            scrapeConfigDeleteService.deleteConfig(id);
             Map<String, Object> response = new HashMap<>();
             response.put("status", "success");
             response.put("message", "設定を削除しました: ID=" + id);
@@ -106,7 +114,7 @@ public class ScrapeConfigController {
     @PatchMapping("/{id}/toggle")
     public ResponseEntity<?> toggleEnabled(@PathVariable Long id) {
         try {
-            ScrapeConfig toggled = scrapeConfigService.toggleEnabled(id);
+            ScrapeConfig toggled = scrapeConfigUpdateService.toggleEnabled(id);
             return ResponseEntity.ok(toggled);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse(e.getMessage()));

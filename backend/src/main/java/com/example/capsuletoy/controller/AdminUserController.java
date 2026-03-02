@@ -2,7 +2,11 @@ package com.example.capsuletoy.controller;
 
 import com.example.capsuletoy.model.User;
 import com.example.capsuletoy.model.UserRole;
-import com.example.capsuletoy.service.UserService;
+import com.example.capsuletoy.service.user.UserCreateService;
+import com.example.capsuletoy.service.user.UserDeleteService;
+import com.example.capsuletoy.service.user.UserService;
+import com.example.capsuletoy.service.user.UserUpdateService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +24,15 @@ public class AdminUserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserCreateService userCreateService;
+
+    @Autowired
+    private UserUpdateService userUpdateService;
+
+    @Autowired
+    private UserDeleteService userDeleteService;
+
     // ユーザー一覧取得
     @GetMapping
     public ResponseEntity<?> getAllUsers() {
@@ -35,7 +48,7 @@ public class AdminUserController {
     public ResponseEntity<?> createUser(@RequestBody CreateUserRequest request) {
         try {
             UserRole role = UserRole.valueOf(request.getRole().toUpperCase());
-            User user = userService.createUser(
+            User user = userCreateService.createUser(
                     request.getUsername(),
                     request.getEmail(),
                     request.getPassword(),
@@ -55,7 +68,7 @@ public class AdminUserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         try {
-            userService.deleteUser(id);
+            userDeleteService.deleteUser(id);
             return ResponseEntity.ok(Map.of("message", "ユーザーを削除しました"));
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -79,7 +92,7 @@ public class AdminUserController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UpdateUserRequest request) {
         try {
-            User user = userService.updateUser(
+            User user = userUpdateService.updateUser(
                     id,
                     request.getUsername(),
                     request.getEmail(),

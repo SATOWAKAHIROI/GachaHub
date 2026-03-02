@@ -2,7 +2,8 @@ package com.example.capsuletoy.config;
 
 import com.example.capsuletoy.model.UserRole;
 import com.example.capsuletoy.repository.UserRepository;
-import com.example.capsuletoy.service.UserService;
+import com.example.capsuletoy.service.user.UserCreateService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class AdminInitializer implements ApplicationRunner {
     private static final Logger logger = LoggerFactory.getLogger(AdminInitializer.class);
 
     @Autowired
-    private UserService userService;
+    private UserCreateService userCreateService;
 
     @Autowired
     private UserRepository userRepository;
@@ -34,7 +35,7 @@ public class AdminInitializer implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         if (!userRepository.existsByUsername(adminUsername)) {
-            userService.createUser(adminUsername, adminEmail, adminPassword, UserRole.ADMIN);
+            userCreateService.createUser(adminUsername, adminEmail, adminPassword, UserRole.ADMIN);
             logger.info("初期管理者ユーザーを作成しました: {}", adminUsername);
         } else {
             logger.info("管理者ユーザーは既に存在します: {}", adminUsername);

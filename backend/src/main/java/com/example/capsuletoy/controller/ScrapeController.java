@@ -1,12 +1,15 @@
 package com.example.capsuletoy.controller;
 
+import com.example.capsuletoy.domain.log.ScrapeLogAdministrater;
 import com.example.capsuletoy.model.Product;
 import com.example.capsuletoy.model.ScrapeLog;
+import com.example.capsuletoy.record.ScrapeResult;
 import com.example.capsuletoy.repository.ProductRepository;
 import com.example.capsuletoy.scraper.BandaiScraper;
 import com.example.capsuletoy.scraper.TakaraTomyScraper;
-import com.example.capsuletoy.service.NotificationService;
-import com.example.capsuletoy.service.ScrapeService;
+import com.example.capsuletoy.service.notification.NotificationService;
+import com.example.capsuletoy.service.scraping.ScrapeService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +47,9 @@ public class ScrapeController {
     @Autowired
     private TakaraTomyScraper takaraTomyScraper;
 
+    @Autowired
+    private ScrapeLogAdministrater scrapeLogAdministrater;
+
     /**
      * バンダイサイトのスクレイピングを手動実行
      * POST /api/scrape/bandai
@@ -53,16 +59,11 @@ public class ScrapeController {
         logger.info("Manual scraping requested for Bandai");
 
         try {
-            ScrapeService.ScrapeResult result = scrapeService.executeScraping(bandaiScraper, "BANDAI_GASHAPON");
+            ScrapeResult result = scrapeService.executeScraping(bandaiScraper, "BANDAI_GASHAPON");
 
             // スクレイピング完了後に通知を送信（新着0件でも送信）
             List<Product> newProducts = productRepository.findByIsNewTrueAndManufacturer("BANDAI");
-            try {
-                notificationService.notifyNewProducts(newProducts);
-                logger.info("通知メールを送信しました（新着{}件）", newProducts.size());
-            } catch (Exception e) {
-                logger.error("通知メール送信中にエラー: {}", e.getMessage(), e);
-            }
+            notificationService.sendFinishedEmail(newProducts);
 
             Map<String, Object> response = new HashMap<>();
             response.put("status", "success");
@@ -94,16 +95,11 @@ public class ScrapeController {
         logger.info("Manual scraping requested for Takara Tomy Arts");
 
         try {
-            ScrapeService.ScrapeResult result = scrapeService.executeScraping(takaraTomyScraper, "TAKARA_TOMY_ARTS");
+            ScrapeResult result = scrapeService.executeScraping(takaraTomyScraper, "TAKARA_TOMY_ARTS");
 
             // スクレイピング完了後に通知を送信（新着0件でも送信）
             List<Product> newProducts = productRepository.findByIsNewTrueAndManufacturer("TAKARA_TOMY");
-            try {
-                notificationService.notifyNewProducts(newProducts);
-                logger.info("通知メールを送信しました（新着{}件）", newProducts.size());
-            } catch (Exception e) {
-                logger.error("通知メール送信中にエラー: {}", e.getMessage(), e);
-            }
+            notificationService.sendFinishedEmail(newProducts);
 
             Map<String, Object> response = new HashMap<>();
             response.put("status", "success");
@@ -135,7 +131,7 @@ public class ScrapeController {
         logger.info("Fetching scrape logs, limit: {}", limit);
 
         try {
-            List<ScrapeLog> logs = scrapeService.getRecentScrapeLogs(limit);
+            List<ScrapeLog> logs = scrapeLogAdministrater.getRecentScrapeLogs(limit);
             return ResponseEntity.ok(logs);
 
         } catch (Exception e) {
@@ -153,7 +149,7 @@ public class ScrapeController {
         logger.info("Fetching scrape logs for site: {}", site);
 
         try {
-            List<ScrapeLog> logs = scrapeService.getScrapeLogsByTargetSite(site);
+            List<ScrapeLog> logs = scrapeLogAdministrater.getScrapeLogsByTargetSite(site);
             return ResponseEntity.ok(logs);
 
         } catch (Exception e) {
@@ -173,7 +169,7 @@ public class ScrapeController {
         status.put("supportedSites", List.of("BANDAI_GASHAPON", "TAKARA_TOMY_ARTS"));
 
         // 最新のログを取得
-        List<ScrapeLog> recentLogs = scrapeService.getRecentScrapeLogs(1);
+        List<ScrapeLog> recentLogs = scrapeLogAdministrater.getRecentScrapeLogs(1);
         if (!recentLogs.isEmpty()) {
             ScrapeLog latestLog = recentLogs.get(0);
             status.put("lastExecution", latestLog.getExecutedAt());
