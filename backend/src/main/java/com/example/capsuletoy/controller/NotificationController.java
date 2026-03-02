@@ -1,7 +1,9 @@
 package com.example.capsuletoy.controller;
 
+import com.example.capsuletoy.domain.notification.SendEmailDomain;
 import com.example.capsuletoy.model.User;
-import com.example.capsuletoy.service.NotificationService;
+import com.example.capsuletoy.service.notification.NotificationService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class NotificationController {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired SendEmailDomain sendEmailDomain;
+
     /**
      * テストメール送信
      * POST /api/notifications/test
@@ -37,7 +41,7 @@ public class NotificationController {
         }
 
         try {
-            notificationService.sendTestMail(toAddress);
+            sendEmailDomain.sendTestMail(toAddress);
             Map<String, String> response = new HashMap<>();
             response.put("status", "success");
             response.put("message", "テストメールを送信しました: " + toAddress);

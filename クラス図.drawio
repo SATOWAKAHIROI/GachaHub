@@ -1,0 +1,894 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36" version="29.3.8">
+  <diagram name="ページ-1" id="p-pbTo9vcZXv2i0Y_Hq1">
+    <mxGraphModel dx="1678" dy="874" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="C99VDx_49r7IPgbOX2MG-5" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="AdminUserController" vertex="1">
+          <mxGeometry height="216" width="200" x="40" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-9" parent="C99VDx_49r7IPgbOX2MG-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ユーザー関連操作の指示出し" vertex="1">
+          <mxGeometry height="26" width="200" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-7" parent="C99VDx_49r7IPgbOX2MG-5" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="200" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-8" parent="C99VDx_49r7IPgbOX2MG-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="全ユーザーの取得" vertex="1">
+          <mxGeometry height="26" width="200" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-10" parent="C99VDx_49r7IPgbOX2MG-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ユーザー作成" vertex="1">
+          <mxGeometry height="26" width="200" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-12" parent="C99VDx_49r7IPgbOX2MG-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ユーザー削除" vertex="1">
+          <mxGeometry height="26" width="200" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-13" parent="C99VDx_49r7IPgbOX2MG-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="特定ユーザーの取得" vertex="1">
+          <mxGeometry height="26" width="200" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-14" parent="C99VDx_49r7IPgbOX2MG-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ユーザー更新" vertex="1">
+          <mxGeometry height="26" width="200" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-15" parent="C99VDx_49r7IPgbOX2MG-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ユーザー情報のマップ化" vertex="1">
+          <mxGeometry height="26" width="200" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-181" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" target="C99VDx_49r7IPgbOX2MG-171">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-16" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="UserService" vertex="1">
+          <mxGeometry height="242" width="270" x="40" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-17" parent="C99VDx_49r7IPgbOX2MG-16" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ユーザー関連操作" vertex="1">
+          <mxGeometry height="26" width="270" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-18" parent="C99VDx_49r7IPgbOX2MG-16" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="270" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-19" parent="C99VDx_49r7IPgbOX2MG-16" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="loadUserByUsername" vertex="1">
+          <mxGeometry height="26" width="270" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-20" parent="C99VDx_49r7IPgbOX2MG-16" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ユーザー作成" vertex="1">
+          <mxGeometry height="26" width="270" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-21" parent="C99VDx_49r7IPgbOX2MG-16" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ユーザー名でユーザー取得" vertex="1">
+          <mxGeometry height="26" width="270" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-22" parent="C99VDx_49r7IPgbOX2MG-16" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="メールアドレスでユーザー取得" vertex="1">
+          <mxGeometry height="26" width="270" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-23" parent="C99VDx_49r7IPgbOX2MG-16" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="全ユーザー取得" vertex="1">
+          <mxGeometry height="26" width="270" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-24" parent="C99VDx_49r7IPgbOX2MG-16" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ユーザー削除" vertex="1">
+          <mxGeometry height="26" width="270" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-26" parent="C99VDx_49r7IPgbOX2MG-16" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ユーザー編集" vertex="1">
+          <mxGeometry height="26" width="270" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-25" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.448;entryY=-0.015;entryDx=0;entryDy=0;entryPerimeter=0;" target="C99VDx_49r7IPgbOX2MG-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-28" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="160" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-29" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="AuthController" vertex="1">
+          <mxGeometry height="112" width="200" x="350" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-30" parent="C99VDx_49r7IPgbOX2MG-29" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ユーザー認証関連の指示出し" vertex="1">
+          <mxGeometry height="26" width="200" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-31" parent="C99VDx_49r7IPgbOX2MG-29" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="200" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-32" parent="C99VDx_49r7IPgbOX2MG-29" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="管理者ユーザーログイン" vertex="1">
+          <mxGeometry height="26" width="200" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-33" parent="C99VDx_49r7IPgbOX2MG-29" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ログインレスポンス作成" vertex="1">
+          <mxGeometry height="26" width="200" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-38" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.502;exitY=0.962;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" target="C99VDx_49r7IPgbOX2MG-16">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="450" y="170" />
+              <mxPoint x="450" y="300" />
+              <mxPoint x="243" y="300" />
+            </Array>
+            <mxPoint x="510" y="150" as="sourcePoint" />
+            <mxPoint x="160" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-39" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="JwtUtil" vertex="1">
+          <mxGeometry height="268" width="200" x="450" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-40" parent="C99VDx_49r7IPgbOX2MG-39" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="Jwt認証関連ロジック" vertex="1">
+          <mxGeometry height="26" width="200" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-41" parent="C99VDx_49r7IPgbOX2MG-39" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="200" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-42" parent="C99VDx_49r7IPgbOX2MG-39" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="秘密鍵生成" vertex="1">
+          <mxGeometry height="26" width="200" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-43" parent="C99VDx_49r7IPgbOX2MG-39" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="トークンからユーザー名取得" vertex="1">
+          <mxGeometry height="26" width="200" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-44" parent="C99VDx_49r7IPgbOX2MG-39" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="トークンからロールを取得" vertex="1">
+          <mxGeometry height="26" width="200" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-45" parent="C99VDx_49r7IPgbOX2MG-39" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="トークンから特定Claim取得" vertex="1">
+          <mxGeometry height="26" width="200" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-46" parent="C99VDx_49r7IPgbOX2MG-39" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="トークンから全Claim取得" vertex="1">
+          <mxGeometry height="26" width="200" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-47" parent="C99VDx_49r7IPgbOX2MG-39" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="トークンの有効期限チェック" vertex="1">
+          <mxGeometry height="26" width="200" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-49" parent="C99VDx_49r7IPgbOX2MG-39" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="トークン生成" vertex="1">
+          <mxGeometry height="26" width="200" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-48" parent="C99VDx_49r7IPgbOX2MG-39" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="トークン認証" vertex="1">
+          <mxGeometry height="26" width="200" y="242" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-50" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="C99VDx_49r7IPgbOX2MG-39">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="450" y="300" />
+              <mxPoint x="550" y="300" />
+            </Array>
+            <mxPoint x="450" y="130" as="sourcePoint" />
+            <mxPoint x="620" y="426" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-51" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="460" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-52" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="NotificationController" vertex="1">
+          <mxGeometry height="138" width="200" x="950" y="28.5" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-53" parent="C99VDx_49r7IPgbOX2MG-52" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="通知関連操作の指示出し" vertex="1">
+          <mxGeometry height="26" width="200" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-54" parent="C99VDx_49r7IPgbOX2MG-52" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="200" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-55" parent="C99VDx_49r7IPgbOX2MG-52" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="テストメール送信" vertex="1">
+          <mxGeometry height="26" width="200" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-56" parent="C99VDx_49r7IPgbOX2MG-52" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ユーザーごとの通知設定切り替え" vertex="1">
+          <mxGeometry height="26" width="200" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-61" parent="C99VDx_49r7IPgbOX2MG-52" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="エラー通知" vertex="1">
+          <mxGeometry height="26" width="200" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-62" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="NotificationService" vertex="1">
+          <mxGeometry height="164" width="200" x="960" y="377.5" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-63" parent="C99VDx_49r7IPgbOX2MG-62" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="通知関連操作" vertex="1">
+          <mxGeometry height="26" width="200" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-64" parent="C99VDx_49r7IPgbOX2MG-62" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="200" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-65" parent="C99VDx_49r7IPgbOX2MG-62" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品情報をメール通知" vertex="1">
+          <mxGeometry height="26" width="200" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-66" parent="C99VDx_49r7IPgbOX2MG-62" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="テストメール送信" vertex="1">
+          <mxGeometry height="26" width="200" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-67" parent="C99VDx_49r7IPgbOX2MG-62" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="Htmlメール送信" vertex="1">
+          <mxGeometry height="26" width="200" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-68" parent="C99VDx_49r7IPgbOX2MG-62" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="Htmlメール作成" vertex="1">
+          <mxGeometry height="26" width="200" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-69" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-61" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.552;exitY=1.083;exitDx=0;exitDy=0;exitPerimeter=0;" target="C99VDx_49r7IPgbOX2MG-62">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1060" y="288.5" />
+              <mxPoint x="1060" y="338.5" />
+              <mxPoint x="1067" y="338.5" />
+            </Array>
+            <mxPoint x="940" y="258.5" as="sourcePoint" />
+            <mxPoint x="1040" y="458.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-70" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="980" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-111" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-71" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="C99VDx_49r7IPgbOX2MG-82">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-71" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="ProductController" vertex="1">
+          <mxGeometry height="164" width="210" x="2170" y="37" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-72" parent="C99VDx_49r7IPgbOX2MG-71" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="製品関連操作の指示出し" vertex="1">
+          <mxGeometry height="26" width="210" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-73" parent="C99VDx_49r7IPgbOX2MG-71" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="210" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-74" parent="C99VDx_49r7IPgbOX2MG-71" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品一覧の取得" vertex="1">
+          <mxGeometry height="26" width="210" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-75" parent="C99VDx_49r7IPgbOX2MG-71" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品詳細を取得" vertex="1">
+          <mxGeometry height="26" width="210" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-76" parent="C99VDx_49r7IPgbOX2MG-71" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="新着商品一覧の取得" vertex="1">
+          <mxGeometry height="26" width="210" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-81" parent="C99VDx_49r7IPgbOX2MG-71" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ページネーションレスポンスの構築" vertex="1">
+          <mxGeometry height="26" width="210" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-214" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-82" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="C99VDx_49r7IPgbOX2MG-185">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1620" y="780" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-82" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="ProductService" vertex="1">
+          <mxGeometry height="476" width="270" x="2140" y="317" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-83" parent="C99VDx_49r7IPgbOX2MG-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="製品関連操作" vertex="1">
+          <mxGeometry height="26" width="270" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-84" parent="C99VDx_49r7IPgbOX2MG-82" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="270" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-85" parent="C99VDx_49r7IPgbOX2MG-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="全商品の取得" vertex="1">
+          <mxGeometry height="26" width="270" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-86" parent="C99VDx_49r7IPgbOX2MG-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ページネーション対応の商品取得" vertex="1">
+          <mxGeometry height="26" width="270" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-87" parent="C99VDx_49r7IPgbOX2MG-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ID指定で商品取得" vertex="1">
+          <mxGeometry height="26" width="270" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-88" parent="C99VDx_49r7IPgbOX2MG-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="メーカー別商品取得" vertex="1">
+          <mxGeometry height="26" width="270" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-89" parent="C99VDx_49r7IPgbOX2MG-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="メーカー別商品取得(ページネーション対応)" vertex="1">
+          <mxGeometry height="26" width="270" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-90" parent="C99VDx_49r7IPgbOX2MG-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品名検索" vertex="1">
+          <mxGeometry height="26" width="270" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-91" parent="C99VDx_49r7IPgbOX2MG-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品名検索(ページネーション対応)" vertex="1">
+          <mxGeometry height="26" width="270" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-92" parent="C99VDx_49r7IPgbOX2MG-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="メーカー別 + キーワード検索" vertex="1">
+          <mxGeometry height="26" width="270" y="242" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-93" parent="C99VDx_49r7IPgbOX2MG-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品保存(新規作成または更新)" vertex="1">
+          <mxGeometry height="26" width="270" y="268" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-94" parent="C99VDx_49r7IPgbOX2MG-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品削除" vertex="1">
+          <mxGeometry height="26" width="270" y="294" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-95" parent="C99VDx_49r7IPgbOX2MG-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="重複チェック(商品名とメーカーで判定)" vertex="1">
+          <mxGeometry height="26" width="270" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-96" parent="C99VDx_49r7IPgbOX2MG-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品が既に存在するかチェック" vertex="1">
+          <mxGeometry height="26" width="270" y="346" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-97" parent="C99VDx_49r7IPgbOX2MG-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="新着フラグの更新" vertex="1">
+          <mxGeometry height="26" width="270" y="372" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-98" parent="C99VDx_49r7IPgbOX2MG-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="古い新着フラグのリセット" vertex="1">
+          <mxGeometry height="26" width="270" y="398" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-99" parent="C99VDx_49r7IPgbOX2MG-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品の一括保存" vertex="1">
+          <mxGeometry height="26" width="270" y="424" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-100" parent="C99VDx_49r7IPgbOX2MG-82" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="スクレイピング結果の保存" vertex="1">
+          <mxGeometry height="26" width="270" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-112" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="250" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-113" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="ProfileController" vertex="1">
+          <mxGeometry height="164" width="270" x="630" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-114" parent="C99VDx_49r7IPgbOX2MG-113" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ユーザープロフィール関連操作の指示出し" vertex="1">
+          <mxGeometry height="26" width="270" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-115" parent="C99VDx_49r7IPgbOX2MG-113" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="270" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-116" parent="C99VDx_49r7IPgbOX2MG-113" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="自分のプロフィール取得" vertex="1">
+          <mxGeometry height="26" width="270" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-117" parent="C99VDx_49r7IPgbOX2MG-113" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="自分のプロフィール更新" vertex="1">
+          <mxGeometry height="26" width="270" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-121" parent="C99VDx_49r7IPgbOX2MG-113" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="フロントへのレスポンス作成" vertex="1">
+          <mxGeometry height="26" width="270" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-124" parent="C99VDx_49r7IPgbOX2MG-113" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="フロントからのリクエストオブジェクト" vertex="1">
+          <mxGeometry height="26" width="270" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-122" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-113" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="C99VDx_49r7IPgbOX2MG-21">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="765" y="260" />
+              <mxPoint x="380" y="260" />
+              <mxPoint x="380" y="455" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-123" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="310" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-141" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-125" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="C99VDx_49r7IPgbOX2MG-133">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-312" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-125" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="C99VDx_49r7IPgbOX2MG-185">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1660" y="125" />
+              <mxPoint x="1660" y="520" />
+              <mxPoint x="1620" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-313" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-129" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="C99VDx_49r7IPgbOX2MG-285">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1280" y="129" />
+              <mxPoint x="1280" y="200" />
+              <mxPoint x="940" y="200" />
+              <mxPoint x="940" y="1440" />
+              <mxPoint x="1112" y="1440" />
+            </Array>
+            <mxPoint x="1203.76" y="183.9999999999999" as="sourcePoint" />
+            <mxPoint x="1006.26" y="1534" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-125" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="ScrapeController" vertex="1">
+          <mxGeometry height="190" width="240" x="1310" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-126" parent="C99VDx_49r7IPgbOX2MG-125" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="スクレイピング関連操作の指示出し" vertex="1">
+          <mxGeometry height="26" width="240" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-127" parent="C99VDx_49r7IPgbOX2MG-125" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="240" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-128" parent="C99VDx_49r7IPgbOX2MG-125" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="バンダイのスクレイピング手動実行" vertex="1">
+          <mxGeometry height="26" width="240" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-129" parent="C99VDx_49r7IPgbOX2MG-125" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="タカラトミーのスクレイピング手動実行" vertex="1">
+          <mxGeometry height="26" width="240" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-130" parent="C99VDx_49r7IPgbOX2MG-125" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="スクレイピングログの取得" vertex="1">
+          <mxGeometry height="26" width="240" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-131" parent="C99VDx_49r7IPgbOX2MG-125" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="特定サイトのスクレイピングログの取得" vertex="1">
+          <mxGeometry height="26" width="240" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-132" parent="C99VDx_49r7IPgbOX2MG-125" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="スクレイピングステータス確認" vertex="1">
+          <mxGeometry height="26" width="240" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-216" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-133" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="C99VDx_49r7IPgbOX2MG-207">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1430" y="680" />
+              <mxPoint x="765" y="680" />
+            </Array>
+            <mxPoint x="930" y="760" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-218" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-133" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="C99VDx_49r7IPgbOX2MG-82">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2080" y="360" />
+              <mxPoint x="2080" y="297" />
+              <mxPoint x="2275" y="297" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-133" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="ScrapeService" vertex="1">
+          <mxGeometry height="216" width="327.5" x="1266.25" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-134" parent="C99VDx_49r7IPgbOX2MG-133" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="スクレイピング関連操作" vertex="1">
+          <mxGeometry height="26" width="327.5" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-135" parent="C99VDx_49r7IPgbOX2MG-133" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="327.5" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-136" parent="C99VDx_49r7IPgbOX2MG-133" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="スクレイピング結果を格納するレコード" vertex="1">
+          <mxGeometry height="26" width="327.5" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-137" parent="C99VDx_49r7IPgbOX2MG-133" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="スクレイピングを実行してデータベースに保存" vertex="1">
+          <mxGeometry height="26" width="327.5" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-138" parent="C99VDx_49r7IPgbOX2MG-133" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="スクレイピングを実行して新着商品リストを返す(通知用)" vertex="1">
+          <mxGeometry height="26" width="327.5" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-139" parent="C99VDx_49r7IPgbOX2MG-133" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="スクレイピング履歴を取得" vertex="1">
+          <mxGeometry height="26" width="327.5" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-142" parent="C99VDx_49r7IPgbOX2MG-133" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="最新のスクレイピングログを取得" vertex="1">
+          <mxGeometry height="26" width="327.5" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-143" parent="C99VDx_49r7IPgbOX2MG-133" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="特定サイトのスクレイピング履歴を取得" vertex="1">
+          <mxGeometry height="26" width="327.5" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-140" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="2290" y="277" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-144" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="1440" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-145" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-132" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1.01;entryY=0.133;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.269;exitY=0.974;exitDx=0;exitDy=0;exitPerimeter=0;" target="C99VDx_49r7IPgbOX2MG-62">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1375" y="240" />
+              <mxPoint x="1220" y="240" />
+              <mxPoint x="1220" y="399" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-146" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="1171" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-147" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="ScrapeConfigController" vertex="1">
+          <mxGeometry height="242" width="240" x="1740" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-148" parent="C99VDx_49r7IPgbOX2MG-147" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="スクレイピング設定の指示出し" vertex="1">
+          <mxGeometry height="26" width="240" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-149" parent="C99VDx_49r7IPgbOX2MG-147" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="240" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-150" parent="C99VDx_49r7IPgbOX2MG-147" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="全設定一覧を取得" vertex="1">
+          <mxGeometry height="26" width="240" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-151" parent="C99VDx_49r7IPgbOX2MG-147" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="個別設定を取得" vertex="1">
+          <mxGeometry height="26" width="240" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-152" parent="C99VDx_49r7IPgbOX2MG-147" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="新規設定を作成" vertex="1">
+          <mxGeometry height="26" width="240" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-153" parent="C99VDx_49r7IPgbOX2MG-147" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="設定を更新" vertex="1">
+          <mxGeometry height="26" width="240" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-154" parent="C99VDx_49r7IPgbOX2MG-147" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="設定を削除" vertex="1">
+          <mxGeometry height="26" width="240" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-155" parent="C99VDx_49r7IPgbOX2MG-147" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="有効、無効を切り替え" vertex="1">
+          <mxGeometry height="26" width="240" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-156" parent="C99VDx_49r7IPgbOX2MG-147" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="エラーレスポンス" vertex="1">
+          <mxGeometry height="26" width="240" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-215" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-157" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="C99VDx_49r7IPgbOX2MG-196">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1190" y="630" />
+            </Array>
+            <mxPoint x="1450" y="710" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-157" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="ScrapeConfigService" vertex="1">
+          <mxGeometry height="294" width="327.5" x="1710" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-158" parent="C99VDx_49r7IPgbOX2MG-157" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="スクレイピング設定の呼び出し" vertex="1">
+          <mxGeometry height="26" width="327.5" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-159" parent="C99VDx_49r7IPgbOX2MG-157" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="327.5" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-160" parent="C99VDx_49r7IPgbOX2MG-157" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="全設定を取得" vertex="1">
+          <mxGeometry height="26" width="327.5" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-161" parent="C99VDx_49r7IPgbOX2MG-157" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="有効な設定のみ取得" vertex="1">
+          <mxGeometry height="26" width="327.5" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-162" parent="C99VDx_49r7IPgbOX2MG-157" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="IDで設定を取得" vertex="1">
+          <mxGeometry height="26" width="327.5" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-163" parent="C99VDx_49r7IPgbOX2MG-157" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="サイト名で設定を取得" vertex="1">
+          <mxGeometry height="26" width="327.5" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-164" parent="C99VDx_49r7IPgbOX2MG-157" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="新規設定を作成" vertex="1">
+          <mxGeometry height="26" width="327.5" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-165" parent="C99VDx_49r7IPgbOX2MG-157" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="設定を更新" vertex="1">
+          <mxGeometry height="26" width="327.5" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-169" parent="C99VDx_49r7IPgbOX2MG-157" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="設定を削除" vertex="1">
+          <mxGeometry height="26" width="327.5" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-168" parent="C99VDx_49r7IPgbOX2MG-157" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="有効/無効の切り替え" vertex="1">
+          <mxGeometry height="26" width="327.5" y="242" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-170" parent="C99VDx_49r7IPgbOX2MG-157" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="cron式のバリデーション" vertex="1">
+          <mxGeometry height="26" width="327.5" y="268" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-166" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-147" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.469;entryY=-0.005;entryDx=0;entryDy=0;entryPerimeter=0;" target="C99VDx_49r7IPgbOX2MG-157">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-167" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="1880" y="377.5" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-171" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="UserRepository" vertex="1">
+          <mxGeometry height="216" width="270" x="260" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-172" parent="C99VDx_49r7IPgbOX2MG-171" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ユーザーDB操作" vertex="1">
+          <mxGeometry height="26" width="270" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-173" parent="C99VDx_49r7IPgbOX2MG-171" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="270" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-174" parent="C99VDx_49r7IPgbOX2MG-171" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ユーザー名でユーザー取得" vertex="1">
+          <mxGeometry height="26" width="270" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-175" parent="C99VDx_49r7IPgbOX2MG-171" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="メールアドレスでユーザー取得" vertex="1">
+          <mxGeometry height="26" width="270" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-176" parent="C99VDx_49r7IPgbOX2MG-171" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ユーザー名の存在確認" vertex="1">
+          <mxGeometry height="26" width="270" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-177" parent="C99VDx_49r7IPgbOX2MG-171" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="メールアドレスの存在確認" vertex="1">
+          <mxGeometry height="26" width="270" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-178" parent="C99VDx_49r7IPgbOX2MG-171" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="通知が有効なユーザー取得" vertex="1">
+          <mxGeometry height="26" width="270" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-179" parent="C99VDx_49r7IPgbOX2MG-171" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ロールでユーザーを取得" vertex="1">
+          <mxGeometry height="26" width="270" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-182" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="250" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-183" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-68" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;exitX=0.485;exitY=1.013;exitDx=0;exitDy=0;exitPerimeter=0;" target="C99VDx_49r7IPgbOX2MG-171">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1057" y="640" />
+              <mxPoint x="463" y="640" />
+            </Array>
+            <mxPoint x="670" y="660" as="sourcePoint" />
+            <mxPoint x="823" y="788" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-184" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="470" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-185" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="ProductRepository" vertex="1">
+          <mxGeometry height="268" width="320" x="1460" y="820" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-186" parent="C99VDx_49r7IPgbOX2MG-185" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="製品DB操作" vertex="1">
+          <mxGeometry height="26" width="320" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-187" parent="C99VDx_49r7IPgbOX2MG-185" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="320" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-188" parent="C99VDx_49r7IPgbOX2MG-185" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="メーカー別検索" vertex="1">
+          <mxGeometry height="26" width="320" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-189" parent="C99VDx_49r7IPgbOX2MG-185" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="メーカー別検索(ページネーション対応)" vertex="1">
+          <mxGeometry height="26" width="320" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-190" parent="C99VDx_49r7IPgbOX2MG-185" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="新着商品取得" vertex="1">
+          <mxGeometry height="26" width="320" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-191" parent="C99VDx_49r7IPgbOX2MG-185" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="メーカー別&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;新着商品取得&lt;/span&gt;" vertex="1">
+          <mxGeometry height="26" width="320" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-192" parent="C99VDx_49r7IPgbOX2MG-185" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="新着商品取得(ページネーション対応)" vertex="1">
+          <mxGeometry height="26" width="320" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-193" parent="C99VDx_49r7IPgbOX2MG-185" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品名検索" vertex="1">
+          <mxGeometry height="26" width="320" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-194" parent="C99VDx_49r7IPgbOX2MG-185" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品名検索(ページネーション対応)" vertex="1">
+          <mxGeometry height="26" width="320" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-195" parent="C99VDx_49r7IPgbOX2MG-185" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="メーカー別、キーワード検索(ページネーション対応)" vertex="1">
+          <mxGeometry height="26" width="320" y="242" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-196" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="ScrapeConfigRepository" vertex="1">
+          <mxGeometry height="112" width="320" x="1030" y="778" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-197" parent="C99VDx_49r7IPgbOX2MG-196" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="スクレイピング設定DB操作" vertex="1">
+          <mxGeometry height="26" width="320" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-198" parent="C99VDx_49r7IPgbOX2MG-196" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="320" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-199" parent="C99VDx_49r7IPgbOX2MG-196" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="有効な設定取得" vertex="1">
+          <mxGeometry height="26" width="320" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-200" parent="C99VDx_49r7IPgbOX2MG-196" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="サイト名で検索" vertex="1">
+          <mxGeometry height="26" width="320" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-207" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="ScrapeLogRepository" vertex="1">
+          <mxGeometry height="138" width="320" x="605" y="778" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-208" parent="C99VDx_49r7IPgbOX2MG-207" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="スクレイピングログDB操作" vertex="1">
+          <mxGeometry height="26" width="320" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-209" parent="C99VDx_49r7IPgbOX2MG-207" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="320" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-210" parent="C99VDx_49r7IPgbOX2MG-207" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="対象サイト別でログ取得" vertex="1">
+          <mxGeometry height="26" width="320" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-211" parent="C99VDx_49r7IPgbOX2MG-207" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ステータス別でログを取得" vertex="1">
+          <mxGeometry height="26" width="320" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-212" parent="C99VDx_49r7IPgbOX2MG-207" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="実行日時の降順で全ログを取得" vertex="1">
+          <mxGeometry height="26" width="320" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-219" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="2180" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-253" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-220" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0.009;exitY=0.149;exitDx=0;exitDy=0;exitPerimeter=0;" target="C99VDx_49r7IPgbOX2MG-86">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-307" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-220" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="C99VDx_49r7IPgbOX2MG-299">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2665" y="1240" />
+              <mxPoint x="1350" y="1240" />
+              <mxPoint x="1350" y="1759" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-220" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="ScheduledScrapeService" vertex="1">
+          <mxGeometry height="138" width="270" x="2530" y="420" as="geometry">
+            <mxRectangle height="30" width="180" x="2530" y="420" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-221" parent="C99VDx_49r7IPgbOX2MG-220" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="定期スクレイピング実行" vertex="1">
+          <mxGeometry height="26" width="270" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-222" parent="C99VDx_49r7IPgbOX2MG-220" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="270" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-223" parent="C99VDx_49r7IPgbOX2MG-220" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="定期スクレイピング実行" vertex="1">
+          <mxGeometry height="26" width="270" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-224" parent="C99VDx_49r7IPgbOX2MG-220" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="新着フラグリセット" vertex="1">
+          <mxGeometry height="26" width="270" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-225" parent="C99VDx_49r7IPgbOX2MG-220" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="サイト名に対応するスクレイパー取得" vertex="1">
+          <mxGeometry height="26" width="270" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-245" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-220" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="C99VDx_49r7IPgbOX2MG-196">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2665" y="810" />
+              <mxPoint x="1940" y="810" />
+              <mxPoint x="1940" y="740" />
+              <mxPoint x="1390" y="740" />
+              <mxPoint x="1390" y="834" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-246" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="780" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-247" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="1110" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-248" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="1360" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-249" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="1550" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-251" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-220" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.866;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="C99VDx_49r7IPgbOX2MG-133">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2665" y="250" />
+              <mxPoint x="2062" y="250" />
+              <mxPoint x="2062" y="340" />
+              <mxPoint x="1550" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-252" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="1550" y="307" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-254" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="2430" y="377.5" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-255" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-220" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.908;entryY=0.005;entryDx=0;entryDy=0;entryPerimeter=0;" target="C99VDx_49r7IPgbOX2MG-62">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2665" y="270" />
+              <mxPoint x="1142" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-256" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="1070" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-257" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="BaseScraper" vertex="1">
+          <mxGeometry height="346" width="270" x="470" y="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-258" parent="C99VDx_49r7IPgbOX2MG-257" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="スクレイピング処理の基底クラス" vertex="1">
+          <mxGeometry height="26" width="270" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-259" parent="C99VDx_49r7IPgbOX2MG-257" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="270" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-260" parent="C99VDx_49r7IPgbOX2MG-257" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="スクレイピング実行" vertex="1">
+          <mxGeometry height="26" width="270" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-261" parent="C99VDx_49r7IPgbOX2MG-257" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="対象サイトのURL取得(抽象メソッド)" vertex="1">
+          <mxGeometry height="26" width="270" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-262" parent="C99VDx_49r7IPgbOX2MG-257" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="メーカー名取得(抽象メソッド)" vertex="1">
+          <mxGeometry height="26" width="270" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-263" parent="C99VDx_49r7IPgbOX2MG-257" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品情報のスクレイピング(抽象メソッド)" vertex="1">
+          <mxGeometry height="26" width="270" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-264" parent="C99VDx_49r7IPgbOX2MG-257" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ページ読み込み完了を待機" vertex="1">
+          <mxGeometry height="26" width="270" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-265" parent="C99VDx_49r7IPgbOX2MG-257" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="要素のテキストを安全に取得" vertex="1">
+          <mxGeometry height="26" width="270" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-266" parent="C99VDx_49r7IPgbOX2MG-257" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="要素の属性値を安全に取得" vertex="1">
+          <mxGeometry height="26" width="270" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-267" parent="C99VDx_49r7IPgbOX2MG-257" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="セレクタで要素を安全に取得" vertex="1">
+          <mxGeometry height="26" width="270" y="242" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-268" parent="C99VDx_49r7IPgbOX2MG-257" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="セレクタで要素リストを安全に取得" vertex="1">
+          <mxGeometry height="26" width="270" y="268" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-269" parent="C99VDx_49r7IPgbOX2MG-257" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="要素が表示されるまで待機" vertex="1">
+          <mxGeometry height="26" width="270" y="294" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-270" parent="C99VDx_49r7IPgbOX2MG-257" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="スクレイピング間隔の待機" vertex="1">
+          <mxGeometry height="26" width="270" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-271" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="BandaiScraper" vertex="1">
+          <mxGeometry height="320" width="270" x="370" y="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-272" parent="C99VDx_49r7IPgbOX2MG-271" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="バンダイガシャポン公式サイトスクレイピング" vertex="1">
+          <mxGeometry height="26" width="270" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-273" parent="C99VDx_49r7IPgbOX2MG-271" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="270" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-274" parent="C99VDx_49r7IPgbOX2MG-271" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="対象サイトのURL取得(Override)" vertex="1">
+          <mxGeometry height="26" width="270" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-276" parent="C99VDx_49r7IPgbOX2MG-271" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="メーカー名取得(Override)" vertex="1">
+          <mxGeometry height="26" width="270" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-277" parent="C99VDx_49r7IPgbOX2MG-271" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品情報のスクレイピング(Override)" vertex="1">
+          <mxGeometry height="26" width="270" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-278" parent="C99VDx_49r7IPgbOX2MG-271" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ページ読み込み完了を待機(Override)" vertex="1">
+          <mxGeometry height="26" width="270" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-279" parent="C99VDx_49r7IPgbOX2MG-271" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品詳細ページから商品情報を取得" vertex="1">
+          <mxGeometry height="26" width="270" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-280" parent="C99VDx_49r7IPgbOX2MG-271" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品名抽出" vertex="1">
+          <mxGeometry height="26" width="270" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-281" parent="C99VDx_49r7IPgbOX2MG-271" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="画像URLを抽出" vertex="1">
+          <mxGeometry height="26" width="270" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-282" parent="C99VDx_49r7IPgbOX2MG-271" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="価格を抽出" vertex="1">
+          <mxGeometry height="26" width="270" y="242" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-283" parent="C99VDx_49r7IPgbOX2MG-271" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="第N週の最初の日曜日を取得" vertex="1">
+          <mxGeometry height="26" width="270" y="268" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-284" parent="C99VDx_49r7IPgbOX2MG-271" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品説明を抽出" vertex="1">
+          <mxGeometry height="26" width="270" y="294" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-285" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="TakaraTomyScraper" vertex="1">
+          <mxGeometry height="398" width="270" x="910" y="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-286" parent="C99VDx_49r7IPgbOX2MG-285" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="タカラトミーアーツ公式サイトスクレイピング" vertex="1">
+          <mxGeometry height="26" width="270" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-287" parent="C99VDx_49r7IPgbOX2MG-285" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="270" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-288" parent="C99VDx_49r7IPgbOX2MG-285" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="対象サイトのURL取得(Override)" vertex="1">
+          <mxGeometry height="26" width="270" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-289" parent="C99VDx_49r7IPgbOX2MG-285" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="メーカー名取得(Override)" vertex="1">
+          <mxGeometry height="26" width="270" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-298" parent="C99VDx_49r7IPgbOX2MG-285" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品情報のスクレイピング(Override)" vertex="1">
+          <mxGeometry height="26" width="270" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-290" parent="C99VDx_49r7IPgbOX2MG-285" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="年月からカレンダーURLを構築" vertex="1">
+          <mxGeometry height="26" width="270" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-291" parent="C99VDx_49r7IPgbOX2MG-285" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="カレンダーページをスクレイピング" vertex="1">
+          <mxGeometry height="26" width="270" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-292" parent="C99VDx_49r7IPgbOX2MG-285" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="ページ読み込み完了を待機(Override)" vertex="1">
+          <mxGeometry height="26" width="270" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-299" parent="C99VDx_49r7IPgbOX2MG-285" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="URLを正規化" vertex="1">
+          <mxGeometry height="26" width="270" y="216" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-293" parent="C99VDx_49r7IPgbOX2MG-285" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品詳細ページから商品情報を取得" vertex="1">
+          <mxGeometry height="26" width="270" y="242" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-294" parent="C99VDx_49r7IPgbOX2MG-285" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品名を抽出" vertex="1">
+          <mxGeometry height="26" width="270" y="268" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-300" parent="C99VDx_49r7IPgbOX2MG-285" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="画像URLを抽出" vertex="1">
+          <mxGeometry height="26" width="270" y="294" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-295" parent="C99VDx_49r7IPgbOX2MG-285" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="価格を抽出" vertex="1">
+          <mxGeometry height="26" width="270" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-296" parent="C99VDx_49r7IPgbOX2MG-285" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="発売日を抽出" vertex="1">
+          <mxGeometry height="26" width="270" y="346" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-297" parent="C99VDx_49r7IPgbOX2MG-285" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="商品説明を抽出" vertex="1">
+          <mxGeometry height="26" width="270" y="372" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-301" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-271" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.477;entryY=1.033;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=0;" target="C99VDx_49r7IPgbOX2MG-270">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-302" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-285" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.477;entryY=1.07;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=0;exitX=0.25;exitY=0;exitDx=0;exitDy=0;" target="C99VDx_49r7IPgbOX2MG-270">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="978" y="1480" />
+              <mxPoint x="599" y="1480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-304" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="継承" vertex="1">
+          <mxGeometry height="30" width="70" x="515" y="1440" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-305" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="継承" vertex="1">
+          <mxGeometry height="30" width="70" x="605" y="1440" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-308" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="1206" y="1724" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-311" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-220" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="C99VDx_49r7IPgbOX2MG-278" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2665" y="1990" />
+              <mxPoint x="860" y="1990" />
+              <mxPoint x="860" y="1681" />
+            </Array>
+            <mxPoint x="2665" y="558" as="sourcePoint" />
+            <mxPoint x="715" y="1630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-310" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="660" y="1694" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-315" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="1120" y="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-318" edge="1" parent="1" source="C99VDx_49r7IPgbOX2MG-129" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="C99VDx_49r7IPgbOX2MG-272">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1280" y="129" />
+              <mxPoint x="1280" y="200" />
+              <mxPoint x="940" y="200" />
+              <mxPoint x="940" y="1440" />
+              <mxPoint x="700" y="1440" />
+              <mxPoint x="700" y="1569" />
+            </Array>
+            <mxPoint x="1206" y="122" as="sourcePoint" />
+            <mxPoint x="401.80999999999995" y="1844.0399999999995" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C99VDx_49r7IPgbOX2MG-321" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="depends on" vertex="1">
+          <mxGeometry height="30" width="70" x="660" y="1580" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

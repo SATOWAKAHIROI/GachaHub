@@ -1,7 +1,9 @@
 package com.example.capsuletoy.controller;
 
 import com.example.capsuletoy.model.User;
-import com.example.capsuletoy.service.UserService;
+import com.example.capsuletoy.service.user.UserService;
+import com.example.capsuletoy.service.user.UserUpdateService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -16,6 +18,9 @@ public class ProfileController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired 
+    private UserUpdateService userUpdateService;
 
     // 自分のプロフィール取得
     @GetMapping
@@ -36,7 +41,7 @@ public class ProfileController {
             String email = authentication.getName();
             User user = userService.findByEmail(email);
 
-            User updatedUser = userService.updateUser(
+            User updatedUser = userUpdateService.updateUser(
                     user.getId(),
                     request.getUsername(),
                     request.getEmail(),

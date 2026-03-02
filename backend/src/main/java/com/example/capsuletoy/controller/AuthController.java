@@ -3,7 +3,8 @@ package com.example.capsuletoy.controller;
 import com.example.capsuletoy.model.User;
 import com.example.capsuletoy.model.UserRole;
 import com.example.capsuletoy.security.JwtUtil;
-import com.example.capsuletoy.service.UserService;
+import com.example.capsuletoy.service.user.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
