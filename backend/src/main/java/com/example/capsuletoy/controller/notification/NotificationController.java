@@ -1,14 +1,12 @@
-package com.example.capsuletoy.controller;
+package com.example.capsuletoy.controller.notification;
 
-import com.example.capsuletoy.domain.notification.SendEmailDomain;
 import com.example.capsuletoy.model.User;
 import com.example.capsuletoy.service.notification.NotificationService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -21,13 +19,8 @@ import java.util.Map;
 @RequestMapping("/api/notifications")
 @CrossOrigin(origins = "http://localhost:3000")
 public class NotificationController {
-
-    private static final Logger logger = LoggerFactory.getLogger(NotificationController.class);
-
     @Autowired
     private NotificationService notificationService;
-
-    @Autowired SendEmailDomain sendEmailDomain;
 
     /**
      * テストメール送信
@@ -41,15 +34,14 @@ public class NotificationController {
         }
 
         try {
-            sendEmailDomain.sendTestMail(toAddress);
+            notificationService.sendTestMail(toAddress);
             Map<String, String> response = new HashMap<>();
             response.put("status", "success");
             response.put("message", "テストメールを送信しました: " + toAddress);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            logger.error("テストメール送信失敗: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(errorResponse("メール送信に失敗しました: " + e.getMessage()));
+            BodyBuilder responseStatus = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
+            return responseStatus.body(errorResponse("メール送信に失敗しました: " + e.getMessage()));
         }
     }
 

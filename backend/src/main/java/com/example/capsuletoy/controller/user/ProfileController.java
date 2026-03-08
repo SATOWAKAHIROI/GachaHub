@@ -1,6 +1,7 @@
-package com.example.capsuletoy.controller;
+package com.example.capsuletoy.controller.user;
 
 import com.example.capsuletoy.model.User;
+import com.example.capsuletoy.request.user.UpdateUserRequest;
 import com.example.capsuletoy.service.user.UserService;
 import com.example.capsuletoy.service.user.UserUpdateService;
 
@@ -36,7 +37,7 @@ public class ProfileController {
 
     // 自分のプロフィール更新
     @PutMapping
-    public ResponseEntity<?> updateProfile(Authentication authentication, @RequestBody UpdateProfileRequest request) {
+    public ResponseEntity<?> updateProfile(Authentication authentication, @RequestBody UpdateUserRequest request) {
         try {
             String email = authentication.getName();
             User user = userService.findByEmail(email);
@@ -64,21 +65,5 @@ public class ProfileController {
         response.put("notificationEnabled", user.getNotificationEnabled());
         response.put("createdAt", user.getCreatedAt().toString());
         return response;
-    }
-
-    static class UpdateProfileRequest {
-        private String username;
-        private String email;
-        private String password;
-        private Boolean notificationEnabled;
-
-        public String getUsername() { return username; }
-        public void setUsername(String username) { this.username = username; }
-        public String getEmail() { return email; }
-        public void setEmail(String email) { this.email = email; }
-        public String getPassword() { return password; }
-        public void setPassword(String password) { this.password = password; }
-        public Boolean getNotificationEnabled() { return notificationEnabled; }
-        public void setNotificationEnabled(Boolean notificationEnabled) { this.notificationEnabled = notificationEnabled; }
     }
 }

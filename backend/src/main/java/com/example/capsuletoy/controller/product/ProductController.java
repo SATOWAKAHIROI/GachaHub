@@ -1,8 +1,11 @@
-package com.example.capsuletoy.controller;
+package com.example.capsuletoy.controller.product;
 
 import com.example.capsuletoy.model.Product;
+import com.example.capsuletoy.response.product.ProductResponse;
 import com.example.capsuletoy.service.product.ProductPagenationService;
 import com.example.capsuletoy.service.product.ProductService;
+
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,9 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 商品情報のREST APIコントローラー
@@ -42,28 +42,9 @@ public class ProductController {
             @RequestParam(required = false) String manufacturer,
             @RequestParam(required = false) String keyword) {
 
-        Sort sortOrder = direction.equalsIgnoreCase("asc")
-                ? Sort.by(sort).ascending()
-                : Sort.by(sort).descending();
-        Pageable pageable = PageRequest.of(page, size, sortOrder);
-
-        Page<Product> productPage;
-
-        if (manufacturer != null && keyword != null) {
-            // メーカー + キーワード検索
-            productPage = productPagenationService.searchByManufacturerAndKeyword(manufacturer, keyword, pageable);
-        } else if (manufacturer != null) {
-            // メーカー別フィルタ
-            productPage = productPagenationService.getProductsByManufacturer(manufacturer, pageable);
-        } else if (keyword != null) {
-            // キーワード検索
-            productPage = productPagenationService.searchProductsByName(keyword, pageable);
-        } else {
-            // 全商品取得
-            productPage = productPagenationService.getAllProducts(pageable);
-        }
-
-        return ResponseEntity.ok(buildPageResponse(productPage));
+        Pageable pageable = productPagenationService.buildPageable(page, size, sort, direction);
+        Page<Product> productPage = productPagenationService.getProducts(manufacturer, keyword, pageable);
+        return ResponseEntity.ok(ProductResponse.buildPageResponse(productPage));
     }
 
     /**
@@ -72,9 +53,13 @@ public class ProductController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<?> getProduct(@PathVariable Long id) {
-        return productService.getProductById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Optional<Product> product = productService.getProductById(id);
+
+        if(product.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(product.get());
     }
 
     /**
@@ -89,21 +74,6 @@ public class ProductController {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         Page<Product> productPage = productPagenationService.getNewProducts(pageable);
 
-        return ResponseEntity.ok(buildPageResponse(productPage));
-    }
-
-    /**
-     * ページネーションレスポンスを構築
-     */
-    private Map<String, Object> buildPageResponse(Page<Product> productPage) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("content", productPage.getContent());
-        response.put("totalElements", productPage.getTotalElements());
-        response.put("totalPages", productPage.getTotalPages());
-        response.put("currentPage", productPage.getNumber());
-        response.put("size", productPage.getSize());
-        response.put("hasNext", productPage.hasNext());
-        response.put("hasPrevious", productPage.hasPrevious());
-        return response;
+        return ResponseEntity.ok(ProductResponse.buildPageResponse(productPage));
     }
 }
