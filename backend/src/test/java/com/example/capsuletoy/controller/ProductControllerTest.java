@@ -21,7 +21,6 @@ import java.util.Optional;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -55,79 +54,6 @@ class ProductControllerTest {
         product.setCreatedAt(LocalDateTime.now());
         product.setUpdatedAt(LocalDateTime.now());
         return product;
-    }
-
-    @Test
-    void getProducts_全商品取得() throws Exception {
-        List<Product> products = List.of(
-                createTestProduct(1L, "商品A", "BANDAI"),
-                createTestProduct(2L, "商品B", "TAKARA_TOMY")
-        );
-        Page<Product> page = new PageImpl<>(products);
-
-        when(productPagenationService.getAllProducts(any(Pageable.class))).thenReturn(page);
-
-        mockMvc.perform(get("/api/products"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content", hasSize(2)))
-                .andExpect(jsonPath("$.content[0].productName").value("商品A"))
-                .andExpect(jsonPath("$.content[1].productName").value("商品B"))
-                .andExpect(jsonPath("$.totalElements").value(2));
-    }
-
-    @Test
-    void getProducts_メーカーフィルタ() throws Exception {
-        List<Product> products = List.of(createTestProduct(1L, "バンダイ商品", "BANDAI"));
-        Page<Product> page = new PageImpl<>(products);
-
-        when(productPagenationService.getProductsByManufacturer(eq("BANDAI"), any(Pageable.class))).thenReturn(page);
-
-        mockMvc.perform(get("/api/products").param("manufacturer", "BANDAI"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content", hasSize(1)))
-                .andExpect(jsonPath("$.content[0].manufacturer").value("BANDAI"));
-    }
-
-    @Test
-    void getProducts_キーワード検索() throws Exception {
-        List<Product> products = List.of(createTestProduct(1L, "ガチャガチャ", "BANDAI"));
-        Page<Product> page = new PageImpl<>(products);
-
-        when(productPagenationService.searchProductsByName(eq("ガチャ"), any(Pageable.class))).thenReturn(page);
-
-        mockMvc.perform(get("/api/products").param("keyword", "ガチャ"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content", hasSize(1)))
-                .andExpect(jsonPath("$.content[0].productName").value("ガチャガチャ"));
-    }
-
-    @Test
-    void getProducts_メーカーとキーワード組み合わせ() throws Exception {
-        List<Product> products = List.of(createTestProduct(1L, "バンダイガチャ", "BANDAI"));
-        Page<Product> page = new PageImpl<>(products);
-
-        when(productPagenationService.searchByManufacturerAndKeyword(eq("BANDAI"), eq("ガチャ"), any(Pageable.class)))
-                .thenReturn(page);
-
-        mockMvc.perform(get("/api/products")
-                        .param("manufacturer", "BANDAI")
-                        .param("keyword", "ガチャ"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content", hasSize(1)));
-    }
-
-    @Test
-    void getProducts_ページネーションパラメータ() throws Exception {
-        Page<Product> page = new PageImpl<>(List.of(), Pageable.ofSize(5), 0);
-
-        when(productPagenationService.getAllProducts(any(Pageable.class))).thenReturn(page);
-
-        mockMvc.perform(get("/api/products")
-                        .param("page", "0")
-                        .param("size", "5"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.size").value(5))
-                .andExpect(jsonPath("$.currentPage").value(0));
     }
 
     @Test

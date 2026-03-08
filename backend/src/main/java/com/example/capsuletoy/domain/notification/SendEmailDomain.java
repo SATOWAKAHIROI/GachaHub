@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.capsuletoy.model.Product;
 import com.example.capsuletoy.model.User;
+import com.example.capsuletoy.repository.UserRepository;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -25,7 +26,42 @@ public class SendEmailDomain {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void sendNewProductsEmail(User user,List<Product> newProducts, String htmlContent) {
+    @Autowired
+    private NotificationEnabledDomain notificationEnabledDomain;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private CreateHtmlMainDomain createHtmlMainDomain;
+
+    /**
+     * 新着商品を通知有効ユーザー全員にメール送信
+     */
+
+    // メール本文作成
+    public void notifyNewProducts(List<Product> newProducts) {
+        if (!notificationEnabledDomain.isNotificationEnabled()) {
+            logger.info("通知機能が無効のためスキップします");
+            return;
+        }
+
+        List<User> enabledUsers = userRepository.findByNotificationEnabledTrue();
+        if (enabledUsers.isEmpty()) {
+            logger.info("通知有効なユーザーがいないためスキップします");
+            return;
+        }
+
+        String htmlContent = createHtmlMainDomain.buildNewProductsHtml(newProducts);
+
+        for (User user : enabledUsers) {
+            sendNewProductsEmail(user, newProducts, htmlContent);
+        }
+    }
+
+
+    // 件名を添えて送信
+    private void sendNewProductsEmail(User user,List<Product> newProducts, String htmlContent) {
         try {
                 sendHtmlMail(
                         user.getEmail(),
@@ -39,6 +75,19 @@ public class SendEmailDomain {
     }
 
     /**
+     * HTMLメール送信
+     */
+    private void sendHtmlMail(String to, String subject, String htmlContent) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+        helper.setFrom(notificationFromAdressDomain.getFromAddress());
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(htmlContent, true);
+        mailSender.send(message);
+    }
+
+     /**
      * テストメール送信
      */
     public void sendTestMail(String toAddress) throws MessagingException {
@@ -54,18 +103,5 @@ public class SendEmailDomain {
                 </html>
                 """;
         sendHtmlMail(toAddress, "【GachaHub】テストメール", html);
-    }
-
-    /**
-     * HTMLメール送信
-     */
-    private void sendHtmlMail(String to, String subject, String htmlContent) throws MessagingException {
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-        helper.setFrom(notificationFromAdressDomain.getFromAddress());
-        helper.setTo(to);
-        helper.setSubject(subject);
-        helper.setText(htmlContent, true);
-        mailSender.send(message);
     }
 }
