@@ -3,7 +3,7 @@ package com.example.capsuletoy.service.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.capsuletoy.domain.passwordEncode.PasswordEncoder;
+import com.example.capsuletoy.domain.passwordEncode.PasswordEncodeHelper;
 import com.example.capsuletoy.model.User;
 import com.example.capsuletoy.model.UserRole;
 import com.example.capsuletoy.repository.UserRepository;
@@ -14,7 +14,7 @@ public class UserCreateService {
     private UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private PasswordEncodeHelper passwordEncoder;
 
     // ユーザー作成（管理者用）
     public User createUser(String username, String email, String password, UserRole role) {

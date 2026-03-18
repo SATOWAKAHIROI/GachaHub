@@ -3,7 +3,7 @@ package com.example.capsuletoy.service.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.capsuletoy.domain.passwordEncode.PasswordEncoder;
+import com.example.capsuletoy.domain.passwordEncode.PasswordEncodeHelper;
 import com.example.capsuletoy.model.User;
 import com.example.capsuletoy.repository.UserRepository;
 
@@ -16,7 +16,7 @@ public class UserUpdateService {
     private UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private PasswordEncodeHelper passwordEncoder;
 
     // ユーザー更新
     public User updateUser(Long id, String username, String email, String password, Boolean notificationEnabled) {
