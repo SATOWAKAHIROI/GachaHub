@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.capsuletoy.controller.scrape.status.ScrapeStatusController;
 import com.example.capsuletoy.model.Product;
 import com.example.capsuletoy.record.ScrapeResult;
 import com.example.capsuletoy.repository.ProductRepository;
@@ -24,7 +23,7 @@ import com.example.capsuletoy.service.scraping.ScrapeService;
 @RestController
 @RequestMapping("/api/scrape")
 public class BandaiScrapeController {
-    private static final Logger logger = LoggerFactory.getLogger(ScrapeStatusController.class);
+    private static final Logger logger = LoggerFactory.getLogger(BandaiScrapeController.class);
 
     @Autowired
     private ProductRepository productRepository;

@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.capsuletoy.controller.scrape.status.ScrapeStatusController;
 import com.example.capsuletoy.domain.log.ScrapeLogAdministrater;
 import com.example.capsuletoy.model.ScrapeLog;
 
 @RestController
 @RequestMapping("/api/scrape")
 public class ScrapeLogController {
-    private static final Logger logger = LoggerFactory.getLogger(ScrapeStatusController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ScrapeLogController.class);
 
     @Autowired
     private ScrapeLogAdministrater scrapeLogAdministrater;
