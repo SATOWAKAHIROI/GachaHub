@@ -8,24 +8,18 @@ function AdminLogin() {
   const navigate = useNavigate();
   const { login, user, isAuthenticated } = useAuth();
 
-  // ログイン済みの管理者は自動的に管理画面へリダイレクト
   useEffect(() => {
     if (isAuthenticated && user?.role === 'ADMIN') {
       navigate('/admin');
     }
   }, [isAuthenticated, user, navigate]);
-  const [formData, setFormData] = useState<LoginRequest>({
-    email: '',
-    password: '',
-  });
+
+  const [formData, setFormData] = useState<LoginRequest>({ email: '', password: '' });
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
     setError('');
   };
 
@@ -33,11 +27,9 @@ function AdminLogin() {
     e.preventDefault();
     setLoading(true);
     setError('');
-
     try {
       const response = await api.post<LoginResponse>('/auth/admin/login', formData);
       const { token, user } = response.data;
-
       login(token, user);
       navigate('/admin');
     } catch (err: any) {
@@ -54,65 +46,94 @@ function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center px-4">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-xl p-8">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-100 rounded-full mb-4">
-            <svg className="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">管理者ログイン</h1>
-          <p className="text-gray-600">GachaHub 管理パネル</p>
+    <div style={{
+      minHeight: 'calc(100vh - 3.25rem)',
+      backgroundColor: 'var(--color-bg)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '2rem 1.5rem',
+      position: 'relative',
+      overflow: 'hidden',
+    }}>
+      {/* Background glow */}
+      <div style={{
+        position: 'absolute',
+        top: '30%', left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '600px', height: '600px',
+        background: 'radial-gradient(circle, rgba(255,77,0,0.05) 0%, transparent 65%)',
+        pointerEvents: 'none',
+      }} />
+
+      <div style={{
+        width: '100%',
+        maxWidth: '22rem',
+        position: 'relative',
+      }}>
+        {/* Logo */}
+        <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+          <h1 className="font-display" style={{
+            fontSize: '2.5rem',
+            letterSpacing: '0.1em',
+            color: 'var(--color-text)',
+            marginBottom: '0.375rem',
+          }}>
+            GACHA<span style={{ color: 'var(--color-accent)' }}>HUB</span>
+          </h1>
+          <p className="section-label">管理者ログイン</p>
         </div>
 
-        {error && (
-          <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-            {error}
-          </div>
-        )}
+        {/* Card */}
+        <div className="card" style={{ padding: '2rem' }}>
+          {error && (
+            <div className="alert-error" style={{ marginBottom: '1.25rem' }}>{error}</div>
+          )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-              メールアドレス
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
-              placeholder="メールアドレスを入力"
-            />
-          </div>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            <div>
+              <label className="input-label" htmlFor="email">メールアドレス</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="input-field"
+                placeholder="admin@example.com"
+              />
+            </div>
 
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-              パスワード
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
-              placeholder="パスワードを入力"
-            />
-          </div>
+            <div>
+              <label className="input-label" htmlFor="password">パスワード</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                className="input-field"
+                placeholder="••••••••"
+              />
+            </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition"
-          >
-            {loading ? 'ログイン中...' : '管理者ログイン'}
-          </button>
-        </form>
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn-primary"
+              style={{ width: '100%', justifyContent: 'center', padding: '0.7rem', fontSize: '0.875rem', marginTop: '0.25rem' }}
+            >
+              {loading ? (
+                <>
+                  <span className="loader" style={{ width: '1rem', height: '1rem', borderWidth: '2px' }} />
+                  ログイン中...
+                </>
+              ) : 'ログイン'}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

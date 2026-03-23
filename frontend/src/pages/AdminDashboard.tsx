@@ -60,144 +60,167 @@ function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-center items-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-        </div>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 3.25rem)' }}>
+        <div className="loader" />
       </div>
     );
   }
 
+  const menuItems = [
+    {
+      to: '/admin/scrape',
+      label: '手動スクレイピング',
+      desc: 'バンダイ・タカラトミーのデータを今すぐ取得',
+      icon: '⚡',
+    },
+    {
+      to: '/admin/logs',
+      label: 'スクレイピング履歴',
+      desc: '過去の実行ログと成否を確認',
+      icon: '📋',
+    },
+    {
+      to: '/admin/users',
+      label: 'ユーザー管理',
+      desc: 'ユーザーの作成・編集・削除',
+      icon: '👤',
+    },
+  ];
+
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">管理ダッシュボード</h1>
-        <span className="text-sm text-gray-500">ログイン中: {user?.username}</span>
-      </div>
+    <div style={{ minHeight: 'calc(100vh - 3.25rem)', padding: '2rem 1.5rem 4rem' }}>
+      <div className="container mx-auto" style={{ maxWidth: '72rem' }}>
 
-      {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
-          {error}
-        </div>
-      )}
-
-      {/* ステータスカード */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        {/* スクレイピングステータス */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-sm font-medium text-gray-500 mb-2">スクレイピング状態</h3>
-          <div className="flex items-center gap-2">
-            <span className={`inline-block w-3 h-3 rounded-full ${status?.available ? 'bg-green-500' : 'bg-red-500'}`}></span>
-            <span className="text-lg font-semibold text-gray-800">
-              {status?.available ? '利用可能' : '停止中'}
-            </span>
+        {/* Header */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <div>
+            <p className="section-label" style={{ marginBottom: '0.375rem' }}>Admin</p>
+            <h1 className="page-title">ダッシュボード</h1>
           </div>
-          {status?.lastExecution && (
-            <p className="text-xs text-gray-400 mt-2">
-              最終実行: {new Date(status.lastExecution).toLocaleString('ja-JP')}
-            </p>
-          )}
-          {status?.lastStatus && (
-            <span className={`inline-block mt-1 text-xs px-2 py-0.5 rounded ${
-              status.lastStatus === 'SUCCESS' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-            }`}>
-              {status.lastStatus}
-            </span>
-          )}
+          <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', paddingTop: '0.5rem' }}>
+            {user?.username}
+          </span>
         </div>
 
-        {/* 対応サイト数 */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-sm font-medium text-gray-500 mb-2">登録サイト数</h3>
-          <p className="text-3xl font-bold text-indigo-600">{configs.length}</p>
-          <p className="text-xs text-gray-400 mt-2">
-            有効: {configs.filter(c => c.isEnabled).length} / {configs.length}
-          </p>
-        </div>
+        {error && <div className="alert-error" style={{ marginBottom: '1.5rem' }}>{error}</div>}
 
-        {/* 最新ログ結果 */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-sm font-medium text-gray-500 mb-2">直近のスクレイピング結果</h3>
-          {recentLogs.length > 0 ? (
-            <>
-              <p className="text-3xl font-bold text-indigo-600">{recentLogs[0].productsFound}件</p>
-              <p className="text-xs text-gray-400 mt-2">
-                {recentLogs[0].targetSite} - {new Date(recentLogs[0].executedAt).toLocaleString('ja-JP')}
+        {/* Stats */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1px', backgroundColor: 'var(--color-border)', borderRadius: '10px', overflow: 'hidden', marginBottom: '2rem' }}>
+          {/* Status */}
+          <div style={{ backgroundColor: 'var(--color-surface)', padding: '1.5rem' }}>
+            <p className="section-label" style={{ marginBottom: '0.75rem' }}>スクレイピング状態</p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', marginBottom: '0.5rem' }}>
+              <span style={{
+                width: '8px', height: '8px', borderRadius: '50%',
+                backgroundColor: status?.available ? 'var(--color-success)' : 'var(--color-error)',
+                boxShadow: status?.available ? '0 0 6px var(--color-success)' : '0 0 6px var(--color-error)',
+                flexShrink: 0,
+              }} />
+              <span style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--color-text)' }}>
+                {status?.available ? '稼働中' : '停止中'}
+              </span>
+            </div>
+            {status?.lastExecution && (
+              <p style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>
+                最終実行: {new Date(status.lastExecution).toLocaleString('ja-JP')}
               </p>
-            </>
+            )}
+            {status?.lastStatus && (
+              <span className={`badge ${status.lastStatus === 'SUCCESS' ? 'badge-success' : 'badge-error'}`} style={{ marginTop: '0.375rem' }}>
+                {status.lastStatus}
+              </span>
+            )}
+          </div>
+
+          {/* Sites count */}
+          <div style={{ backgroundColor: 'var(--color-surface)', padding: '1.5rem' }}>
+            <p className="section-label" style={{ marginBottom: '0.75rem' }}>登録サイト数</p>
+            <p className="stat-num-accent">{configs.length}</p>
+            <p style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', marginTop: '0.5rem' }}>
+              有効: {configs.filter(c => c.isEnabled).length} / {configs.length}
+            </p>
+          </div>
+
+          {/* Latest result */}
+          <div style={{ backgroundColor: 'var(--color-surface)', padding: '1.5rem' }}>
+            <p className="section-label" style={{ marginBottom: '0.75rem' }}>直近の取得件数</p>
+            {recentLogs.length > 0 ? (
+              <>
+                <p className="stat-num">{recentLogs[0].productsFound}<span style={{ fontSize: '1rem', fontFamily: 'var(--font-body)', color: 'var(--color-text-muted)', marginLeft: '0.25rem' }}>件</span></p>
+                <p style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', marginTop: '0.5rem' }}>
+                  {recentLogs[0].targetSite} — {new Date(recentLogs[0].executedAt).toLocaleString('ja-JP')}
+                </p>
+              </>
+            ) : (
+              <p style={{ fontSize: '0.875rem', color: 'var(--color-text-dim)' }}>データなし</p>
+            )}
+          </div>
+        </div>
+
+        {/* Menu */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem', marginBottom: '2rem' }}>
+          {menuItems.map((item) => (
+            <Link key={item.to} to={item.to} style={{ textDecoration: 'none' }}>
+              <div className="card-interactive" style={{ padding: '1.5rem' }}>
+                <div style={{ fontSize: '1.25rem', marginBottom: '0.75rem' }}>{item.icon}</div>
+                <h3 style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--color-text)', marginBottom: '0.375rem' }}>
+                  {item.label}
+                </h3>
+                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', lineHeight: 1.55, margin: 0 }}>
+                  {item.desc}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Recent logs */}
+        <div className="card">
+          <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid var(--color-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h2 style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--color-text)', margin: 0 }}>最近のスクレイピングログ</h2>
+            <Link to="/admin/logs" style={{ fontSize: '0.72rem', color: 'var(--color-accent)', textDecoration: 'none', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+              すべて見る →
+            </Link>
+          </div>
+
+          {recentLogs.length === 0 ? (
+            <p style={{ textAlign: 'center', padding: '2.5rem', fontSize: '0.875rem', color: 'var(--color-text-dim)' }}>
+              ログがありません。
+            </p>
           ) : (
-            <p className="text-gray-400">データなし</p>
+            <div style={{ overflowX: 'auto' }}>
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>実行日時</th>
+                    <th>対象サイト</th>
+                    <th>ステータス</th>
+                    <th>取得件数</th>
+                    <th>エラー</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {recentLogs.map((log) => (
+                    <tr key={log.id}>
+                      <td className="muted">{new Date(log.executedAt).toLocaleString('ja-JP')}</td>
+                      <td>{log.targetSite}</td>
+                      <td>
+                        <span className={`badge ${log.status === 'SUCCESS' ? 'badge-success' : 'badge-error'}`}>
+                          {log.status === 'SUCCESS' ? '成功' : '失敗'}
+                        </span>
+                      </td>
+                      <td style={{ color: 'var(--color-accent)', fontWeight: 600 }}>{log.productsFound}</td>
+                      <td className="muted" style={{ fontSize: '0.7rem', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {log.errorMessage || '—'}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
       </div>
-
-      {/* 管理メニュー */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        <Link to="/admin/scrape" className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow">
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">手動スクレイピング</h3>
-          <p className="text-sm text-gray-500">スクレイピングを手動で実行し、結果を確認します。</p>
-        </Link>
-
-        <Link to="/admin/logs" className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow">
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">スクレイピング履歴</h3>
-          <p className="text-sm text-gray-500">過去のスクレイピング実行履歴を確認します。</p>
-        </Link>
-
-        <Link to="/admin/users" className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow">
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">ユーザー管理</h3>
-          <p className="text-sm text-gray-500">ユーザーの作成・削除を行います。</p>
-        </Link>
-      </div>
-
-      {/* 最近のスクレイピングログ */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold text-gray-800">最近のスクレイピングログ</h2>
-          <Link to="/admin/logs" className="text-sm text-indigo-600 hover:text-indigo-800">
-            すべて見る
-          </Link>
-        </div>
-
-        {recentLogs.length === 0 ? (
-          <p className="text-gray-400 text-center py-4">ログがありません。</p>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">実行日時</th>
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">対象サイト</th>
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">ステータス</th>
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">取得件数</th>
-                  <th className="text-left py-2 px-3 text-gray-500 font-medium">エラー</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recentLogs.map((log) => (
-                  <tr key={log.id} className="border-b border-gray-100">
-                    <td className="py-2 px-3 text-gray-700">
-                      {new Date(log.executedAt).toLocaleString('ja-JP')}
-                    </td>
-                    <td className="py-2 px-3 text-gray-700">{log.targetSite}</td>
-                    <td className="py-2 px-3">
-                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                        log.status === 'SUCCESS' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-                      }`}>
-                        {log.status}
-                      </span>
-                    </td>
-                    <td className="py-2 px-3 text-gray-700">{log.productsFound}件</td>
-                    <td className="py-2 px-3 text-red-500 text-xs truncate max-w-xs">
-                      {log.errorMessage || '-'}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
-
     </div>
   );
 }

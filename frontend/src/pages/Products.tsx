@@ -90,149 +90,147 @@ function Products() {
     setSortDirection('desc');
   };
 
+  const hasActiveFilters = manufacturer || keyword || sortField !== 'createdAt' || sortDirection !== 'desc';
+
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">商品一覧</h1>
+    <div style={{ minHeight: 'calc(100vh - 3.25rem)', padding: '2rem 1.5rem 4rem' }}>
+      <div className="container mx-auto" style={{ maxWidth: '80rem' }}>
 
-      {/* フィルタ・検索バー */}
-      <div className="bg-white rounded-lg shadow p-4 mb-6">
-        <div className="flex flex-col gap-4">
-          {/* メーカーフィルタ */}
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={() => handleManufacturerChange('')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-                manufacturer === '' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              すべて
-            </button>
-            <button
-              onClick={() => handleManufacturerChange('BANDAI')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-                manufacturer === 'BANDAI' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              バンダイ
-            </button>
-            <button
-              onClick={() => handleManufacturerChange('TAKARA_TOMY')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-                manufacturer === 'TAKARA_TOMY' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              タカラトミー
-            </button>
-          </div>
-
-          {/* キーワード検索 */}
-          <form onSubmit={handleSearch} className="flex gap-2">
-            <input
-              type="text"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              placeholder="商品名で検索..."
-              className="flex-1 min-w-0 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-            <button
-              type="submit"
-              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition whitespace-nowrap"
-            >
-              検索
-            </button>
-          </form>
-
-          {/* ソート・クリア */}
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-          {/* ソート */}
-          <div className="flex items-center gap-2 flex-1">
-            <label className="text-sm text-gray-500 whitespace-nowrap">並び替え:</label>
-            <select
-              value={currentSortIndex}
-              onChange={(e) => handleSortChange(e.target.value)}
-              className="flex-1 sm:flex-none border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            >
-              {sortOptions.map((option, index) => (
-                <option key={index} value={index}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* フィルタクリア */}
-          {(manufacturer || keyword || sortField !== 'createdAt' || sortDirection !== 'desc') && (
-            <button
-              onClick={handleClearFilters}
-              className="text-sm text-gray-500 hover:text-gray-700 underline"
-            >
-              クリア
-            </button>
-          )}
-          </div>
+        {/* Header */}
+        <div style={{ marginBottom: '2rem' }}>
+          <p className="section-label" style={{ marginBottom: '0.375rem' }}>カタログ</p>
+          <h1 className="page-title">商品一覧</h1>
         </div>
 
-        {/* 検索結果件数 */}
-        <div className="mt-3 text-sm text-gray-500">
-          {totalElements}件の商品が見つかりました
+        {/* Filter bar */}
+        <div style={{
+          backgroundColor: 'var(--color-surface)',
+          border: '1px solid var(--color-border)',
+          borderRadius: '10px',
+          padding: '1.25rem',
+          marginBottom: '1.5rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+        }}>
+          {/* Manufacturer pills */}
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+            <span className="section-label" style={{ marginRight: '0.25rem' }}>メーカー:</span>
+            {[
+              { value: '', label: 'すべて' },
+              { value: 'BANDAI', label: 'バンダイ' },
+              { value: 'TAKARA_TOMY', label: 'タカラトミー' },
+            ].map((item) => (
+              <button
+                key={item.value}
+                onClick={() => handleManufacturerChange(item.value)}
+                className={`filter-pill ${manufacturer === item.value ? 'active' : ''}`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Search + Sort row */}
+          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+            <form onSubmit={handleSearch} style={{ display: 'flex', gap: '0.5rem', flex: 1, minWidth: '200px' }}>
+              <input
+                type="text"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                placeholder="商品名で検索..."
+                className="input-field"
+                style={{ flex: 1 }}
+              />
+              <button type="submit" className="btn-primary" style={{ whiteSpace: 'nowrap' }}>
+                検索
+              </button>
+            </form>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span className="section-label">並び替え:</span>
+              <select
+                value={currentSortIndex}
+                onChange={(e) => handleSortChange(e.target.value)}
+                className="input-field"
+                style={{ width: 'auto' }}
+              >
+                {sortOptions.map((option, index) => (
+                  <option key={index} value={index}>{option.label}</option>
+                ))}
+              </select>
+            </div>
+
+            {hasActiveFilters && (
+              <button onClick={handleClearFilters} className="btn-secondary" style={{ padding: '0.4rem 0.875rem', whiteSpace: 'nowrap' }}>
+                ✕ クリア
+              </button>
+            )}
+          </div>
+
+          {/* Count */}
+          <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', margin: 0 }}>
+            <span style={{ color: 'var(--color-accent)', fontWeight: 700 }}>{totalElements}</span> 件の商品
+          </p>
         </div>
+
+        {/* Loading */}
+        {loading && (
+          <div style={{ display: 'flex', justifyContent: 'center', padding: '5rem 0' }}>
+            <div className="loader" />
+          </div>
+        )}
+
+        {/* Error */}
+        {error && (
+          <div className="alert-error" style={{ marginBottom: '1.5rem' }}>{error}</div>
+        )}
+
+        {/* Grid */}
+        {!loading && !error && (
+          <>
+            {products.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '5rem 0', color: 'var(--color-text-muted)', fontSize: '0.875rem' }}>
+                商品が見つかりませんでした。
+              </div>
+            ) : (
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+                gap: '1rem',
+              }}>
+                {products.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            )}
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem', marginTop: '3rem' }}>
+                <button
+                  onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
+                  disabled={currentPage === 0}
+                  className="btn-secondary"
+                >
+                  ← 前へ
+                </button>
+                <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+                  <span style={{ color: 'var(--color-text)', fontWeight: 600 }}>{currentPage + 1}</span>
+                  {' / '}{totalPages}
+                </span>
+                <button
+                  onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
+                  disabled={currentPage >= totalPages - 1}
+                  className="btn-secondary"
+                >
+                  次へ →
+                </button>
+              </div>
+            )}
+          </>
+        )}
       </div>
-
-      {/* ローディング */}
-      {loading && (
-        <div className="flex justify-center items-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-        </div>
-      )}
-
-      {/* エラー */}
-      {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
-          {error}
-        </div>
-      )}
-
-      {/* 商品グリッド */}
-      {!loading && !error && (
-        <>
-          {products.length === 0 ? (
-            <div className="text-center py-12 text-gray-500">
-              商品が見つかりませんでした。
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          )}
-
-          {/* ページネーション */}
-          {totalPages > 1 && (
-            <div className="flex justify-center items-center gap-4 mt-8">
-              <button
-                onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
-                disabled={currentPage === 0}
-                className="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition"
-              >
-                前へ
-              </button>
-
-              <span className="text-sm text-gray-600">
-                {currentPage + 1} / {totalPages} ページ
-              </span>
-
-              <button
-                onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
-                disabled={currentPage >= totalPages - 1}
-                className="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition"
-              >
-                次へ
-              </button>
-            </div>
-          )}
-        </>
-      )}
     </div>
   );
 }

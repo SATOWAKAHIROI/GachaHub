@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -8,7 +8,6 @@ import Products from './pages/Products'
 import AdminDashboard from './pages/AdminDashboard'
 import AdminScrape from './pages/AdminScrape'
 import AdminLogs from './pages/AdminLogs'
-// AdminSites removed - sites are predefined
 import AdminUsers from './pages/AdminUsers'
 import AdminUserDetail from './pages/AdminUserDetail'
 import Profile from './pages/Profile'
@@ -17,6 +16,7 @@ import AdminProtectedRoute from './components/AdminProtectedRoute'
 function Navigation() {
   const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const isAdmin = isAuthenticated && user?.role === 'ADMIN';
@@ -29,101 +29,113 @@ function Navigation() {
 
   const closeMenu = () => setMenuOpen(false);
 
+  const isActive = (path: string) =>
+    path === '/' ? location.pathname === '/' : location.pathname.startsWith(path);
+
   return (
-    <nav className="bg-white shadow-lg">
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          {/* ロゴ・サイト名 */}
-          <Link to="/" className="text-xl font-bold text-indigo-600" onClick={closeMenu}>
-            GachaHub
+    <nav style={{
+      backgroundColor: 'var(--color-surface)',
+      borderBottom: '1px solid var(--color-border)',
+      position: 'sticky',
+      top: 0,
+      zIndex: 50,
+    }}>
+      <div className="container mx-auto px-4 md:px-6">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '3.25rem' }}>
+
+          {/* Logo */}
+          <Link to="/" onClick={closeMenu} style={{ textDecoration: 'none' }}>
+            <span className="font-display" style={{ fontSize: '1.5rem', letterSpacing: '0.1em', color: 'var(--color-text)' }}>
+              GACHA<span style={{ color: 'var(--color-accent)' }}>HUB</span>
+            </span>
           </Link>
 
-          {/* デスクトップナビ */}
-          <div className="hidden md:flex space-x-6">
-            <Link to="/" className="text-gray-700 hover:text-indigo-600 font-medium transition">
-              ホーム
-            </Link>
-            <Link to="/products" className="text-gray-700 hover:text-indigo-600 font-medium transition">
-              商品一覧
-            </Link>
-            <Link to="/about" className="text-gray-700 hover:text-indigo-600 font-medium transition">
-              このサイトについて
-            </Link>
+          {/* Desktop Nav Links */}
+          <div className="hidden md:flex" style={{ gap: '2rem', alignItems: 'center' }}>
+            <Link to="/" className={`nav-link ${isActive('/') ? 'active' : ''}`}>ホーム</Link>
+            <Link to="/products" className={`nav-link ${isActive('/products') ? 'active' : ''}`}>商品一覧</Link>
+            <Link to="/about" className={`nav-link ${isActive('/about') ? 'active' : ''}`}>このサイトについて</Link>
             {isAdmin && (
-              <Link to="/admin" className="text-gray-700 hover:text-indigo-600 font-medium transition">
-                管理画面
-              </Link>
+              <Link to="/admin" className={`nav-link ${isActive('/admin') ? 'active' : ''}`}>管理画面</Link>
             )}
           </div>
 
-          {/* デスクトップ認証ボタン */}
-          <div className="hidden md:flex items-center space-x-4">
-            {isAdmin && user && (
+          {/* Desktop Auth */}
+          <div className="hidden md:flex" style={{ alignItems: 'center', gap: '0.75rem' }}>
+            {isAdmin && user ? (
               <>
-                <Link to="/profile" className="text-gray-700 hover:text-indigo-600 text-sm transition">
+                <Link to="/profile" style={{
+                  display: 'flex', alignItems: 'center', gap: '0.5rem',
+                  textDecoration: 'none', color: 'var(--color-text)',
+                  fontSize: '0.8rem', fontWeight: 500,
+                }}>
                   {user.username}
-                  <span className="ml-1 text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full">
-                    管理者
-                  </span>
+                  <span className="badge badge-purple">管理者</span>
                 </Link>
-                <button
-                  onClick={handleLogout}
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition text-sm"
-                >
+                <button onClick={handleLogout} className="btn-secondary" style={{ padding: '0.35rem 0.875rem' }}>
                   ログアウト
                 </button>
               </>
-            )}
+            ) : !isAuthenticated ? (
+              <Link to="/admin/login" className="btn-primary" style={{ padding: '0.35rem 0.875rem' }}>
+                管理者ログイン
+              </Link>
+            ) : null}
           </div>
 
-          {/* モバイルハンバーガーボタン */}
+          {/* Mobile Hamburger */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition"
+            className="md:hidden"
+            style={{ color: 'var(--color-text-muted)', background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem' }}
             aria-label="メニュー"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {menuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {menuOpen
+                ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              }
             </svg>
           </button>
         </div>
 
-        {/* モバイルメニュー */}
+        {/* Mobile Menu */}
         {menuOpen && (
-          <div className="md:hidden border-t border-gray-200 py-3">
-            <div className="flex flex-col space-y-2">
-              <Link to="/" onClick={closeMenu} className="text-gray-700 hover:text-indigo-600 font-medium py-2 transition">
-                ホーム
-              </Link>
-              <Link to="/products" onClick={closeMenu} className="text-gray-700 hover:text-indigo-600 font-medium py-2 transition">
-                商品一覧
-              </Link>
-              <Link to="/about" onClick={closeMenu} className="text-gray-700 hover:text-indigo-600 font-medium py-2 transition">
-                このサイトについて
-              </Link>
-              {isAdmin && (
-                <Link to="/admin" onClick={closeMenu} className="text-gray-700 hover:text-indigo-600 font-medium py-2 transition">
-                  管理画面
+          <div style={{ borderTop: '1px solid var(--color-border)', padding: '0.75rem 0 1rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.125rem' }}>
+              {[
+                { to: '/', label: 'ホーム', show: true },
+                { to: '/products', label: '商品一覧', show: true },
+                { to: '/about', label: 'このサイトについて', show: true },
+                { to: '/admin', label: '管理画面', show: isAdmin },
+              ].filter(i => i.show).map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={closeMenu}
+                  style={{
+                    padding: '0.6rem 0.5rem',
+                    color: isActive(item.to) ? 'var(--color-accent)' : 'var(--color-text-muted)',
+                    textDecoration: 'none',
+                    fontSize: '0.72rem',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                  }}
+                >
+                  {item.label}
                 </Link>
-              )}
+              ))}
 
               {isAdmin && user && (
-                <div className="border-t border-gray-200 pt-2 mt-2">
-                  <div className="flex flex-col space-y-2">
-                    <Link to="/profile" onClick={closeMenu} className="text-gray-700 hover:text-indigo-600 text-sm font-medium py-2 transition">
-                      {user.username} (管理者)
-                    </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition text-sm text-center"
-                    >
-                      ログアウト
-                    </button>
-                  </div>
+                <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: '0.75rem', marginTop: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <Link to="/profile" onClick={closeMenu} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', color: 'var(--color-text)', fontSize: '0.8rem' }}>
+                    {user.username}
+                    <span className="badge badge-purple">管理者</span>
+                  </Link>
+                  <button onClick={handleLogout} className="btn-secondary" style={{ width: 'fit-content', padding: '0.35rem 0.875rem' }}>
+                    ログアウト
+                  </button>
                 </div>
               )}
             </div>
@@ -136,7 +148,7 @@ function Navigation() {
 
 function AppContent() {
   return (
-    <div className="app">
+    <div style={{ minHeight: '100vh', backgroundColor: 'var(--color-bg)' }}>
       <Navigation />
       <main>
         <Routes>
