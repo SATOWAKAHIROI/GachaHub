@@ -17,17 +17,15 @@ function AdminScrape() {
   const [error, setError] = useState<string | null>(null);
 
   const sites = [
-    { value: 'BANDAI', label: 'バンダイ（ガシャポン）' },
-    { value: 'TAKARA_TOMY', label: 'タカラトミーアーツ' },
+    { value: 'BANDAI', label: 'バンダイ', sub: 'ガシャポン公式サイト' },
+    { value: 'TAKARA_TOMY', label: 'タカラトミーアーツ', sub: '公式ガチャサイト' },
   ];
 
   const handleExecute = async () => {
     if (!selectedSite) return;
-
     setLoading(true);
     setResult(null);
     setError(null);
-
     try {
       let data: ScrapeResult;
       if (selectedSite === 'BANDAI') {
@@ -45,122 +43,133 @@ function AdminScrape() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* パンくずリスト */}
-      <div className="text-sm text-gray-500 mb-4">
-        <Link to="/admin" className="hover:text-indigo-600">管理ダッシュボード</Link>
-        <span className="mx-2">/</span>
-        <span className="text-gray-800">手動スクレイピング</span>
-      </div>
+    <div style={{ minHeight: 'calc(100vh - 3.25rem)', padding: '2rem 1.5rem 4rem' }}>
+      <div className="container mx-auto" style={{ maxWidth: '48rem' }}>
 
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">手動スクレイピング実行</h1>
-
-      {/* サイト選択 */}
-      <div className="bg-white rounded-lg shadow p-6 mb-6">
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">対象サイトを選択</h2>
-        <div className="flex flex-col sm:flex-row gap-3">
-          {sites.map((site) => (
-            <button
-              key={site.value}
-              onClick={() => setSelectedSite(site.value)}
-              disabled={loading}
-              className={`px-6 py-3 rounded-lg text-sm font-medium transition border-2 ${
-                selectedSite === site.value
-                  ? 'border-indigo-600 bg-indigo-50 text-indigo-700'
-                  : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'
-              } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-            >
-              {site.label}
-            </button>
-          ))}
+        {/* Breadcrumb */}
+        <div className="breadcrumb">
+          <Link to="/admin">ダッシュボード</Link>
+          <span>/</span>
+          <span style={{ color: 'var(--color-text)' }}>手動スクレイピング</span>
         </div>
-      </div>
 
-      {/* 実行ボタン */}
-      <div className="bg-white rounded-lg shadow p-6 mb-6">
-        <button
-          onClick={handleExecute}
-          disabled={!selectedSite || loading}
-          className={`w-full sm:w-auto px-8 py-3 rounded-lg text-white font-medium transition ${
-            !selectedSite || loading
-              ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-indigo-600 hover:bg-indigo-700'
-          }`}
-        >
-          {loading ? (
-            <span className="flex items-center justify-center gap-2">
-              <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></span>
-              スクレイピング実行中...
-            </span>
-          ) : (
-            'スクレイピングを実行'
-          )}
-        </button>
+        {/* Header */}
+        <div style={{ marginBottom: '2rem' }}>
+          <p className="section-label" style={{ marginBottom: '0.375rem' }}>Admin</p>
+          <h1 className="page-title">手動スクレイピング</h1>
+        </div>
 
-        {!selectedSite && !loading && (
-          <p className="text-sm text-gray-400 mt-2">対象サイトを選択してください。</p>
-        )}
-      </div>
-
-      {/* 実行中表示 */}
-      {loading && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
-          <div className="flex items-center gap-3">
-            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
-            <div>
-              <p className="text-blue-800 font-medium">スクレイピングを実行しています...</p>
-              <p className="text-blue-600 text-sm mt-1">
-                対象サイトにアクセスしてデータを取得中です。完了までお待ちください。
-              </p>
-            </div>
+        {/* Site select */}
+        <div className="card" style={{ padding: '1.5rem', marginBottom: '1rem' }}>
+          <p className="section-label" style={{ marginBottom: '1rem' }}>対象サイトを選択</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+            {sites.map((site) => (
+              <button
+                key={site.value}
+                onClick={() => setSelectedSite(site.value)}
+                disabled={loading}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '1rem',
+                  padding: '1rem 1.25rem',
+                  borderRadius: '8px',
+                  border: `1px solid ${selectedSite === site.value ? 'var(--color-accent)' : 'var(--color-border)'}`,
+                  backgroundColor: selectedSite === site.value ? 'var(--color-accent-dim)' : 'var(--color-surface-2)',
+                  cursor: loading ? 'not-allowed' : 'pointer',
+                  opacity: loading ? 0.5 : 1,
+                  transition: 'all 0.15s ease',
+                  textAlign: 'left',
+                }}
+              >
+                <div style={{
+                  width: '10px', height: '10px', borderRadius: '50%',
+                  flexShrink: 0,
+                  backgroundColor: selectedSite === site.value ? 'var(--color-accent)' : 'var(--color-border)',
+                  boxShadow: selectedSite === site.value ? '0 0 8px var(--color-accent)' : 'none',
+                  transition: 'all 0.15s',
+                }} />
+                <div>
+                  <p style={{ margin: 0, fontSize: '0.875rem', fontWeight: 700, color: selectedSite === site.value ? 'var(--color-accent)' : 'var(--color-text)' }}>
+                    {site.label}
+                  </p>
+                  <p style={{ margin: 0, fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>
+                    {site.sub}
+                  </p>
+                </div>
+              </button>
+            ))}
           </div>
         </div>
-      )}
 
-      {/* 実行結果 */}
-      {result && (
-        <div className={`border rounded-lg p-6 mb-6 ${
-          result.status === 'success'
-            ? 'bg-green-50 border-green-200'
-            : 'bg-red-50 border-red-200'
-        }`}>
-          <h3 className={`text-lg font-semibold mb-2 ${
-            result.status === 'success' ? 'text-green-800' : 'text-red-800'
-          }`}>
-            {result.status === 'success' ? '実行完了' : '実行失敗'}
-          </h3>
-          <p className={`text-sm ${
-            result.status === 'success' ? 'text-green-700' : 'text-red-700'
-          }`}>
-            {result.message}
-          </p>
-          {result.totalProducts !== undefined && (
-            <div className="mt-3 flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <span className="text-2xl font-bold text-green-700">{result.totalProducts}</span>
-                <span className="text-green-600">件取得</span>
-              </div>
-              {result.newProducts !== undefined && result.newProducts > 0 && (
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-400">うち新着</span>
-                  <span className="text-xl font-bold text-orange-600">{result.newProducts}</span>
-                  <span className="text-orange-500">件</span>
-                </div>
-              )}
-              {result.newProducts !== undefined && result.newProducts === 0 && (
-                <span className="text-sm text-gray-500">（新着なし）</span>
-              )}
-            </div>
+        {/* Execute */}
+        <div className="card" style={{ padding: '1.5rem', marginBottom: '1rem' }}>
+          <button
+            onClick={handleExecute}
+            disabled={!selectedSite || loading}
+            className="btn-primary"
+            style={{ padding: '0.75rem 2rem', fontSize: '0.875rem' }}
+          >
+            {loading ? (
+              <>
+                <span className="loader" style={{ width: '1rem', height: '1rem', borderWidth: '2px' }} />
+                実行中...
+              </>
+            ) : '実行する →'}
+          </button>
+          {!selectedSite && !loading && (
+            <p style={{ fontSize: '0.75rem', color: 'var(--color-text-dim)', marginTop: '0.75rem', marginBottom: 0 }}>
+              サイトを選択してから実行してください
+            </p>
           )}
         </div>
-      )}
 
-      {/* エラー表示 */}
-      {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
-          {error}
-        </div>
-      )}
+        {/* Running */}
+        {loading && (
+          <div className="alert-info" style={{ marginBottom: '1rem' }}>
+            <p style={{ fontWeight: 700, margin: '0 0 0.25rem' }}>スクレイピング実行中...</p>
+            <p style={{ margin: 0, opacity: 0.8, fontSize: '0.8rem' }}>
+              対象サイトにアクセスしています。完了までしばらくお待ちください。
+            </p>
+          </div>
+        )}
+
+        {/* Result */}
+        {result && (
+          <div className={result.status === 'success' ? 'alert-success' : 'alert-error'} style={{ marginBottom: '1rem' }}>
+            <p style={{ fontWeight: 700, margin: '0 0 0.25rem' }}>
+              {result.status === 'success' ? '✓ 実行完了' : '✕ 実行失敗'}
+            </p>
+            <p style={{ margin: 0, opacity: 0.85, fontSize: '0.8rem' }}>{result.message}</p>
+            {result.totalProducts !== undefined && (
+              <div style={{ display: 'flex', gap: '1.5rem', marginTop: '1rem', flexWrap: 'wrap' }}>
+                <div>
+                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', lineHeight: 1 }}>
+                    {result.totalProducts}
+                  </span>
+                  <span style={{ fontSize: '0.75rem', marginLeft: '0.3rem', opacity: 0.8 }}>件取得</span>
+                </div>
+                {result.newProducts !== undefined && result.newProducts > 0 && (
+                  <div>
+                    <span style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', lineHeight: 1, color: 'var(--color-accent)' }}>
+                      {result.newProducts}
+                    </span>
+                    <span style={{ fontSize: '0.75rem', marginLeft: '0.3rem', opacity: 0.8 }}>件新着</span>
+                  </div>
+                )}
+                {result.newProducts === 0 && (
+                  <span style={{ fontSize: '0.75rem', opacity: 0.7, alignSelf: 'flex-end', paddingBottom: '0.25rem' }}>新着なし</span>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Error */}
+        {error && (
+          <div className="alert-error">{error}</div>
+        )}
+      </div>
     </div>
   );
 }

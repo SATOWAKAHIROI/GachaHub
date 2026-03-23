@@ -17,7 +17,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 git でコミットをする際のコメントは全て日本語にすること。
 新しい機能のプルリクエストを作成する場合は常に新しいブランチを切ること。
 コミットしたら、必ず push まですること。
-push したら、PR 作成用の URL（`https://github.com/SATOWAKAHIROI/GachaHub/pull/new/<ブランチ名>`）を表示すること。既に PR が存在する場合は表示不要。
+push したら、`gh pr create` コマンドで自動的に PR を作成すること。PR のタイトルと本文は日本語で作成し、変更内容を簡潔にまとめること。既に PR が存在する場合は作成不要。
 全てのチャットの冒頭で、AI 運用 5 原則の後に上記も表示すること。
 
 ## [タスク管理]

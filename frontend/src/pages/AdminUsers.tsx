@@ -16,12 +16,7 @@ function AdminUsers() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    role: 'USER',
-  });
+  const [formData, setFormData] = useState({ username: '', email: '', password: '', role: 'USER' });
   const [formError, setFormError] = useState('');
   const [formLoading, setFormLoading] = useState(false);
 
@@ -30,22 +25,19 @@ function AdminUsers() {
       setLoading(true);
       const data = await getUsers();
       setUsers(data);
-    } catch (err) {
+    } catch {
       setError('ユーザー一覧の取得に失敗しました');
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  useEffect(() => { fetchUsers(); }, []);
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormLoading(true);
     setFormError('');
-
     try {
       await createUser(formData);
       setFormData({ username: '', email: '', password: '', role: 'USER' });
@@ -60,7 +52,6 @@ function AdminUsers() {
 
   const handleDelete = async (id: number, username: string) => {
     if (!confirm(`ユーザー "${username}" を削除しますか？`)) return;
-
     try {
       await deleteUser(id);
       fetchUsers();
@@ -70,166 +61,157 @@ function AdminUsers() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
-        {/* ヘッダー */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">ユーザー管理</h1>
-            <p className="text-gray-600 mt-1">ユーザーの作成・削除を行います</p>
-          </div>
-          <div className="flex gap-3">
-            <button
-              onClick={() => setShowForm(!showForm)}
-              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition text-sm font-medium"
-            >
-              {showForm ? 'キャンセル' : '+ 新規ユーザー'}
-            </button>
-            <Link
-              to="/admin"
-              className="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition text-sm font-medium"
-            >
-              ダッシュボードへ戻る
-            </Link>
-          </div>
+    <div style={{ minHeight: 'calc(100vh - 3.25rem)', padding: '2rem 1.5rem 4rem' }}>
+      <div className="container mx-auto" style={{ maxWidth: '72rem' }}>
+
+        {/* Breadcrumb */}
+        <div className="breadcrumb">
+          <Link to="/admin">ダッシュボード</Link>
+          <span>/</span>
+          <span style={{ color: 'var(--color-text)' }}>ユーザー管理</span>
         </div>
 
-        {error && (
-          <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-            {error}
+        {/* Header */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+          <div>
+            <p className="section-label" style={{ marginBottom: '0.375rem' }}>Admin</p>
+            <h1 className="page-title">ユーザー管理</h1>
           </div>
-        )}
+          <button
+            onClick={() => setShowForm(!showForm)}
+            className={showForm ? 'btn-secondary' : 'btn-primary'}
+            style={{ alignSelf: 'flex-end' }}
+          >
+            {showForm ? '✕ キャンセル' : '+ 新規ユーザー'}
+          </button>
+        </div>
 
-        {/* ユーザー作成フォーム */}
+        {error && <div className="alert-error" style={{ marginBottom: '1.5rem' }}>{error}</div>}
+
+        {/* Create form */}
         {showForm && (
-          <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">新規ユーザー作成</h2>
-            {formError && (
-              <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-                {formError}
+          <div className="card" style={{ padding: '1.5rem', marginBottom: '1.5rem' }}>
+            <h2 style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--color-text)', marginBottom: '1.25rem' }}>
+              新規ユーザー作成
+            </h2>
+            {formError && <div className="alert-error" style={{ marginBottom: '1rem' }}>{formError}</div>}
+            <form onSubmit={handleCreate}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.25rem' }}>
+                <div>
+                  <label className="input-label">ユーザー名</label>
+                  <input
+                    type="text"
+                    value={formData.username}
+                    onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                    required
+                    className="input-field"
+                    placeholder="username"
+                  />
+                </div>
+                <div>
+                  <label className="input-label">メールアドレス</label>
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    required
+                    className="input-field"
+                    placeholder="email@example.com"
+                  />
+                </div>
+                <div>
+                  <label className="input-label">パスワード</label>
+                  <input
+                    type="password"
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    required
+                    minLength={8}
+                    className="input-field"
+                    placeholder="8文字以上"
+                  />
+                </div>
+                <div>
+                  <label className="input-label">ロール</label>
+                  <select
+                    value={formData.role}
+                    onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                    className="input-field"
+                  >
+                    <option value="USER">一般ユーザー</option>
+                    <option value="ADMIN">管理者</option>
+                  </select>
+                </div>
               </div>
-            )}
-            <form onSubmit={handleCreate} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">ユーザー名</label>
-                <input
-                  type="text"
-                  value={formData.username}
-                  onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                  required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm"
-                  placeholder="ユーザー名"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">メールアドレス</label>
-                <input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm"
-                  placeholder="email@example.com"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">パスワード</label>
-                <input
-                  type="password"
-                  value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  required
-                  minLength={8}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm"
-                  placeholder="8文字以上"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">ロール</label>
-                <select
-                  value={formData.role}
-                  onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm"
-                >
-                  <option value="USER">一般ユーザー</option>
-                  <option value="ADMIN">管理者</option>
-                </select>
-              </div>
-              <div className="sm:col-span-2">
-                <button
-                  type="submit"
-                  disabled={formLoading}
-                  className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition text-sm font-medium disabled:opacity-50"
-                >
-                  {formLoading ? '作成中...' : 'ユーザーを作成'}
-                </button>
-              </div>
+              <button type="submit" disabled={formLoading} className="btn-primary">
+                {formLoading ? '作成中...' : 'ユーザーを作成'}
+              </button>
             </form>
           </div>
         )}
 
-        {/* ユーザー一覧 */}
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-lg font-bold text-gray-900">ユーザー一覧（{users.length}件）</h2>
+        {/* Table */}
+        <div className="card" style={{ overflow: 'hidden' }}>
+          <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid var(--color-border)' }}>
+            <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+              {users.length} 件のユーザー
+            </span>
           </div>
 
           {loading ? (
-            <div className="p-8 text-center text-gray-500">読み込み中...</div>
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '3rem' }}>
+              <div className="loader" />
+            </div>
           ) : users.length === 0 ? (
-            <div className="p-8 text-center text-gray-500">ユーザーがいません</div>
+            <p style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-text-dim)', fontSize: '0.875rem' }}>
+              ユーザーがいません
+            </p>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50">
+            <div style={{ overflowX: 'auto' }}>
+              <table className="data-table">
+                <thead>
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ユーザー名</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">メール</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ロール</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">通知</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">作成日</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                    <th>ID</th>
+                    <th>ユーザー名</th>
+                    <th>メール</th>
+                    <th>ロール</th>
+                    <th>通知</th>
+                    <th>作成日</th>
+                    <th>操作</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody>
                   {users.map((user) => (
-                    <tr key={user.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 text-sm text-gray-900">{user.id}</td>
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900">{user.username}</td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{user.email}</td>
-                      <td className="px-6 py-4">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          user.role === 'ADMIN'
-                            ? 'bg-purple-100 text-purple-800'
-                            : 'bg-green-100 text-green-800'
-                        }`}>
+                    <tr key={user.id}>
+                      <td className="muted" style={{ fontSize: '0.72rem' }}>{user.id}</td>
+                      <td style={{ fontWeight: 600 }}>{user.username}</td>
+                      <td className="muted" style={{ fontSize: '0.8rem' }}>{user.email}</td>
+                      <td>
+                        <span className={`badge ${user.role === 'ADMIN' ? 'badge-purple' : 'badge-cyan'}`}>
                           {user.role === 'ADMIN' ? '管理者' : '一般'}
                         </span>
                       </td>
-                      <td className="px-6 py-4">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          user.notificationEnabled
-                            ? 'bg-blue-100 text-blue-800'
-                            : 'bg-gray-100 text-gray-500'
-                        }`}>
+                      <td>
+                        <span className={`badge ${user.notificationEnabled ? 'badge-success' : ''}`}
+                          style={!user.notificationEnabled ? { color: 'var(--color-text-dim)', border: '1px solid var(--color-border)' } : {}}>
                           {user.notificationEnabled ? 'ON' : 'OFF'}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                      <td className="muted" style={{ fontSize: '0.72rem', whiteSpace: 'nowrap' }}>
                         {new Date(user.createdAt).toLocaleDateString('ja-JP')}
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-3">
+                      <td>
+                        <div style={{ display: 'flex', gap: '0.75rem' }}>
                           <Link
                             to={`/admin/users/${user.id}`}
-                            className="text-indigo-600 hover:text-indigo-800 text-sm font-medium transition"
+                            style={{ fontSize: '0.75rem', color: 'var(--color-accent)', textDecoration: 'none', fontWeight: 600 }}
                           >
                             編集
                           </Link>
                           <button
                             onClick={() => handleDelete(user.id, user.username)}
-                            className="text-red-600 hover:text-red-800 text-sm font-medium transition"
+                            className="btn-danger"
+                            style={{ fontSize: '0.72rem', padding: '0.2rem 0.5rem' }}
                           >
                             削除
                           </button>
