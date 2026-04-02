@@ -177,6 +177,18 @@
 
 ## Phase 5: 拡張・運用改善
 
+### デプロイ対応
+- [x] application-prod.properties作成（Render + Neon用）
+- [x] application-scrape.properties作成（GitHub Actions用）
+- [x] ScrapeCommandRunner作成（GitHub Actions用CLIスクレイピング実行）
+- [x] SecurityConfigのCORS設定を環境変数対応に変更
+- [x] GitHub Actionsワークフロー作成（.github/workflows/scrape.yml）
+- [ ] Neonデータベースのセットアップ
+- [ ] Renderへのバックエンドデプロイ
+- [ ] Vercelへのフロントエンドデプロイ
+- [ ] GitHub Secretsの設定
+- [ ] 動作確認
+
 ### 追加サイト対応
 - [ ] 新規サイトの調査
 - [ ] スクレイピングロジック追加

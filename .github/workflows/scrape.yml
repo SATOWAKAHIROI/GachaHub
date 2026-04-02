@@ -1,0 +1,52 @@
+name: 定期スクレイピング
+
+on:
+  schedule:
+    # 毎日午前6時（JST）= UTC 21:00（前日）
+    - cron: '0 21 * * *'
+  workflow_dispatch:
+    # 手動実行も可能
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    services:
+      selenium:
+        image: selenium/standalone-chromium:latest
+        ports:
+          - 4444:4444
+        options: --shm-size=2gb
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: JDK 17 をセットアップ
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+
+      - name: アプリケーションをビルド
+        working-directory: ./backend
+        run: mvn clean package -DskipTests -q
+
+      - name: スクレイピングを実行
+        working-directory: ./backend
+        env:
+          SPRING_PROFILES_ACTIVE: scrape
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          NOTIFICATION_ENABLED: ${{ secrets.NOTIFICATION_ENABLED }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+        run: |
+          java -jar target/*.jar
