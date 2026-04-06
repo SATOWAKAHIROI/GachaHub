@@ -78,7 +78,7 @@ public class RegularScrapeExecuter {
     private BaseScraper getScraperForSite(String siteName) {
         return switch (siteName) {
             case "BANDAI" -> bandaiScraper;
-            case "TAKARA_TOMY_ARTS" -> takaraTomyScraper;
+            case "TAKARA_TOMY" -> takaraTomyScraper;
             default -> null;
         };
     }
