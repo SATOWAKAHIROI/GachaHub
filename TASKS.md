@@ -183,11 +183,15 @@
 - [x] ScrapeCommandRunner作成（GitHub Actions用CLIスクレイピング実行）
 - [x] SecurityConfigのCORS設定を環境変数対応に変更
 - [x] GitHub Actionsワークフロー作成（.github/workflows/scrape.yml）
-- [ ] Neonデータベースのセットアップ
-- [ ] Renderへのバックエンドデプロイ
-- [ ] Vercelへのフロントエンドデプロイ
-- [ ] GitHub Secretsの設定
-- [ ] 動作確認
+- [x] Neonデータベースのセットアップ
+- [x] Renderへのバックエンドデプロイ
+- [x] Vercelへのフロントエンドデプロイ
+- [x] GitHub Secretsの設定
+- [x] 動作確認
+- [x] VercelのSPAルーティング404エラーを修正（vercel.json追加）
+- [x] スクレイピング設定の初期データ自動登録（ScrapeConfigInitializer追加）
+- [x] タカラトミーのスクレイパー判定のサイト名を修正
+- [x] UptimeRobotでRenderのスリープ防止設定
 
 ### 追加サイト対応
 - [ ] 新規サイトの調査
