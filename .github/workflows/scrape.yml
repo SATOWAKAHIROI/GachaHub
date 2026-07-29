@@ -11,13 +11,6 @@ jobs:
   scrape:
     runs-on: ubuntu-latest
 
-    services:
-      selenium:
-        image: selenium/standalone-chromium:latest
-        ports:
-          - 4444:4444
-        options: --shm-size=2gb
-
     steps:
       - name: リポジトリをチェックアウト
         uses: actions/checkout@v4
@@ -33,20 +26,34 @@ jobs:
         working-directory: ./backend
         run: mvn clean package -DskipTests -q
 
-      - name: スクレイピングを実行
-        working-directory: ./backend
-        env:
-          SPRING_PROFILES_ACTIVE: scrape
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
-          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
-          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
-          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
-          NOTIFICATION_ENABLED: ${{ secrets.NOTIFICATION_ENABLED }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
-          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
-          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
-        run: |
-          java -jar target/*.jar
+      - name: JARをリネーム
+        run: cp backend/target/*.jar backend/target/app.jar
+
+      - name: JARをEC2に転送
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "backend/target/app.jar"
+          target: "/tmp/"
+          strip_components: 2
+
+      - name: EC2でスクレイピングを実行
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker network create scrape-net 2>/dev/null || true
+            docker run -d --name selenium-scrape --network scrape-net --shm-size=2gb selenium/standalone-chromium:latest
+            sleep 10
+            docker run --rm --network scrape-net \
+              --env-file /app/GachaHub/.env \
+              -e SPRING_PROFILES_ACTIVE=scrape \
+              -e SELENIUM_REMOTE_URL=http://selenium-scrape:4444/wd/hub \
+              -v /tmp/app.jar:/app.jar \
+              eclipse-temurin:17-jre java -jar /app.jar
+            docker stop selenium-scrape && docker rm selenium-scrape || true
+            docker network rm scrape-net || true
