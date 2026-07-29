@@ -45,6 +45,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
+          command_timeout: 30m
           script: |
             docker network create scrape-net 2>/dev/null || true
             docker run -d --name selenium-scrape --network scrape-net --shm-size=2gb selenium/standalone-chromium:latest
