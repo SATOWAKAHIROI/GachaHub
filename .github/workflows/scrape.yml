@@ -47,7 +47,10 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           command_timeout: 30m
           script: |
-            docker network create scrape-net 2>/dev/null || true
+            docker stop selenium-scrape 2>/dev/null || true
+            docker rm selenium-scrape 2>/dev/null || true
+            docker network rm scrape-net 2>/dev/null || true
+            docker network create scrape-net
             docker run -d --name selenium-scrape --network scrape-net --shm-size=2gb selenium/standalone-chromium:latest
             sleep 10
             docker run --rm --network scrape-net \
