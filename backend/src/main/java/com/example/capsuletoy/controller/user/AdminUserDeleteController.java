@@ -2,7 +2,6 @@ package com.example.capsuletoy.controller.user;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,8 +14,11 @@ import com.example.capsuletoy.service.user.UserDeleteService;
 @RestController
 @RequestMapping("/api/admin/users")
 public class AdminUserDeleteController {
-    @Autowired
-    private UserDeleteService userDeleteService;
+    private final UserDeleteService userDeleteService;
+
+    public AdminUserDeleteController(UserDeleteService userDeleteService) {
+        this.userDeleteService = userDeleteService;
+    }
 
     // ユーザー削除
     @DeleteMapping("/{id}")

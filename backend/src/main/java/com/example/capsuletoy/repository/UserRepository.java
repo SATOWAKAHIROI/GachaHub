@@ -3,12 +3,10 @@ package com.example.capsuletoy.repository;
 import com.example.capsuletoy.model.User;
 import com.example.capsuletoy.model.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
     // ユーザー名で検索

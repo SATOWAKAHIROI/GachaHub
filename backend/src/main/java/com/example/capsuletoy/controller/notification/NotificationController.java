@@ -3,7 +3,6 @@ package com.example.capsuletoy.controller.notification;
 import com.example.capsuletoy.model.User;
 import com.example.capsuletoy.service.notification.NotificationService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
@@ -19,8 +18,11 @@ import java.util.Map;
 @RequestMapping("/api/notifications")
 @CrossOrigin(origins = "http://localhost:3000")
 public class NotificationController {
-    @Autowired
-    private NotificationService notificationService;
+    private final NotificationService notificationService;
+
+    public NotificationController(NotificationService notificationService) {
+        this.notificationService = notificationService;
+    }
 
     /**
      * テストメール送信

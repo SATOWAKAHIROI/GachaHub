@@ -3,7 +3,6 @@ package com.example.capsuletoy.config;
 import com.example.capsuletoy.security.JwtAuthenticationFilter;
 import com.example.capsuletoy.service.user.UserService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,14 +28,18 @@ public class SecurityConfig {
     @Value("${cors.allowed-origins:http://localhost:3000}")
     private String corsAllowedOrigins;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    public SecurityConfig(UserService userService, JwtAuthenticationFilter jwtAuthenticationFilter,
+            BCryptPasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {

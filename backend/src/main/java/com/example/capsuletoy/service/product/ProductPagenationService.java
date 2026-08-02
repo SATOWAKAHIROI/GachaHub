@@ -1,6 +1,5 @@
 package com.example.capsuletoy.service.product;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,8 +11,11 @@ import com.example.capsuletoy.repository.ProductRepository;
 
 @Service
 public class ProductPagenationService {
-    @Autowired
-    ProductRepository productRepository;
+    private final ProductRepository productRepository;
+
+    public ProductPagenationService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     // ページネーション対応の商品取得
     private Page<Product> getAllProducts(Pageable pageable) {

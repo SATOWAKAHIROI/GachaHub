@@ -6,7 +6,6 @@ import com.example.capsuletoy.service.user.UserCreateService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -17,11 +16,9 @@ public class AdminInitializer implements ApplicationRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(AdminInitializer.class);
 
-    @Autowired
-    private UserCreateService userCreateService;
+    private final UserCreateService userCreateService;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Value("${admin.username:admin}")
     private String adminUsername;
@@ -31,6 +28,11 @@ public class AdminInitializer implements ApplicationRunner {
 
     @Value("${admin.email:admin@gachahub.com}")
     private String adminEmail;
+
+    AdminInitializer(UserCreateService userCreateService, UserRepository userRepository) {
+        this.userCreateService = userCreateService;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public void run(ApplicationArguments args) {

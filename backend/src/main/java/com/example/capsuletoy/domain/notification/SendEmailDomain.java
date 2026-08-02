@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -20,20 +19,25 @@ import jakarta.mail.internet.MimeMessage;
 public class SendEmailDomain {
     private static final Logger logger = LoggerFactory.getLogger(SendEmailDomain.class);
 
-    @Autowired
-    private NotificationFromAddressDomain notificationFromAdressDomain;
-    
-    @Autowired
-    private JavaMailSender mailSender;
+    private final NotificationFromAddressDomain notificationFromAdressDomain;
 
-    @Autowired
-    private NotificationEnabledDomain notificationEnabledDomain;
+    private final JavaMailSender mailSender;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final NotificationEnabledDomain notificationEnabledDomain;
 
-    @Autowired
-    private CreateHtmlMainDomain createHtmlMainDomain;
+    private final UserRepository userRepository;
+
+    private final CreateHtmlMainDomain createHtmlMainDomain;
+
+    public SendEmailDomain(NotificationFromAddressDomain notificationFromAdressDomain, JavaMailSender mailSender,
+            NotificationEnabledDomain notificationEnabledDomain, UserRepository userRepository,
+            CreateHtmlMainDomain createHtmlMainDomain) {
+        this.notificationFromAdressDomain = notificationFromAdressDomain;
+        this.mailSender = mailSender;
+        this.notificationEnabledDomain = notificationEnabledDomain;
+        this.userRepository = userRepository;
+        this.createHtmlMainDomain = createHtmlMainDomain;
+    }
 
     /**
      * 新着商品を通知有効ユーザー全員にメール送信

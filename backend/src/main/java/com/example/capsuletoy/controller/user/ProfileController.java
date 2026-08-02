@@ -5,7 +5,6 @@ import com.example.capsuletoy.request.user.UpdateUserRequest;
 import com.example.capsuletoy.service.user.UserService;
 import com.example.capsuletoy.service.user.UserUpdateService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +16,14 @@ import java.util.Map;
 @RequestMapping("/api/profile")
 public class ProfileController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired 
-    private UserUpdateService userUpdateService;
+    private final UserUpdateService userUpdateService;
+
+    public ProfileController(UserService userService, UserUpdateService userUpdateService) {
+        this.userService = userService;
+        this.userUpdateService = userUpdateService;
+    }
 
     // 自分のプロフィール取得
     @GetMapping

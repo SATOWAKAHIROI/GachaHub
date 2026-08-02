@@ -1,6 +1,5 @@
 package com.example.capsuletoy.controller.scrapeConfig;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,8 +14,11 @@ import com.example.capsuletoy.service.scrapeConfig.ScrapeConfigCreateService;
 @RestController
 @RequestMapping("/api/scrape/configs")
 public class ScrapeConfigCreate {
-    @Autowired
-    private ScrapeConfigCreateService scrapeConfigCreateService;
+    private final ScrapeConfigCreateService scrapeConfigCreateService;
+
+    public ScrapeConfigCreate(ScrapeConfigCreateService scrapeConfigCreateService) {
+        this.scrapeConfigCreateService = scrapeConfigCreateService;
+    }
 
     /**
      * 新規設定を作成

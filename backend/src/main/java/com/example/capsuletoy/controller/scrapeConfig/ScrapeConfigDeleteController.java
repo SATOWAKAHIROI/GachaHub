@@ -3,7 +3,6 @@ package com.example.capsuletoy.controller.scrapeConfig;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,8 +16,11 @@ import com.example.capsuletoy.service.scrapeConfig.ScrapeConfigDeleteService;
 @RestController
 @RequestMapping("/api/scrape/configs")
 public class ScrapeConfigDeleteController {
-    @Autowired
-    private ScrapeConfigDeleteService scrapeConfigDeleteService;
+    private final ScrapeConfigDeleteService scrapeConfigDeleteService;
+
+    public ScrapeConfigDeleteController(ScrapeConfigDeleteService scrapeConfigDeleteService) {
+        this.scrapeConfigDeleteService = scrapeConfigDeleteService;
+    }
 
     /**
      * 設定を削除

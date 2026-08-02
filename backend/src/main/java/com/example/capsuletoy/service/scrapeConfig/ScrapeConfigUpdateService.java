@@ -1,6 +1,5 @@
 package com.example.capsuletoy.service.scrapeConfig;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import org.slf4j.Logger;
@@ -14,14 +13,18 @@ import com.example.capsuletoy.repository.ScrapeConfigRepository;
 public class ScrapeConfigUpdateService {
     private static final Logger logger = LoggerFactory.getLogger(ScrapeConfigService.class);
 
-    @Autowired
-    private ScrapeConfigService scrapeConfigService;
+    private final ScrapeConfigService scrapeConfigService;
 
-    @Autowired
-    private CroneValidater croneValidater;
+    private final CroneValidater croneValidater;
 
-    @Autowired
-    private ScrapeConfigRepository scrapeConfigRepository;
+    private final ScrapeConfigRepository scrapeConfigRepository;
+
+    public ScrapeConfigUpdateService(ScrapeConfigService scrapeConfigService, CroneValidater croneValidater,
+            ScrapeConfigRepository scrapeConfigRepository) {
+        this.scrapeConfigService = scrapeConfigService;
+        this.croneValidater = croneValidater;
+        this.scrapeConfigRepository = scrapeConfigRepository;
+    }
 
     /**
      * 設定を更新
