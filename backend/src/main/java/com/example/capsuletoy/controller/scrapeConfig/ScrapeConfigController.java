@@ -4,7 +4,6 @@ import com.example.capsuletoy.model.ScrapeConfig;
 import com.example.capsuletoy.response.ErrorResponse;
 import com.example.capsuletoy.service.scrapeConfig.ScrapeConfigService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +17,11 @@ import java.util.List;
 @RequestMapping("/api/scrape/configs")
 @CrossOrigin(origins = "http://localhost:3000")
 public class ScrapeConfigController {
-    @Autowired
-    private ScrapeConfigService scrapeConfigService;
+    private final ScrapeConfigService scrapeConfigService;
+
+    public ScrapeConfigController(ScrapeConfigService scrapeConfigService) {
+        this.scrapeConfigService = scrapeConfigService;
+    }
 
     /**
      * 全設定一覧を取得

@@ -1,14 +1,16 @@
 package com.example.capsuletoy.service.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.capsuletoy.repository.UserRepository;
 
 @Service
 public class UserDeleteService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserDeleteService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     // ユーザー削除
     public void deleteUser(Long id) {

@@ -35,6 +35,10 @@ public class TakaraTomyScraper extends BaseScraper {
     // 重複チェック用（複数ページ間で共有）
     private Set<String> processedUrls;
 
+    public TakaraTomyScraper(ScraperConfig scraperConfig) {
+        super(scraperConfig);
+    }
+
     @Override
     protected String getTargetUrl() {
         // 今月のカレンダーURLを返す（テスト用）

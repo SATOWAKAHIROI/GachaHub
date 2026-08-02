@@ -1,6 +1,5 @@
 package com.example.capsuletoy.service.scrapeConfig;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +11,15 @@ import com.example.capsuletoy.repository.ScrapeConfigRepository;
 public class ScrapeConfigDeleteService {
     private static final Logger logger = LoggerFactory.getLogger(ScrapeConfigDeleteService.class);
 
-    @Autowired
-    private ScrapeConfigService scrapeConfigService;
+    private final ScrapeConfigService scrapeConfigService;
 
-    @Autowired
-    private ScrapeConfigRepository scrapeConfigRepository;
+    private final ScrapeConfigRepository scrapeConfigRepository;
+
+    public ScrapeConfigDeleteService(ScrapeConfigService scrapeConfigService,
+            ScrapeConfigRepository scrapeConfigRepository) {
+        this.scrapeConfigService = scrapeConfigService;
+        this.scrapeConfigRepository = scrapeConfigRepository;
+    }
 
     /**
      * 設定を削除

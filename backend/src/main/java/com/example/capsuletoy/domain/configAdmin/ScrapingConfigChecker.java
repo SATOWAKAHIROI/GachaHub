@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.capsuletoy.model.ScrapeConfig;
@@ -15,8 +14,11 @@ import com.example.capsuletoy.service.scheduled.ScheduledScrapeService;
 public class ScrapingConfigChecker {
     private static final Logger logger = LoggerFactory.getLogger(ScheduledScrapeService.class);
 
-    @Autowired
-    ScrapeConfigRepository scrapeConfigRepository;
+    private final ScrapeConfigRepository scrapeConfigRepository;
+
+    public ScrapingConfigChecker(ScrapeConfigRepository scrapeConfigRepository) {
+        this.scrapeConfigRepository = scrapeConfigRepository;
+    }
 
     public List<ScrapeConfig> checkEnabledConfig(){
         List<ScrapeConfig> enabledConfigs = scrapeConfigRepository.findByIsEnabledTrue();

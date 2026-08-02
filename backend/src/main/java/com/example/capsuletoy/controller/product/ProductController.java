@@ -7,7 +7,6 @@ import com.example.capsuletoy.service.product.ProductService;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,11 +22,14 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:3000")
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
-    @Autowired
-    private ProductPagenationService productPagenationService;
+    private final ProductPagenationService productPagenationService;
+
+    public ProductController(ProductService productService, ProductPagenationService productPagenationService) {
+        this.productService = productService;
+        this.productPagenationService = productPagenationService;
+    }
 
     /**
      * 商品一覧取得（ページネーション・フィルタ・ソート対応）

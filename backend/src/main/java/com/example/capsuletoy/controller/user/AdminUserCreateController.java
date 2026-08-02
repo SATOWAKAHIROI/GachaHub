@@ -2,7 +2,6 @@ package com.example.capsuletoy.controller.user;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
@@ -20,8 +19,11 @@ import com.example.capsuletoy.service.user.UserCreateService;
 @RestController
 @RequestMapping("/api/admin/users")
 public class AdminUserCreateController {
-    @Autowired
-    private UserCreateService userCreateService;
+    private final UserCreateService userCreateService;
+
+    public AdminUserCreateController(UserCreateService userCreateService) {
+        this.userCreateService = userCreateService;
+    }
 
     // ユーザー作成
     @PostMapping

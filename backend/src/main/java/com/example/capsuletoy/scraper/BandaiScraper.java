@@ -34,6 +34,10 @@ public class BandaiScraper extends BaseScraper {
     // 重複チェック用
     private Set<String> processedUrls;
 
+    public BandaiScraper(ScraperConfig scraperConfig) {
+        super(scraperConfig);
+    }
+
     @Override
     protected String getTargetUrl() {
         return TARGET_URL;

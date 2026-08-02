@@ -2,7 +2,6 @@ package com.example.capsuletoy.controller.user;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,8 +17,11 @@ import com.example.capsuletoy.service.user.UserUpdateService;
 @RestController
 @RequestMapping("/api/admin/users")
 public class AdminUserUpdateController {
-    @Autowired
-    private UserUpdateService userUpdateService;
+    private final UserUpdateService userUpdateService;
+
+    public AdminUserUpdateController(UserUpdateService userUpdateService) {
+        this.userUpdateService = userUpdateService;
+    }
 
     // ユーザー更新
     @PutMapping("/{id}")

@@ -1,6 +1,5 @@
 package com.example.capsuletoy.domain.auth;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Component;
@@ -10,8 +9,11 @@ import com.example.capsuletoy.model.UserRole;
 
 @Component
 public class AuthenticationUser {
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+
+    public AuthenticationUser(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
 
     public void authenticate(String email, String password) {
         authenticationManager.authenticate(

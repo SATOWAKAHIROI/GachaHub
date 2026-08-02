@@ -7,7 +7,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,17 +26,21 @@ public class TakaratomyScrapeController {
 
     private static final Logger logger = LoggerFactory.getLogger(TakaratomyScrapeController.class);
 
-    @Autowired
-    private ScrapeService scrapeService;
+    private final ScrapeService scrapeService;
 
-    @Autowired
-    private NotificationService notificationService;
+    private final NotificationService notificationService;
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    private TakaraTomyScraper takaraTomyScraper;
+    private final TakaraTomyScraper takaraTomyScraper;
+
+    public TakaratomyScrapeController(ScrapeService scrapeService, NotificationService notificationService,
+            ProductRepository productRepository, TakaraTomyScraper takaraTomyScraper) {
+        this.scrapeService = scrapeService;
+        this.notificationService = notificationService;
+        this.productRepository = productRepository;
+        this.takaraTomyScraper = takaraTomyScraper;
+    }
 
     /**
      * タカラトミーアーツサイトのスクレイピングを手動実行

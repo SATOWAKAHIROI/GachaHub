@@ -7,7 +7,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.capsuletoy.model.Product;
@@ -23,17 +22,21 @@ import com.example.capsuletoy.service.scraping.ScrapeService;
 public class RegularScrapeExecuter {
     private static final Logger logger = LoggerFactory.getLogger(ScheduledScrapeService.class);
 
-    @Autowired
-    private ScrapeConfigRepository scrapeConfigRepository;
+    private final ScrapeConfigRepository scrapeConfigRepository;
 
-    @Autowired
-    private BandaiScraper bandaiScraper;
+    private final BandaiScraper bandaiScraper;
 
-    @Autowired
-    private TakaraTomyScraper takaraTomyScraper;
+    private final TakaraTomyScraper takaraTomyScraper;
 
-    @Autowired
-    private ScrapeService scrapeService;
+    private final ScrapeService scrapeService;
+
+    public RegularScrapeExecuter(ScrapeConfigRepository scrapeConfigRepository, BandaiScraper bandaiScraper,
+            TakaraTomyScraper takaraTomyScraper, ScrapeService scrapeService) {
+        this.scrapeConfigRepository = scrapeConfigRepository;
+        this.bandaiScraper = bandaiScraper;
+        this.takaraTomyScraper = takaraTomyScraper;
+        this.scrapeService = scrapeService;
+    }
 
     public List<Product> executeScraping(List<ScrapeConfig> enabledConfigs){
         List<Product> allNewProducts = new ArrayList<>();

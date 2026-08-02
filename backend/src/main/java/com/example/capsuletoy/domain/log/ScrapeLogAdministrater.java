@@ -1,6 +1,5 @@
 package com.example.capsuletoy.domain.log;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.capsuletoy.model.ScrapeLog;
@@ -11,8 +10,11 @@ import java.util.List;
 
 @Component
 public class ScrapeLogAdministrater {
-    @Autowired
-    private ScrapeLogRepository scrapeLogRepository;
+    private final ScrapeLogRepository scrapeLogRepository;
+
+    public ScrapeLogAdministrater(ScrapeLogRepository scrapeLogRepository) {
+        this.scrapeLogRepository = scrapeLogRepository;
+    }
 
 
     public ScrapeLog getDefaultScrapeLog(String targetSite){

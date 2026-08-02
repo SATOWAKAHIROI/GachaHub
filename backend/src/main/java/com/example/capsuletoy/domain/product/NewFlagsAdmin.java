@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.capsuletoy.model.Product;
@@ -14,8 +13,11 @@ import jakarta.transaction.Transactional;
 
 @Component
 public class NewFlagsAdmin {
-    @Autowired
-    ProductRepository productRepository;
+    private final ProductRepository productRepository;
+
+    public NewFlagsAdmin(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
      // 新着フラグを更新
     @Transactional

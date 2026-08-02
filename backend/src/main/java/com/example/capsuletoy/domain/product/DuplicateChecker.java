@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.capsuletoy.model.Product;
@@ -13,8 +12,11 @@ import com.example.capsuletoy.repository.ProductRepository;
 @Component
 public class DuplicateChecker {
 
-    @Autowired
-    ProductRepository productRepository;
+    private final ProductRepository productRepository;
+
+    public DuplicateChecker(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     // 重複チェック（商品名とメーカーで判定）
     public boolean isDuplicate(String productName, String manufacturer) {

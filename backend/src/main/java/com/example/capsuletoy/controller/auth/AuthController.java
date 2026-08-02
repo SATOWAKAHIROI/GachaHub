@@ -3,7 +3,6 @@ package com.example.capsuletoy.controller.auth;
 import com.example.capsuletoy.request.user.LoginRequest;
 import com.example.capsuletoy.service.auth.AuthService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
@@ -17,8 +16,11 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
 
     // 管理者専用ログイン
     @PostMapping("/admin/login")

@@ -3,7 +3,6 @@ package com.example.capsuletoy.service.product;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.capsuletoy.domain.product.DuplicateChecker;
@@ -15,14 +14,18 @@ import jakarta.transaction.Transactional;
 @Service
 public class ProductUpdateService {
 
-    @Autowired
-    ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    DuplicateChecker duplicateChecker;
+    private final DuplicateChecker duplicateChecker;
 
-    @Autowired
-    ProductDeleteService productDeleteService;
+    private final ProductDeleteService productDeleteService;
+
+    public ProductUpdateService(ProductRepository productRepository, DuplicateChecker duplicateChecker,
+            ProductDeleteService productDeleteService) {
+        this.productRepository = productRepository;
+        this.duplicateChecker = duplicateChecker;
+        this.productDeleteService = productDeleteService;
+    }
 
     // スクレイピング結果の保存（重複チェック付き）
     @Transactional

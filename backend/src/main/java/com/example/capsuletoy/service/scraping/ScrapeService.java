@@ -11,7 +11,6 @@ import com.example.capsuletoy.scraper.BaseScraper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,14 +22,18 @@ public class ScrapeService {
 
     private static final Logger logger = LoggerFactory.getLogger(ScrapeService.class);
 
-    @Autowired
-    private ManualScrapeExecuter manualScrapeExecuter;
+    private final ManualScrapeExecuter manualScrapeExecuter;
 
-    @Autowired
-    private ScrapeLogRepository scrapeLogRepository;
+    private final ScrapeLogRepository scrapeLogRepository;
 
-    @Autowired
-    private ScrapeLogAdministrater logAdministrater;
+    private final ScrapeLogAdministrater logAdministrater;
+
+    public ScrapeService(ManualScrapeExecuter manualScrapeExecuter, ScrapeLogRepository scrapeLogRepository,
+            ScrapeLogAdministrater logAdministrater) {
+        this.manualScrapeExecuter = manualScrapeExecuter;
+        this.scrapeLogRepository = scrapeLogRepository;
+        this.logAdministrater = logAdministrater;
+    }
 
     /**
      * スクレイピングを実行してデータベースに保存

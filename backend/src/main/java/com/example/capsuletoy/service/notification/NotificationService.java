@@ -8,7 +8,6 @@ import com.example.capsuletoy.service.user.UserService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,14 +17,18 @@ public class NotificationService {
 
     private static final Logger logger = LoggerFactory.getLogger(NotificationService.class);
 
-    @Autowired
-    private SendEmailDomain sendEmailDomain;
+    private final SendEmailDomain sendEmailDomain;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public NotificationService(SendEmailDomain sendEmailDomain, UserService userService,
+            UserRepository userRepository) {
+        this.sendEmailDomain = sendEmailDomain;
+        this.userService = userService;
+        this.userRepository = userRepository;
+    }
 
     public void sendFinishedEmail(List<Product> allnewProducts){
         // スクレイピング完了後に通知メールを送信（新着0件でも送信）

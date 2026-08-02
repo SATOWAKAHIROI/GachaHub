@@ -1,6 +1,5 @@
 package com.example.capsuletoy.controller.scrapeConfig;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -17,8 +16,11 @@ import com.example.capsuletoy.service.scrapeConfig.ScrapeConfigUpdateService;
 @RestController
 @RequestMapping("/api/scrape/configs")
 public class ScrapeConfigEditController {
-    @Autowired
-    private ScrapeConfigUpdateService scrapeConfigUpdateService;
+    private final ScrapeConfigUpdateService scrapeConfigUpdateService;
+
+    public ScrapeConfigEditController(ScrapeConfigUpdateService scrapeConfigUpdateService) {
+        this.scrapeConfigUpdateService = scrapeConfigUpdateService;
+    }
 
     /**
      * 設定を更新

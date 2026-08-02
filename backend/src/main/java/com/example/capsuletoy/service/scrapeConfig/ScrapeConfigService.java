@@ -3,15 +3,17 @@ package com.example.capsuletoy.service.scrapeConfig;
 import com.example.capsuletoy.model.ScrapeConfig;
 import com.example.capsuletoy.repository.ScrapeConfigRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ScrapeConfigService {
-    @Autowired
-    private ScrapeConfigRepository scrapeConfigRepository;
+    private final ScrapeConfigRepository scrapeConfigRepository;
+
+    public ScrapeConfigService(ScrapeConfigRepository scrapeConfigRepository) {
+        this.scrapeConfigRepository = scrapeConfigRepository;
+    }
 
     /**
      * 全設定を取得

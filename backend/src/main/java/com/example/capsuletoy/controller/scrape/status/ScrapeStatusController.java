@@ -3,7 +3,6 @@ package com.example.capsuletoy.controller.scrape.status;
 import com.example.capsuletoy.domain.log.ScrapeLogAdministrater;
 import com.example.capsuletoy.model.ScrapeLog;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +17,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/scrape")
 public class ScrapeStatusController {
-    @Autowired
-    private ScrapeLogAdministrater scrapeLogAdministrater;
+    private final ScrapeLogAdministrater scrapeLogAdministrater;
+
+    public ScrapeStatusController(ScrapeLogAdministrater scrapeLogAdministrater) {
+        this.scrapeLogAdministrater = scrapeLogAdministrater;
+    }
 
     /**
      * スクレイピングステータス確認

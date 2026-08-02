@@ -9,7 +9,6 @@ import com.example.capsuletoy.service.notification.NotificationService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +23,21 @@ public class ScheduledScrapeService {
 
     private static final Logger logger = LoggerFactory.getLogger(ScheduledScrapeService.class);
 
-    @Autowired
-    private ScrapingConfigChecker scrapingConfigChecker;
+    private final ScrapingConfigChecker scrapingConfigChecker;
 
-    @Autowired
-    NewFlagsAdmin newFlagsAdmin;
+    private final NewFlagsAdmin newFlagsAdmin;
 
-    @Autowired
-    RegularScrapeExecuter scrapeExecuter;
+    private final RegularScrapeExecuter scrapeExecuter;
 
-    @Autowired
-    private NotificationService notificationService;
+    private final NotificationService notificationService;
+
+    public ScheduledScrapeService(ScrapingConfigChecker scrapingConfigChecker, NewFlagsAdmin newFlagsAdmin,
+            RegularScrapeExecuter scrapeExecuter, NotificationService notificationService) {
+        this.scrapingConfigChecker = scrapingConfigChecker;
+        this.newFlagsAdmin = newFlagsAdmin;
+        this.scrapeExecuter = scrapeExecuter;
+        this.notificationService = notificationService;
+    }
 
     /**
      * 定期スクレイピング実行（デフォルト: 毎日午前6時に実行）

@@ -9,7 +9,6 @@ import com.example.capsuletoy.service.notification.NotificationService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -26,17 +25,21 @@ public class ScrapeCommandRunner implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(ScrapeCommandRunner.class);
 
-    @Autowired
-    private ScrapingConfigChecker scrapingConfigChecker;
+    private final ScrapingConfigChecker scrapingConfigChecker;
 
-    @Autowired
-    private NewFlagsAdmin newFlagsAdmin;
+    private final NewFlagsAdmin newFlagsAdmin;
 
-    @Autowired
-    private RegularScrapeExecuter scrapeExecuter;
+    private final RegularScrapeExecuter scrapeExecuter;
 
-    @Autowired
-    private NotificationService notificationService;
+    private final NotificationService notificationService;
+
+    public ScrapeCommandRunner(ScrapingConfigChecker scrapingConfigChecker, NewFlagsAdmin newFlagsAdmin,
+            RegularScrapeExecuter scrapeExecuter, NotificationService notificationService) {
+        this.scrapingConfigChecker = scrapingConfigChecker;
+        this.newFlagsAdmin = newFlagsAdmin;
+        this.scrapeExecuter = scrapeExecuter;
+        this.notificationService = notificationService;
+    }
 
     @Override
     public void run(String... args) throws Exception {

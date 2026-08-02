@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import org.slf4j.Logger;
@@ -19,8 +18,11 @@ import com.example.capsuletoy.service.scraping.ScrapeService;
 public class ManualScrapeExecuter {
     private static final Logger logger = LoggerFactory.getLogger(ScrapeService.class);
 
-    @Autowired
-    private ProductUpdateService productUpdateService;
+    private final ProductUpdateService productUpdateService;
+
+    public ManualScrapeExecuter(ProductUpdateService productUpdateService) {
+        this.productUpdateService = productUpdateService;
+    }
 
     public List<Product> scrapeProducts(BaseScraper scraper){
         List<Product> scrapedProducts = scraper.scrape();

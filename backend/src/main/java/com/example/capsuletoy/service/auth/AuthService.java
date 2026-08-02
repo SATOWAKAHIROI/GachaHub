@@ -2,7 +2,6 @@ package com.example.capsuletoy.service.auth;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
@@ -17,14 +16,17 @@ import com.example.capsuletoy.service.user.UserService;
 @Service
 public class AuthService {
     
-    @Autowired
-    private AuthenticationUser authenticationUser;
+    private final AuthenticationUser authenticationUser;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
+
+    public AuthService(AuthenticationUser authenticationUser, UserService userService, JwtUtil jwtUtil) {
+        this.authenticationUser = authenticationUser;
+        this.userService = userService;
+        this.jwtUtil = jwtUtil;
+    }
 
     public Map<String, Object> adminLogin(String email, String password){
         try{

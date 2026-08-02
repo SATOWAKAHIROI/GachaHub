@@ -5,7 +5,6 @@ import com.example.capsuletoy.repository.ScrapeConfigRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -15,8 +14,11 @@ public class ScrapeConfigInitializer implements ApplicationRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(ScrapeConfigInitializer.class);
 
-    @Autowired
-    private ScrapeConfigRepository scrapeConfigRepository;
+    private final ScrapeConfigRepository scrapeConfigRepository;
+
+    public ScrapeConfigInitializer(ScrapeConfigRepository scrapeConfigRepository) {
+        this.scrapeConfigRepository = scrapeConfigRepository;
+    }
 
     @Override
     public void run(ApplicationArguments args) {

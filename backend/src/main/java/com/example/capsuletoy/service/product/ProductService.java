@@ -3,7 +3,6 @@ package com.example.capsuletoy.service.product;
 import com.example.capsuletoy.domain.product.DuplicateChecker;
 import com.example.capsuletoy.model.Product;
 import com.example.capsuletoy.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,11 +11,14 @@ import java.util.Optional;
 @Service
 public class ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    DuplicateChecker duplicateChecker;
+    private final DuplicateChecker duplicateChecker;
+
+    public ProductService(ProductRepository productRepository, DuplicateChecker duplicateChecker) {
+        this.productRepository = productRepository;
+        this.duplicateChecker = duplicateChecker;
+    }
 
     // 全商品取得
     public List<Product> getAllProducts() {
