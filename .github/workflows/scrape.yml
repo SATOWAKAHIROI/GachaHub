@@ -49,15 +49,13 @@ jobs:
           script: |
             docker stop selenium-scrape 2>/dev/null || true
             docker rm selenium-scrape 2>/dev/null || true
-            docker network rm scrape-net 2>/dev/null || true
-            docker network create scrape-net
-            docker run -d --name selenium-scrape --network scrape-net --shm-size=2gb selenium/standalone-chromium:latest
+            docker run -d --name selenium-scrape --network host --shm-size=2gb selenium/standalone-chromium:latest
             sleep 10
-            docker run --rm --network scrape-net \
+            docker run --rm --network host \
               --env-file /app/GachaHub/.env \
               -e SPRING_PROFILES_ACTIVE=scrape \
-              -e SELENIUM_REMOTE_URL=http://selenium-scrape:4444/wd/hub \
+              -e DATABASE_URL=jdbc:postgresql://localhost:5432/gachahub \
+              -e SELENIUM_REMOTE_URL=http://localhost:4444/wd/hub \
               -v /tmp/app.jar:/app.jar \
               eclipse-temurin:17-jre java -jar /app.jar
             docker stop selenium-scrape && docker rm selenium-scrape || true
-            docker network rm scrape-net || true
