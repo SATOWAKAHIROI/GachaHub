@@ -1,5 +1,14 @@
-version: "3.9"
 services:
+  db:
+    image: postgres:16
+    environment:
+      - POSTGRES_DB=gachahub
+      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
   backend:
     build:
       context: ./backend
@@ -8,7 +17,7 @@ services:
       - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_URL=jdbc:postgresql://db:5432/gachahub
       - DATABASE_USERNAME=${DATABASE_USERNAME}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
       - JWT_SECRET=${JWT_SECRET}
@@ -20,4 +29,9 @@ services:
       - ADMIN_USERNAME=${ADMIN_USERNAME}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
       - ADMIN_EMAIL=${ADMIN_EMAIL}
+    depends_on:
+      - db
     restart: unless-stopped
+
+volumes:
+  postgres_data:
